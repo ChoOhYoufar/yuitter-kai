@@ -1,0 +1,7 @@
+mysql:
+  container_name: yuitter-kai-mysql
+  image: mysql
+  environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  ports:
+      - "3306:3306"
