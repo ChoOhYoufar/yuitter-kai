@@ -1,6 +1,10 @@
-// リセットcss
+// Reset CSS
 @import './assets/reset.css';
 
+// Global Styles
+body {
+  background-color: #e1e8ed;
+}
 
 // Material Design Theme
 @import '~@angular/material/theming';
