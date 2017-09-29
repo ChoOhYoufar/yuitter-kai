@@ -1,10 +1,10 @@
-import { YuitterClientPage } from './app.po';
+import { WebClientPage } from './app.po';
 
-describe('yuitter-client App', () => {
-  let page: YuitterClientPage;
+describe('web-client App', () => {
+  let page: WebClientPage;
 
   beforeEach(() => {
-    page = new YuitterClientPage();
+    page = new WebClientPage();
   });
 
   it('should display welcome message', () => {
