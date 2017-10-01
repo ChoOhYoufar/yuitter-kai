@@ -1,0 +1,45 @@
+// Material Design Theme
+@import '~@angular/material/theming';
+@include mat-core();
+
+// primary color
+$material-primary: mat-palette($mat-blue);
+$primary: #2196F3;
+$dark-primary: #1976D2;
+$light-primary: #BBDEFB;
+
+// accent color
+$accent:  mat-palette($mat-deep-orange);
+
+// warn color
+$warn:    mat-palette($mat-red);
+
+// base color
+$base: #FAFAFA;
+$dark-base: #EEEEEE;
+
+// theme
+$theme: mat-light-theme($material-primary, $accent, $warn);
+@include angular-material-theme($theme);
+
+// colors class
+.primary {
+  background-color: $primary;
+  color: $base;
+}
+.dark-primary {
+  background-color: $dark-primary;
+  color: $base;
+}
+.light-primary {
+  background-color: $light-primary;
+  color: black;
+}
+.base {
+  background-color: $base;
+  color: black;
+}
+.dark-base {
+  background-color: $dark-base;
+  color: black;
+}

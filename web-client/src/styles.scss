@@ -1,24 +1,15 @@
 // Reset CSS
-@import './assets/reset.css';
+@import 'assets/styles/reset.css';
+
+// Material Design
+@import 'assets/styles/material-design-theme';
+
 
 // Global Styles
+@import 'assets/styles/buttons';
+@import 'assets/styles/positions';
+
 body {
   background-color: #e1e8ed;
+  font-family: "Helvetica Neue", 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
 }
-
-// Material Design Theme
-@import '~@angular/material/theming';
-@include mat-core();
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue.
-$yuitter-app-primary: mat-palette($mat-blue);
-$yuitter-app-accent:  mat-palette($mat-deep-orange);
-// The warn palette is optional (defaults to red).
-$yuitter-app-warn:    mat-palette($mat-red);
-// Create the theme object (a Sass map containing all of the palettes).
-$yuitter-app-theme: mat-light-theme($yuitter-app-primary, $yuitter-app-accent, $yuitter-app-warn);
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($yuitter-app-theme);
