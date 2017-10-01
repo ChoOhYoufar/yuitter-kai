@@ -14,6 +14,10 @@ $accent:  mat-palette($mat-deep-orange);
 // warn color
 $warn:    mat-palette($mat-red);
 
+// base color
+$base: #FAFAFA;
+$dark-base: #EEEEEE;
+
 // theme
 $theme: mat-light-theme($material-primary, $accent, $warn);
 @include angular-material-theme($theme);
@@ -21,13 +25,21 @@ $theme: mat-light-theme($material-primary, $accent, $warn);
 // colors class
 .primary {
   background-color: $primary;
-  color: white;
+  color: $base;
 }
 .dark-primary {
   background-color: $dark-primary;
-  color: white;
+  color: $base;
 }
 .light-primary {
   background-color: $light-primary;
+  color: black;
+}
+.base {
+  background-color: $base;
+  color: black;
+}
+.dark-base {
+  background-color: $dark-base;
   color: black;
 }
