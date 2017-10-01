@@ -4,7 +4,12 @@
 // Material Design
 @import 'assets/styles/material-design-theme';
 
+
 // Global Styles
+@import 'assets/styles/buttons';
+@import 'assets/styles/positions';
+
 body {
   background-color: #e1e8ed;
+  font-family: "Helvetica Neue", 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
 }

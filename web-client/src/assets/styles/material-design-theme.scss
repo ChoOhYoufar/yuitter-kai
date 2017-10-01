@@ -3,7 +3,8 @@
 @include mat-core();
 
 // primary color
-$primary: mat-palette($mat-blue);
+$material-primary: mat-palette($mat-blue);
+$primary: #2196F3;
 $dark-primary: #1976D2;
 $light-primary: #BBDEFB;
 
@@ -14,5 +15,19 @@ $accent:  mat-palette($mat-deep-orange);
 $warn:    mat-palette($mat-red);
 
 // theme
-$theme: mat-light-theme($primary, $accent, $warn);
+$theme: mat-light-theme($material-primary, $accent, $warn);
 @include angular-material-theme($theme);
+
+// colors class
+.primary {
+  background-color: $primary;
+  color: white;
+}
+.dark-primary {
+  background-color: $dark-primary;
+  color: white;
+}
+.light-primary {
+  background-color: $light-primary;
+  color: black;
+}
