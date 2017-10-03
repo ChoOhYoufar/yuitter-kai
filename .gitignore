@@ -1,1 +1,10 @@
-# Created by .ignore support plugin (hsz.mobi)
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+.DS_Store
+node_modules
