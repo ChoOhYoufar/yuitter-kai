@@ -1,8 +1,9 @@
-.main-container {
+.app {
   position: relative;
   left: 50px;
-}
 
-.main-contents {
-  margin: 0 3px;
+  &__contents {
+    margin: 0 3px;
+    width: 10000vw;
+  }
 }
