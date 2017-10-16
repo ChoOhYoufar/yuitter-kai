@@ -1,5 +1,7 @@
 <div class="sidebar dark-primary first">
-  <div class="icon-button center" (click)="tweetFormContainer.toggle()">
+  <div class="icon-button center"
+       (click)="tweetFormContainer.toggle()"
+       (click)="accountFormContainer.close()">
     <i class="material-icons icon">chat</i>
     <div class="icon-description dark-primary">
       <span>New Tweet</span>
@@ -11,7 +13,9 @@
       <span>Your Accounts</span>
     </div>
   </div>
-  <div class="icon-button center">
+  <div class="icon-button center"
+       (click)="accountFormContainer.toggle()"
+       (click)="tweetFormContainer.close()">
     <i class="material-icons icon">person_add</i>
     <div class="icon-description dark-primary">
       <span>Add Account</span>
@@ -25,6 +29,10 @@
   </div>
 </div>
 
-<mat-sidenav #tweetFormContainer class="tweet-form light-base">
+<mat-sidenav #tweetFormContainer class="sidenav-form light-base">
   <ytr-tweet-form [tweetFormContainer]="tweetFormContainer"></ytr-tweet-form>
+</mat-sidenav>
+
+<mat-sidenav #accountFormContainer class="sidenav-form light-base">
+  <ytr-account-form [accountFormContainer]="accountFormContainer"></ytr-account-form>
 </mat-sidenav>

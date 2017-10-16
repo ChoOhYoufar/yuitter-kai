@@ -15,6 +15,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { TweetListComponent } from './components/tweet-list/tweet-list.component';
 import { TweetCardComponent } from './components/tweet-card/tweet-card.component';
 import { TweetFormComponent } from './components/tweet-form/tweet-form.component';
+import { AccountFormComponent } from './components/account-form/account-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TweetFormComponent } from './components/tweet-form/tweet-form.component
     SideBarComponent,
     TweetListComponent,
     TweetCardComponent,
-    TweetFormComponent
+    TweetFormComponent,
+    AccountFormComponent
   ],
   imports: [
     BrowserModule,

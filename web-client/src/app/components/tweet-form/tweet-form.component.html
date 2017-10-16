@@ -2,7 +2,7 @@
   <p class="left h2">
     New Tweet
   </p>
-  <i class="material-icons right" (click)="tweetFormContainer.toggle()">close</i>
+  <i class="material-icons right" (click)="tweetFormContainer.close()">close</i>
 </div>
 <form #tweetForm="ngForm" (ngSubmit)="submit()">
   <table class="tweet-form__by" cellspacing="0"><tr>
@@ -16,6 +16,6 @@
     </mat-form-field>
   </p>
   <div>
-    <button type="submit" mat-raised-button color="primary" class="right" value="Tweet">Tweet</button>
+    <button type="submit" mat-raised-button color="primary" class="right">Tweet</button>
   </div>
 </form>
