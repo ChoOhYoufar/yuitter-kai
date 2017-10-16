@@ -1,5 +1,5 @@
-<div class="sidebar dark-primary">
-  <div class="icon-button center">
+<div class="sidebar dark-primary first">
+  <div class="icon-button center" (click)="tweetFormContainer.toggle()">
     <i class="material-icons icon">chat</i>
     <div class="icon-description dark-primary">
       <span>New Tweet</span>
@@ -24,3 +24,7 @@
     </div>
   </div>
 </div>
+
+<mat-sidenav #tweetFormContainer class="tweet-form light-base">
+  <ytr-tweet-form [tweetFormContainer]="tweetFormContainer"></ytr-tweet-form>
+</mat-sidenav>

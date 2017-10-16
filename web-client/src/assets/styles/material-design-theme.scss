@@ -15,6 +15,7 @@ $accent:  mat-palette($mat-deep-orange);
 $warn:    mat-palette($mat-red);
 
 // base color
+$light-base: white;
 $base: #FAFAFA;
 $dark-base: #EEEEEE;
 
@@ -33,6 +34,11 @@ $theme: mat-light-theme($material-primary, $accent, $warn);
 }
 .light-primary {
   background-color: $light-primary;
+  color: black;
+}
+
+.light-base {
+  background-color: $light-base;
   color: black;
 }
 .base {

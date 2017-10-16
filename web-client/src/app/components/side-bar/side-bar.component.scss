@@ -2,8 +2,8 @@
   width: 50px;
   height: 100%;
   position: fixed;
-  padding-top: 5px;
-  z-index: 9999;
+  padding-top: 19px;
+  z-index: 3;
 }
 
 .icon {
@@ -18,8 +18,19 @@
   position: relative;
   bottom: 36px;
   left: 45px;
-  height: 26px;
+  height: 29px;
   padding: 8px 8px 0 5px;
   display: none;
   white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0,0,0,.2)
+}
+
+.tweet-form {
+  z-index: 2;
+  width: 320px;
+  padding: 20px;
+  position: fixed;
+  clear: both;
+  left: 50px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.2)
 }

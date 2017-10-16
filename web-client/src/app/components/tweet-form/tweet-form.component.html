@@ -1,0 +1,21 @@
+<div class="tweet-form__header clearfix">
+  <p class="left h2">
+    New Tweet
+  </p>
+  <i class="material-icons right" (click)="tweetFormContainer.toggle()">close</i>
+</div>
+<form #tweetForm="ngForm" (ngSubmit)="submit()">
+  <table class="tweet-form__by" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Accounts">
+    </mat-form-field></td>
+  </tr></table>
+  <p>
+    <mat-form-field>
+      <textarea matInput placeholder="今何してる？" rows="4"></textarea>
+    </mat-form-field>
+  </p>
+  <div>
+    <button type="submit" mat-raised-button color="primary" class="right" value="Tweet">Tweet</button>
+  </div>
+</form>

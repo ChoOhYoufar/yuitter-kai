@@ -1,3 +1,23 @@
 .center {
   margin: auto;
 }
+
+.first {
+  z-index: 9999;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
