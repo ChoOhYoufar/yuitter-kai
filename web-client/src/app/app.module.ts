@@ -18,7 +18,7 @@ import { TweetCardComponent } from './components/tweet-card/tweet-card.component
 import { TweetFormComponent } from './components/tweet-form/tweet-form.component';
 import { AccountFormComponent } from './components/account-form/account-form.component';
 import { HttpModule } from '@angular/http';
-import { MockDbData } from './mock-db/mock-db-data';
+import { MockDbData } from './repository/mock-db/mock-db-data';
 
 @NgModule({
   declarations: [
