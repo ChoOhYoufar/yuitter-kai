@@ -19,6 +19,7 @@ import { TweetFormComponent } from './components/tweet-form/tweet-form.component
 import { AccountFormComponent } from './components/account-form/account-form.component';
 import { HttpModule } from '@angular/http';
 import { MockDbData } from './repository/mock-db/mock-db-data';
+import { TweetHttpService } from "./repository/http/tweet-http.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { MockDbData } from './repository/mock-db/mock-db-data';
     MatSidenavModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [TweetHttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

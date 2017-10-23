@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Stream } from '../stream/stream';
-import { Tweet } from '../../models/tweet/tweet';
 import { Observable } from 'rxjs/Observable';
 import { TweetList } from '../../models/tweet/tweet-list';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class TweetHttpService extends Stream<TweetList>{
@@ -14,14 +15,10 @@ export class TweetHttpService extends Stream<TweetList>{
     super();
   }
 
-  _fetchStream(): Observable<TweetList> {
-    // return this.http.get('api/tweets').subscribe(
-    //   response => response.json() as Tweet[]
-    // );
-    //
-    // return this.http.get<{ users: CorporateUser[] }>(`/api/corporate/users?${toQueryString(query)}`)
-    //   .map(res => res.users.map(user => ({ ...user, loginAt: user.loginAt ? moment.utc(user.loginAt) : undefined })));
+  _fetchStream(): Observable<any> {
+    return this.http.get('api/tweets').map(res => {
+      console.log(res.json() as TweetList);
+      return res.json() as TweetList;
+    })
   }
-
-
 }

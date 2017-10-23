@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { TweetHttpService } from "./repository/http/tweet-http.service";
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,15 @@ import { Http } from '@angular/http';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private http: Http) {}
+  constructor(private tweetHttpService: TweetHttpService) {}
 
   ngOnInit() {
-    this.http.get('api/tweets').subscribe(
-      response => {
-        console.log(response.json())
-      }
-    );
+    this.tweetHttpService.fetchStream().subscribe();
+    //
+    // this.http.get('api/tweets').subscribe(
+    //   response => {
+    //     console.log(response.json())
+    //   }
+    // );
   }
 }
