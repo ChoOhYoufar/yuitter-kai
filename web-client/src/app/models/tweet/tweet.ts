@@ -1,9 +1,11 @@
-import { TweetInfo } from './tweet-info';
-import { AccountInfo } from '../account/account-info';
+import { Account } from '../account/account';
+import DateTimeFormat = Intl.DateTimeFormat;
 
 // ツイート本来のデータと紐づくアカウントデータを保持
 export class Tweet {
 
-  info: TweetInfo;
-  account: AccountInfo;
+  tweetText: string;
+  imageUrl: string;
+  registerDatetime: DateTimeFormat;
+  account: Account;
 }

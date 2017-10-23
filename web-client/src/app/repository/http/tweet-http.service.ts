@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Stream } from '../stream/stream';
 import { Observable } from 'rxjs/Observable';
-import { TweetList } from '../../models/tweet/tweet-list';
 import 'rxjs/add/operator/map';
+import { Timeline } from '../../models/timeline/timeline';
 
 
 @Injectable()
-export class TweetHttpService extends Stream<TweetList>{
+export class TweetHttpService extends Stream<Timeline>{
 
   constructor(
     private http: Http
@@ -15,10 +15,12 @@ export class TweetHttpService extends Stream<TweetList>{
     super();
   }
 
-  _fetchStream(): Observable<any> {
+  _fetchStream(): Observable<Timeline> {
     return this.http.get('api/tweets').map(res => {
-      console.log(res.json() as TweetList);
-      return res.json() as TweetList;
-    })
+      var timeline = res.json() as Timeline;
+      console.log(res.json() as Timeline);
+      return res.json() as Timeline;
+    });
   }
+
 }
