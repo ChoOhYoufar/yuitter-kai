@@ -20,6 +20,7 @@ import { AccountFormComponent } from './components/account-form/account-form.com
 import { HttpModule } from '@angular/http';
 import { MockDbData } from './repository/mock-db/mock-db-data';
 import { TweetHttpService } from "./repository/http/tweet-http.service";
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TweetHttpService } from "./repository/http/tweet-http.service";
     TweetListComponent,
     TweetCardComponent,
     TweetFormComponent,
-    AccountFormComponent
+    AccountFormComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
