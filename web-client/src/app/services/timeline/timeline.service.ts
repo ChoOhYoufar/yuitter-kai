@@ -11,6 +11,6 @@ export class TimelineService {
   ) {}
 
   fetchTimeline(): Observable<Timeline> {
-    return this.tweetHttpService.fetchStream();
+    return this.tweetHttpService.getStream();
   }
 }

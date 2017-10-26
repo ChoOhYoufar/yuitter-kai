@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Timeline } from '../../models/timeline/timeline';
-import { TimelineService } from '../../feature/timeline/timeline.service';
+import { TimelineService } from '../../services/timeline/timeline.service';
 
 @Component({
   selector: 'ytr-timeline',
@@ -10,13 +10,13 @@ import { TimelineService } from '../../feature/timeline/timeline.service';
 })
 export class TimelineComponent implements OnInit {
 
-  timeline: Observable<Timeline>;
+  timeline$: Observable<Timeline>;
+  str: String = 'aaa';
 
   constructor(
    private timelineService: TimelineService
   ) {
-    this.timeline = this.timelineService.fetchTimeline();
-    console.log(this.timeline);
+    this.timeline$ = this.timelineService.fetchTimeline();
   }
 
   ngOnInit() {

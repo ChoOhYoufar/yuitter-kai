@@ -21,7 +21,7 @@ import { HttpModule } from '@angular/http';
 import { MockDbData } from './repository/mock-db/mock-db-data';
 import { TweetHttpService } from "./repository/http/tweet-http.service";
 import { TimelineComponent } from './components/timeline/timeline.component';
-import { TimelineService } from './feature/timeline/timeline.service';
+import { TimelineService } from './services/timeline/timeline.service';
 
 @NgModule({
   declarations: [

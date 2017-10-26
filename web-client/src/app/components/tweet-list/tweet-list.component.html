@@ -1,17 +1,5 @@
 <div class="tweet-list">
-  <header class="tweet-list__header dark-base">
-    <i class="tweet-list__header__icon material-icons">person</i>
-    <span class="tweet-list__header__title h2">User Name</span>
-  </header>
-  <div class="tweet-list__contents">
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
-    <ytr-tweet-card></ytr-tweet-card>
+  <div *ngFor="let tweet of tweetList.value">
     <ytr-tweet-card></ytr-tweet-card>
   </div>
 </div>
