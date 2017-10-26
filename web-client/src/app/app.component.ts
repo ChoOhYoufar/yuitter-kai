@@ -7,17 +7,7 @@ import { TweetHttpService } from "./repository/http/tweet-http.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
 
-  constructor(private tweetHttpService: TweetHttpService) {}
-
-  ngOnInit() {
-    this.tweetHttpService.fetchStream().subscribe();
-    //
-    // this.http.get('api/tweets').subscribe(
-    //   response => {
-    //     console.log(response.json())
-    //   }
-    // );
-  }
+  constructor() {}
 }
