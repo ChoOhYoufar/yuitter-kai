@@ -16,14 +16,16 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.openSignInForm();
+    this.openSignInForm();
   }
 
   openSignInForm() {
-    let dialogRef = this.dialog.open(SignInFormComponent, {
-      width: '250px'
+    let dialog = this.dialog.open(SignInFormComponent, {
+      width: '500px'
     });
-
-    dialogRef.afterClosed().subscribe(result => result);
+    dialog.afterClosed().subscribe(result => {
+      if (result != null) {
+      }
+    })
   }
 }

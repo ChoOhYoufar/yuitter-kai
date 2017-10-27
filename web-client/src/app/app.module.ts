@@ -49,7 +49,8 @@ import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign
     MatDialogModule
   ],
   providers: [TweetHttpService, TimelineService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SignInFormComponent]
 })
 export class AppModule {
 }
