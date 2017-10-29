@@ -10,13 +10,13 @@ import { TimelineService } from '../../services/timeline/timeline.service';
 })
 export class TimelineComponent implements OnInit {
 
-  timeline$: Observable<Timeline>;
+  timeline: Observable<Timeline>;
   str: String = 'aaa';
 
   constructor(
    private timelineService: TimelineService
   ) {
-    this.timeline$ = this.timelineService.fetchTimeline();
+    this.timeline = this.timelineService.fetchTimeline();
   }
 
   ngOnInit() {

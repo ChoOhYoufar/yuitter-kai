@@ -17,9 +17,9 @@ export class TweetHttpService extends Stream<Timeline>{
 
   _fetchStream(): Observable<Timeline> {
     return this.http.get('api/tweets').map(res => {
-      var timeline = res.json() as Timeline;
-      console.log(res.json() as Timeline);
-      return res.json() as Timeline;
+      var timeline = res.json()[0] as Timeline;
+      console.log(timeline instanceof Timeline);
+      return (res.json()[0]) as Timeline;
     });
   }
 

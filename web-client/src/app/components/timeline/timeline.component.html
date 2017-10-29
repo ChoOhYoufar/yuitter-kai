@@ -3,8 +3,9 @@
     <i class="timeline__header__icon material-icons">person</i>
     <span class="timeline__header__title h2">User Name</span>
   </header>
+
   <ytr-tweet-list
-    *ngIf="timeline$ | async as timeline"
+    *ngIf="timeline | async"
     [tweetList]="timeline.tweetList" [str]="str">
   </ytr-tweet-list>
 </div>
