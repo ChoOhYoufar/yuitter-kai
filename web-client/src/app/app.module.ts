@@ -8,7 +8,8 @@ import {
   MatButtonModule,
   MatCardModule,
   MatSidenavModule,
-  MatInputModule
+  MatInputModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { MockDbData } from './repository/mock-db/mock-db-data';
 import { TweetHttpService } from "./repository/http/tweet-http.service";
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineService } from './services/timeline/timeline.service';
+import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign-in-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { TimelineService } from './services/timeline/timeline.service';
     TweetCardComponent,
     TweetFormComponent,
     AccountFormComponent,
-    TimelineComponent
+    TimelineComponent,
+    SignInFormComponent
   ],
   imports: [
     BrowserModule,
@@ -42,10 +45,12 @@ import { TimelineService } from './services/timeline/timeline.service';
     MatButtonModule,
     MatCardModule,
     MatSidenavModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [TweetHttpService, TimelineService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SignInFormComponent]
 })
 export class AppModule {
 }
