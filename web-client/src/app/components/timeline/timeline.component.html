@@ -5,7 +5,8 @@
   </header>
 
   <ytr-tweet-list
-    *ngIf="timeline | async"
+    *ngIf="timeline$ | async as timeline"
     [tweetList]="timeline.tweetList" [str]="str">
+    <!-- asを使う -->
   </ytr-tweet-list>
 </div>

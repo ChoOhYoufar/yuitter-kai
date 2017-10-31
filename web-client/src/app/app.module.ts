@@ -18,12 +18,12 @@ import { TweetListComponent } from './components/tweet-list/tweet-list.component
 import { TweetCardComponent } from './components/tweet-card/tweet-card.component';
 import { TweetFormComponent } from './components/tweet-form/tweet-form.component';
 import { AccountFormComponent } from './components/account-form/account-form.component';
-import { HttpModule } from '@angular/http';
 import { MockDbData } from './repository/mock-db/mock-db-data';
 import { TweetHttpService } from "./repository/http/tweet-http.service";
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineService } from './services/timeline/timeline.service';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign-in-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign
     BrowserAnimationsModule,
     FormsModule,
     InMemoryWebApiModule.forRoot(MockDbData),
-    HttpModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatSidenavModule,
