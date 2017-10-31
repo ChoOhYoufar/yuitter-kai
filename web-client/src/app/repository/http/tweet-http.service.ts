@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Timeline } from '../../models/timeline/timeline';
 
-
 @Injectable()
 export class TweetHttpService extends Stream<Timeline>{
 
@@ -16,7 +15,8 @@ export class TweetHttpService extends Stream<Timeline>{
   }
 
   _fetchStream(): Observable<Timeline> {
-    return this.http.get<Timeline>('api/tweets');
+    return this.http.get<any>('api/tweets').map(
+      res => res[0] as Timeline
+    );
   }
-
 }
