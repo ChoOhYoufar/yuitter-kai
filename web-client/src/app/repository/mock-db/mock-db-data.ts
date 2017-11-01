@@ -7,7 +7,7 @@ export class MockDbData implements InMemoryDbService {
     let tweets = {
       account: {
         accountName: 'テストアカ1',
-        avatar: 'https://www.google.co.jp/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwi3_7vj_IPXAhVGQLwKHZkkDLwQjRwIBw&url=https%3A%2F%2Fmatome.naver.jp%2Fodai%2F2142396408839928901&psig=AOvVaw1PbuYjKlYDY4ReO48RPnIL&ust=1508752880091664'
+        avatar: 'https://www.min-inuzukan.com/images/detailMain_chihuahua.png?20170926'
       },
       tweetList: {
         value: [
@@ -32,9 +32,11 @@ export class MockDbData implements InMemoryDbService {
       ]}
     };
 
-    let user = {
-      email: 'hogehoge@gmail.com'
-    };
-    return { tweets: tweets, user: user }
+    let users = [
+      {
+        email: 'hogehoge@gmail.com'
+      }
+    ];
+    return { tweets: tweets, users: users }
   }
 }

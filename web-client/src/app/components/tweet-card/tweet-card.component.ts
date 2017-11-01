@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Tweet } from '../../models/tweet/tweet';
 
 @Component({
   selector: 'ytr-tweet-card',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TweetCardComponent implements OnInit {
 
+  @Input() tweet: Tweet;
+
   constructor() { }
 
   ngOnInit() {
   }
-
 }

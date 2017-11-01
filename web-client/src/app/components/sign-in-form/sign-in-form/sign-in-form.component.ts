@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'ytr-sign-in-form',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<SignInFormComponent>,
+  ) { }
 
   ngOnInit() {
+  }
+
+  submit() {
+
+    this.dialogRef.close();
   }
 
 }
