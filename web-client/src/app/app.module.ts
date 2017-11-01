@@ -19,7 +19,7 @@ import { TweetCardComponent } from './components/tweet-card/tweet-card.component
 import { TweetFormComponent } from './components/tweet-form/tweet-form.component';
 import { AccountFormComponent } from './components/account-form/account-form.component';
 import { MockDbData } from './repository/mock-db/mock-db-data';
-import { TweetHttpService } from "./repository/http/tweet-http.service";
+import { TweetHttpService } from "./repository/http/tweet/tweet-http.service";
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineService } from './services/timeline/timeline.service';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign-in-form.component';
