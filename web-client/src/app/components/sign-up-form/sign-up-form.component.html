@@ -1,0 +1,22 @@
+<h2 class="h2">Hello World! Welcome to Yuitter : )</h2>
+
+<form #signInForm="ngForm" (ngSubmit)="submit()" class="form-margin">
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Mail Address">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password">
+    </mat-form-field>
+  </div>
+  <div>
+    <button type="submit" mat-raised-button color="primary">
+      Sign up to Yuitter
+    </button>
+  </div>
+  <div class="to-sign-in form-margin">
+    <p (click)="openSignUpForm()">Have an Account? Sign in Yuitter.</p>
+  </div>
+</form>

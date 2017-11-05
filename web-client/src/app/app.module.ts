@@ -22,8 +22,12 @@ import { MockDbData } from './repository/mock-db/mock-db-data';
 import { TweetHttpService } from "./repository/http/tweet/tweet-http.service";
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineService } from './services/timeline/timeline.service';
-import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign-in-form.component';
+import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
+import { HomeComponent } from './components/home/home.component';
+import { MyPageComponent } from './components/my-page/my-page.component';
+import { ROUTES } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import { HttpClientModule } from '@angular/common/http';
     TweetFormComponent,
     AccountFormComponent,
     TimelineComponent,
-    SignInFormComponent
+    SignInFormComponent,
+    SignUpFormComponent,
+    HomeComponent,
+    MyPageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     InMemoryWebApiModule.forRoot(MockDbData),
     HttpClientModule,
+    ROUTES,
     MatButtonModule,
     MatCardModule,
     MatSidenavModule,
@@ -50,7 +58,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [TweetHttpService, TimelineService],
   bootstrap: [AppComponent],
-  entryComponents: [SignInFormComponent]
+  entryComponents: [SignInFormComponent, SignUpFormComponent]
 })
 export class AppModule {
 }
