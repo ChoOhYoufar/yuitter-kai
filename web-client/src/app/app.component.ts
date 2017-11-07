@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { TweetHttpService } from "./repository/http/tweet/tweet-http.service";
 import { MatDialog } from '@angular/material';
-import { SignInFormComponent } from './components/sign-in-form/sign-in-form/sign-in-form.component';
+import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +31,6 @@ export class AppComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result != null) {
       }
-    })
+    });
   }
 }
