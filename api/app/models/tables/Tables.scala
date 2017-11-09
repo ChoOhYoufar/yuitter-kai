@@ -1,4 +1,5 @@
-package models
+package models.tables
+
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
 object Tables extends {
@@ -11,7 +12,7 @@ trait Tables {
   import profile.api._
   import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
-  import slick.jdbc.{GetResult => GR}
+  import slick.jdbc.{ GetResult => GR }
 
   /** DDL for all tables. Call .create to execute. */
   lazy val schema: profile.SchemaDescription = AccountFollowings.schema ++ Accounts.schema ++ Tweets.schema ++ Users.schema
