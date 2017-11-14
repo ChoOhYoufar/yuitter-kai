@@ -15,7 +15,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "2.0.2",
   "com.typesafe.slick" %% "slick-codegen" % "3.1.0",
   "org.scalaz" %% "scalaz-core" % "7.2.12",
-  "io.monix" %% "shade" % "1.10.0"
+  "io.monix" %% "shade" % "1.9.5"
 )
 
 //unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )

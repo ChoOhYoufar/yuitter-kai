@@ -2,7 +2,9 @@ package modules
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
+import infrastructure.ShadeCache
 import play.api.{ Configuration, Environment }
+import repositories.Cache
 
 class ShadeCacheModule(environment: Environment, configuration: Configuration) extends AbstractModule {
 
