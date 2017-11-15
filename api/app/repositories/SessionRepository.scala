@@ -2,14 +2,14 @@ package repositories
 
 import javax.inject.Inject
 
-import models.domain.User
+import models.views.UserCommand
 
 class SessionRepository @Inject() (
   cache: Cache
 ) {
 
-  def fetch(key: String): Option[User] = {
-    cache.getJson[User](key)
+  def fetch(key: String): Option[UserCommand] = {
+    cache.getJson[UserCommand](key)
   }
 //
 //  def add(user: User): String = {
