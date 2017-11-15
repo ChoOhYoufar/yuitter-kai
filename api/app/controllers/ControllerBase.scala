@@ -1,6 +1,6 @@
 package controllers
 
-import models.Errors
+import models.domain.Errors
 
 import scalaz.{ EitherT, Monad, \/, \/- }
 import play.api.libs.json.{ JsError, JsSuccess, JsValue, Reads }

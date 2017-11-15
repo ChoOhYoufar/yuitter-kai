@@ -2,7 +2,7 @@ package controllers.security
 
 import javax.inject.Inject
 
-import models.User
+import models.domain.User
 import play.api.mvc.Request
 import services.SessionService
 

@@ -1,6 +1,6 @@
 package services
 
-import models.User
+import models.domain.User
 
 import scala.concurrent.ExecutionContext
 

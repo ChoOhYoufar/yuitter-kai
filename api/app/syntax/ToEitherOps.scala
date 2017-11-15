@@ -1,6 +1,6 @@
 package syntax
 
-import models.Errors
+import models.domain.Errors
 
 import scalaz.{ EitherT, \/ }
 

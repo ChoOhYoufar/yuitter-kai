@@ -2,7 +2,7 @@ package repositories
 
 import javax.inject.Inject
 
-import models.User
+import models.domain.User
 
 class SessionRepository @Inject() (
   cache: Cache

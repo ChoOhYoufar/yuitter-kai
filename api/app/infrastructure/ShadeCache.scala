@@ -22,7 +22,7 @@ class ShadeCache @Inject() (
   val memcached = Memcached(Configuration(s"$host:$port"))
 
   override def getString(key: String): Option[String] = {
-    memcached.awaitGet(key)
+    memcached.awaitGet[String](key)
   }
 
   override def getJson[A](key: String)(implicit reads: Reads[A]): Option[A] = {
