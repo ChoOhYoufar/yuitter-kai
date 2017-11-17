@@ -3,6 +3,7 @@ package models.views
 import models.domain.User
 import org.joda.time.DateTime
 import play.api.libs.json.{ Json, Reads }
+import models.domain.types.Id._
 
 case class UserCommand(
   userId: Long,
