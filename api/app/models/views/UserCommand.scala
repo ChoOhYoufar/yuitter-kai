@@ -1,13 +1,14 @@
 package models.views
 
 import models.domain.User
+import models.domain.types.{ Email, Id }
+import models.views.types.mapper.TypeReads
 import org.joda.time.DateTime
 import play.api.libs.json.{ Json, Reads }
-import models.domain.types.Id._
 
 case class UserCommand(
-  userId: Long,
-  email: String,
+  userId: Id[User],
+  email: Email[User],
   registerDatetime: DateTime,
   updateDatetime: DateTime,
   versionNo: Int
@@ -24,7 +25,7 @@ case class UserCommand(
   }
 }
 
-object UserCommand {
+object UserCommand extends TypeReads {
 
   implicit val userCommandReads: Reads[UserCommand] = Json.reads[UserCommand]
 }

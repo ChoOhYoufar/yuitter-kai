@@ -9,4 +9,4 @@ case class User(
   registerDatetime: DateTime,
   updateDatetime: DateTime,
   versionNo: Int
-) {}
+)
