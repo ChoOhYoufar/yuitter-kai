@@ -2,7 +2,9 @@ package infrastructure
 
 import java.sql.Timestamp
 import java.time.LocalDateTime
+import javax.inject.Inject
 
+import generators.Security
 import models.domain.User
 import models.domain.types.{ Email, Id }
 import repositories.UserRepository
@@ -15,7 +17,9 @@ import utils.Constants
 
 import scala.concurrent.ExecutionContext
 
-class UserRepositoryJDBC(
+class UserRepositoryJDBC @Inject()(
+  security: Security
+) (
   implicit ec: ExecutionContext
 ) extends UserRepository with RichDBModels {
 
@@ -39,7 +43,7 @@ class UserRepositoryJDBC(
     val dbio = Users returning Users.map(_.userId) += UsersRow(
       userId = Constants.DefaultId,
       email = signUp.email,
-      password = signUp.password,
+      password = security.encrypt(signUp.password),
       registerDatetime = Timestamp.valueOf(LocalDateTime.now),
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo
