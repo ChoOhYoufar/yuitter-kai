@@ -1,13 +1,14 @@
 package modules
 
 import com.google.inject.AbstractModule
-import infrastructure.UserRepositoryJDBC
+import infrastructure.{ SlickDB, UserRepositorySlick }
 import play.api.{ Configuration, Environment }
-import repositories.UserRepository
+import repositories.{ RDB, UserRepository }
 
 class SlickDBModule(environment: Environment, configuration: Configuration) extends AbstractModule {
 
   override def configure(): Unit = {
-    bind(classOf[UserRepository]).to(classOf[UserRepositoryJDBC])
+    bind(classOf[RDB]).to(classOf[SlickDB])
+    bind(classOf[UserRepository]).to(classOf[UserRepositorySlick])
   }
 }

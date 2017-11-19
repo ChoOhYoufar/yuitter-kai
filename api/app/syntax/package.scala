@@ -24,13 +24,13 @@ package object syntax {
 
   object DBIOResult extends ToEitherOps {
 
+    def apply[A](either: DBIO[Errors \/ A]): DBIOResult[A] = {
+      either.et
+    }
+
     def apply[A](value: A): DBIOResult[A] = {
       val dbio: DBIO[Errors \/ A] = DBIO.successful(\/-(value))
       dbio.et
-    }
-
-    def apply[A](either: DBIO[Errors \/ A]) = {
-      either.et
     }
 
     def error[A](error: Errors): DBIOResult[A] = {

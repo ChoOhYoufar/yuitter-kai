@@ -9,7 +9,7 @@ import play.api.mvc.Results
 import scala.concurrent.{ ExecutionContext, Future }
 import scalaz.{ -\/, \/- }
 
-trait ResultOps extends Results with Status {
+trait ToResultOps extends Results with Status {
 
   implicit class ErrorsToOps(errors: Errors) {
 

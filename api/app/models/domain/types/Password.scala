@@ -5,6 +5,15 @@ import models.domain.Iso
 case class Password[T](value: String) extends AnyVal {
 
   def isValid: Boolean = value.length >= Password.minLength && value.length <= Password.maxLength
+
+  def hash(encrypt: String => String): HashedPassword[T] = {
+    val hashedPassword: HashedPassword[T] = encrypt(value)
+    if (hashedPassword.isValid) {
+      hashedPassword
+    } else {
+      throw new Exception("Hash algorithm might be wrong.")
+    }
+  }
 }
 
 object Password {

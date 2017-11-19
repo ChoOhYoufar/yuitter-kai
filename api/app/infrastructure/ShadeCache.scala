@@ -2,6 +2,7 @@ package infrastructure
 
 import javax.inject.{ Inject, Named, Singleton }
 
+import models.domain.types.HashedId
 import play.api.libs.json.{ Json, Reads, Writes }
 import repositories.Cache
 import shade.memcached._
@@ -21,19 +22,19 @@ class ShadeCache @Inject() (
 
   val memcached = Memcached(Configuration(s"$host:$port"))
 
-  override def getString(key: String): Option[String] = {
+  override def getString[T](key: HashedId[T]): Option[String] = {
     memcached.awaitGet[String](key)
   }
 
-  override def getJson[A](key: String)(implicit reads: Reads[A]): Option[A] = {
+  override def getJson[A, T](key: HashedId[T])(implicit reads: Reads[A]): Option[A] = {
     getString(key).flatMap(Json.parse(_).asOpt[A])
   }
 
-  override def setJson[A](key: String, value: A, timeout: Duration)(implicit writes: Writes[A]): Unit = {
+  override def setJson[A, T](key: HashedId[T], value: A, timeout: Duration)(implicit writes: Writes[A]): Unit = {
     memcached.awaitSet(key, Json.toJson(value).toString(), timeout)
   }
 
-  override def delete(key: String): Unit = {
+  override def delete[T](key: HashedId[T]): Unit = {
     memcached.delete(key)
   }
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 import generators.Security
-import models.domain.User
+import models.domain.{ AuthInfo, User }
 import models.domain.types.{ Email, Id }
 import repositories.UserRepository
 import slick.dbio.DBIO
@@ -17,7 +17,7 @@ import utils.Constants
 
 import scala.concurrent.ExecutionContext
 
-class UserRepositoryJDBC @Inject()(
+class UserRepositorySlick @Inject()(
   security: Security
 ) (
   implicit ec: ExecutionContext
@@ -39,11 +39,20 @@ class UserRepositoryJDBC @Inject()(
       .map(_.map(_.toDomain))
   }
 
+  override def findByAuthInfo(authInfo: AuthInfo): DBIO[Option[User]] = {
+    Users
+      .filter(_.email === authInfo.email.value.bind)
+      .filter(_.password === authInfo.password.value.bind)
+      .result
+      .headOption
+      .map(_.map(_.toDomain))
+  }
+
   override def create(signUp: SignUpCommand): DBIO[Id[User]] = {
     val dbio = Users returning Users.map(_.userId) += UsersRow(
       userId = Constants.DefaultId,
       email = signUp.email,
-      password = security.encrypt(signUp.password),
+      password = signUp.password.hash(security.encrypt),
       registerDatetime = Timestamp.valueOf(LocalDateTime.now),
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo

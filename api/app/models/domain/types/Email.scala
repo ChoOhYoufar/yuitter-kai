@@ -1,10 +1,23 @@
 package models.domain.types
 
-import models.domain.Iso
+import models.domain.{ Errors, Iso }
 
-case class Email[T](value: String) extends AnyVal {
+import scalaz.\/
+import scalaz.syntax.std.ToOptionOps
+
+case class Email[T](value: String) extends ToOptionOps {
 
   def isValid: Boolean = value.matches(Email.pattern) && value.length < Email.maxLength
+
+  /**
+    * emailでDBを検索したときに存在したらエラーを返すメソッド
+    * @param result DB接続の結果
+    */
+  def checkExists(result: Option[T]): Errors \/ Unit = {
+    result ?
+      \/.left[Errors, Unit](Errors.EmailExistsError(this)) |
+      \/.right[Errors, Unit](())
+  }
 }
 
 object Email extends {

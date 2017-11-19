@@ -1,8 +1,29 @@
 package models.domain.types
 
-import models.domain.Iso
+import models.domain.{ Errors, Iso }
 
-case class Id[T](value: Long) extends AnyVal { }
+import scalaz.\/
+import scalaz.syntax.std.ToOptionOps
+
+case class Id[T](value: Long) extends ToOptionOps {
+
+  /**
+    * idでDBを検索したときに存在しなかったらエラーを返すメソッド
+    * @param result DB接続の結果
+    */
+  def checkExists(result: Option[T]): Errors \/ T = {
+    result \/> Errors.IdNotFound(this)
+  }
+
+  def hash(encrypt: String => String): HashedId[T] = {
+    val hashedId: HashedId[T] = encrypt(value.toString)
+    if (hashedId.isValid) {
+      hashedId
+    } else {
+      throw new Exception("Hash algorithm might be wrong.")
+    }
+  }
+}
 
 object Id {
 

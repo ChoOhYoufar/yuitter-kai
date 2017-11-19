@@ -1,6 +1,6 @@
 package models.domain
 
-import models.domain.types.Email
+import models.domain.types.{ Email, Id }
 import play.api.libs.json.JsError
 
 sealed trait Errors {
@@ -21,12 +21,28 @@ object Errors {
   }
 
   case class EmailExistsError(email: Email[_]) extends Errors {
-    val code = "error.exists"
+    val code = "error.emailExists"
     val message = s"Email already exists. email=${email.value}"
+  }
+
+  case class IdNotFound(id: Id[_]) extends Errors {
+    val code = "error.idNotFound"
+    val message = s"Id not found. id=${id.value}"
   }
 
   case object Unauthorized extends Errors {
     val code = "error.unauthorized"
     val message = s"Please login"
+  }
+
+  // TODO 無視するエラーと通知するエラーを分けたい。
+  case object AlreadySignIn extends Errors {
+    val code = "error.alreadySignIn"
+    val message = "User has session."
+  }
+
+  case class InvalidPasswordOrEmail(email: Email[_]) extends Errors {
+    val code = "error.invalidPasswordOrEmail"
+    val message = s"Password or email is invalid. email=${email.value}"
   }
 }
