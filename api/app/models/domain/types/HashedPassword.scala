@@ -1,6 +1,6 @@
 package models.domain.types
 
-case class HashedPassword[T](value: String) extends Hashed
+case class HashedPassword[T](value: String) extends AnyVal with Hashed
 
 object HashedPassword {
 

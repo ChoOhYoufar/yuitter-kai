@@ -2,7 +2,7 @@ package models.domain.types
 
 import scalaz.syntax.std.ToOptionOps
 
-case class HashedId[T](value: String) extends Hashed
+case class HashedId[T](value: String) extends AnyVal with Hashed
 
 object HashedId extends ToOptionOps {
 
