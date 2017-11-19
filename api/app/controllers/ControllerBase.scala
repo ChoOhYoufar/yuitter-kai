@@ -3,7 +3,7 @@ package controllers
 import models.domain.Errors
 
 import scalaz.{ EitherT, Monad, \/, \/- }
-import play.api.libs.json.{ JsError, JsSuccess, JsValue, Reads }
+import play.api.libs.json._
 import play.api.mvc.{ Controller, Request }
 import syntax.ToEitherOps
 
@@ -12,6 +12,10 @@ import scala.concurrent.ExecutionContext
 trait ControllerBase extends Controller with ToEitherOps {
 
   implicit val ec: ExecutionContext
+
+  implicit val unitWrites: Writes[Unit] = new Writes[Unit] {
+    def writes(value: Unit): JsValue = JsNull
+  }
 
   def deserialize[A, F[_]](implicit req: Request[JsValue], reads: Reads[A], monad: Monad[F]): F[Errors \/ A] = {
     val either = req.body.validate[A] match {

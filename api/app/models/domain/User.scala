@@ -1,12 +1,13 @@
 package models.domain
 
+import java.time.LocalDateTime
+
 import models.domain.types.{ Email, Id }
-import org.joda.time.DateTime
 
 case class User(
   userId: Id[User],
   email: Email[User],
-  registerDatetime: DateTime,
-  updateDatetime: DateTime,
+  registerDatetime: LocalDateTime,
+  updateDatetime: LocalDateTime,
   versionNo: Int
 )

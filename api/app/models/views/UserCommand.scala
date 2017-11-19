@@ -1,16 +1,17 @@
 package models.views
 
+import java.time.LocalDateTime
+
 import models.domain.User
 import models.domain.types.{ Email, Id }
 import models.views.types.mapper.TypeReads
-import org.joda.time.DateTime
 import play.api.libs.json.{ Json, Reads }
 
 case class UserCommand(
   userId: Id[User],
   email: Email[User],
-  registerDatetime: DateTime,
-  updateDatetime: DateTime,
+  registerDatetime: LocalDateTime,
+  updateDatetime: LocalDateTime,
   versionNo: Int
 ) {
 

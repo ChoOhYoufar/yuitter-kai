@@ -1,23 +1,24 @@
 package models.views
 
+import java.time.LocalDateTime
+
 import models.domain.User
-import org.joda.time.DateTime
 import play.api.libs.json.{ Json, Writes }
 
-case class UserView(
+case class UserFormat(
   userId: Long,
   email: String,
-  registerDatetime: DateTime,
-  updateDatetime: DateTime,
+  registerDatetime: LocalDateTime,
+  updateDatetime: LocalDateTime,
   versionNo: Int
 ) { }
 
-object UserView {
+object UserFormat {
 
-  implicit val userViewWrites: Writes[UserView] = Json.writes[UserView]
+  implicit val userViewWrites: Writes[UserFormat] = Json.writes[UserFormat]
 
-  def fromDomain(user: User): UserView = {
-    UserView(
+  def fromDomain(user: User): UserFormat = {
+    UserFormat(
       userId = user.userId,
       email = user.email,
       registerDatetime = user.registerDatetime,
