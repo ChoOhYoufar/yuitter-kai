@@ -9,10 +9,10 @@ case class Id[T](value: Long) extends ToOptionOps {
 
   /**
     * idでDBを検索したときに存在しなかったらエラーを返すメソッド
-    * @param result DB接続の結果
+    * @param searchResult DB接続の結果
     */
-  def checkExists(result: Option[T]): Errors \/ T = {
-    result \/> Errors.IdNotFound(this)
+  def checkExists(searchResult: Option[T]): Errors \/ T = {
+    searchResult \/> Errors.IdNotFound(this)
   }
 
   def hash(encrypt: String => String): HashedId[T] = {

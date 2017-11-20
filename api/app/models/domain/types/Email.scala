@@ -11,10 +11,10 @@ case class Email[T](value: String) extends ToOptionOps {
 
   /**
     * emailでDBを検索したときに存在したらエラーを返すメソッド
-    * @param result DB接続の結果
+    * @param searchResult DB接続の結果
     */
-  def checkExists(result: Option[T]): Errors \/ Unit = {
-    result ?
+  def checkExists(searchResult: Option[T]): Errors \/ Unit = {
+    searchResult ?
       \/.left[Errors, Unit](Errors.EmailExistsError(this)) |
       \/.right[Errors, Unit](())
   }
