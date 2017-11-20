@@ -2,9 +2,9 @@ package modules
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
-import infrastructure.ShadeCache
+import infrastructure.SessionRepositoryCache
 import play.api.{ Configuration, Environment }
-import repositories.Cache
+import repositories.SessionRepository
 
 class ShadeCacheModule(environment: Environment, configuration: Configuration) extends AbstractModule {
 
@@ -29,7 +29,6 @@ class ShadeCacheModule(environment: Environment, configuration: Configuration) e
           .getInt(portKey)
           .getOrElse(keyException(portKey))
       )
-    bind(classOf[Cache]).to(classOf[ShadeCache])
+    bind(classOf[SessionRepository]).to(classOf[SessionRepositoryCache])
   }
-
 }
