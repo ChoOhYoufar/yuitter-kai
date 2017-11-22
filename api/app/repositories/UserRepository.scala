@@ -7,7 +7,7 @@ import slick.dbio.DBIO
 
 trait UserRepository {
 
-  def findById(userId: Id[User]): DBIO[Option[User]]
+  def findById(userId: Id[User]): AbstractDBIO[Option[User]]
 
   def findByEmail(email: Email[User]): DBIO[Option[User]]
 

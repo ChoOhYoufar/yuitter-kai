@@ -23,12 +23,14 @@ class UserRepositorySlick @Inject()(
   implicit ec: ExecutionContext
 ) extends UserRepository with RichDBModels {
 
-  override def findById(userId: Id[User]): DBIO[Option[User]] = {
-    Users
+  override def findById(userId: Id[User]): SlickDBIO[Option[User]] = {
+    val dbio :DBIO[Option[User]] = Users
       .filter(_.userId === userId.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
+
+    SlickDBIO(dbio)
   }
 
   override def findByEmail(email: Email[User]): DBIO[Option[User]] = {
