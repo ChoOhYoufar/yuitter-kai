@@ -8,5 +8,5 @@ trait Hashed extends Any {
 
 object Hashed {
 
-  val valueLength = 65
+  val valueLength = 60
 }
