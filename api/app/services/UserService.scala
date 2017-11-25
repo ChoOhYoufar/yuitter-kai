@@ -5,7 +5,7 @@ import javax.inject.Inject
 import models.domain.{ AuthInfo, Errors, User }
 import models.domain.types._
 import models.views.SignUpCommand
-import repositories.{ AbstractDBIO, RDB, SessionRepository, UserRepository }
+import repositories.{ Transaction, RDB, SessionRepository, UserRepository }
 import syntax.DBResult
 
 import scala.concurrent.ExecutionContext
@@ -35,7 +35,7 @@ class UserService @Inject()(
   }
 
   def create[F](signUpCommand: SignUpCommand): DBResult[Id[User]] = {
-    val dbio: AbstractDBIO[Errors \/ Id[User]] = userRepository.create(signUpCommand).map(\/.right)
+    val dbio: Transaction[Errors \/ Id[User]] = userRepository.create(signUpCommand).map(\/.right)
     DBResult(dbio)
   }
 

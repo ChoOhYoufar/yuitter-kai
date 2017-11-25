@@ -6,5 +6,5 @@ trait RDB {
 
   def exec[A](result: DBResult[A]): Result[A]
 
-  def dbio[A](value: A): AbstractDBIO[A]
+  def dbio[A](value: A): Transaction[A]
 }

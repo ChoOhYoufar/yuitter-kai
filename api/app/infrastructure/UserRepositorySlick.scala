@@ -23,36 +23,36 @@ class UserRepositorySlick @Inject()(
   implicit ec: ExecutionContext
 ) extends UserRepository with RichDBModels {
 
-  override def findById(userId: Id[User]): SlickDBIO[Option[User]] = {
+  override def findById(userId: Id[User]): SlickTransaction[Option[User]] = {
     val dbio :DBIO[Option[User]] = Users
       .filter(_.userId === userId.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
 
-    SlickDBIO(dbio)
+    SlickTransaction(dbio)
   }
 
-  override def findByEmail(email: Email[User]): SlickDBIO[Option[User]] = {
+  override def findByEmail(email: Email[User]): SlickTransaction[Option[User]] = {
     val dbio = Users
       .filter(_.email === email.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
-    SlickDBIO(dbio)
+    SlickTransaction(dbio)
   }
 
-  override def findByAuthInfo(authInfo: AuthInfo): SlickDBIO[Option[User]] = {
+  override def findByAuthInfo(authInfo: AuthInfo): SlickTransaction[Option[User]] = {
     val dbio = Users
       .filter(_.email === authInfo.email.value.bind)
       .filter(_.password === authInfo.password.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
-    SlickDBIO(dbio)
+    SlickTransaction(dbio)
   }
 
-  override def create(signUp: SignUpCommand): SlickDBIO[Id[User]] = {
+  override def create(signUp: SignUpCommand): SlickTransaction[Id[User]] = {
     val dbio = Users returning Users.map(_.userId) += UsersRow(
       userId = Constants.DefaultId,
       email = signUp.email,
@@ -61,6 +61,6 @@ class UserRepositorySlick @Inject()(
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo
     )
-    SlickDBIO(dbio.map(Id(_)))
+    SlickTransaction(dbio.map(Id(_)))
   }
 }

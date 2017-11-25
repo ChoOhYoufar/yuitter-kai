@@ -1,5 +1,5 @@
 import models.domain.Errors
-import repositories.{ AbstractDBIO, RDB }
+import repositories.{ Transaction, RDB }
 
 import scala.concurrent.Future
 import scalaz.{ -\/, EitherT, \/, \/- }
@@ -7,7 +7,7 @@ import scalaz.{ -\/, EitherT, \/, \/- }
 package object syntax {
 
   type Result[A] = EitherT[Future, Errors, A]
-  type DBResult[A] = EitherT[AbstractDBIO, Errors, A]
+  type DBResult[A] = EitherT[Transaction, Errors, A]
 
   object Result extends ToEitherOps {
 
@@ -24,12 +24,12 @@ package object syntax {
 
   object DBResult extends ToEitherOps {
 
-    def apply[A](dbio: AbstractDBIO[Errors \/ A]): DBResult[A] = {
+    def apply[A](dbio: Transaction[Errors \/ A]): DBResult[A] = {
       dbio.et
     }
 
     def apply[A](value: A)(implicit rdb: RDB): DBResult[A] = {
-      val dbio: AbstractDBIO[Errors \/ A] = rdb.dbio(value).map(\/.right)
+      val dbio: Transaction[Errors \/ A] = rdb.dbio(value).map(\/.right)
       DBResult(dbio)
     }
 

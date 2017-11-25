@@ -6,11 +6,11 @@ import models.views.SignUpCommand
 
 trait UserRepository {
 
-  def findById(userId: Id[User]): AbstractDBIO[Option[User]]
+  def findById(userId: Id[User]): Transaction[Option[User]]
 
-  def findByEmail(email: Email[User]): AbstractDBIO[Option[User]]
+  def findByEmail(email: Email[User]): Transaction[Option[User]]
 
-  def findByAuthInfo(authInfo: AuthInfo): AbstractDBIO[Option[User]]
+  def findByAuthInfo(authInfo: AuthInfo): Transaction[Option[User]]
 
-  def create(signUp: SignUpCommand): AbstractDBIO[Id[User]]
+  def create(signUp: SignUpCommand): Transaction[Id[User]]
 }
