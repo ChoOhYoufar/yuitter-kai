@@ -2,11 +2,11 @@ package services
 
 import javax.inject.Inject
 
-import models.domain.{ AuthInfo, User }
+import models.domain.{ AuthInfo, Errors, User }
 import models.domain.types._
 import models.views.SignUpCommand
-import repositories.{ RDB, SessionRepository, UserRepository }
-import syntax.DBIOResult
+import repositories.{ AbstractDBIO, RDB, SessionRepository, UserRepository }
+import syntax.{ DBIOResult, DBResult }
 
 import scala.concurrent.ExecutionContext
 import scalaz.\/
@@ -20,29 +20,29 @@ class UserService @Inject()(
   implicit ec: ExecutionContext
 ) extends ToOptionOps {
 
-  def findById(userId: Id[User]): DBIOResult[User] = {
+  def findById(userId: Id[User]): DBResult[User] = {
     val dbio = userRepository
       .findById(userId)
       .map(userId.checkExists)
-    DBIOResult(dbio)
+    DBResult(dbio)
   }
 
-  def findByAuthInfo(authInfo: AuthInfo): DBIOResult[User] = {
+  def findByAuthInfo(authInfo: AuthInfo): DBResult[User] = {
     val dbio = userRepository
       .findByAuthInfo(authInfo)
       .map(authInfo.checkExists)
-    DBIOResult(dbio)
+    DBResult(dbio)
   }
 
-  def create(signUpCommand: SignUpCommand): DBIOResult[Id[User]] = {
-    val dbio = userRepository.create(signUpCommand).map(\/.right)
-    DBIOResult(dbio)
+  def create[F](signUpCommand: SignUpCommand): DBResult[Id[User]] = {
+    val dbio: AbstractDBIO[Errors \/ Id[User]] = userRepository.create(signUpCommand).map(\/.right)
+    DBResult(dbio)
   }
 
-  def checkExistsEmail(email: Email[User]): DBIOResult[Unit] = {
+  def checkExistsEmail(email: Email[User]): DBResult[Unit] = {
     val dbio = userRepository
       .findByEmail(email)
       .map(email.checkExists)
-    DBIOResult(dbio)
+    DBResult(dbio)
   }
 }

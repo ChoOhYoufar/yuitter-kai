@@ -8,7 +8,7 @@ import play.api.libs.json.JsValue
 import play.api.mvc.Request
 import repositories.RDB
 import services.{ SessionService, UserService }
-import syntax.{ DBIOInstances, DBIOResult, Result }
+import syntax.{ DBIOInstances, DBIOResult, DBResult, Result }
 
 import scala.concurrent.ExecutionContext
 
@@ -21,20 +21,20 @@ class AuthScenario @Inject()(
 ) extends DBIOInstances {
 
   def signUp(signUpCommand: SignUpCommand): Result[Unit] = {
-    val result: DBIOResult[Unit] = for {
+    val result: DBResult[Unit] = for {
       _ <- userService.checkExistsEmail(signUpCommand.email)
       userId <- userService.create(signUpCommand)
       user <- userService.findById(userId)
-      _ <- DBIOResult(sessionService.create(user))
+      _ <- DBResult(sessionService.create(user))
     } yield ()
     rdb.exec(result)
   }
 
   def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[Unit] = {
-    val result: DBIOResult[Unit] = for {
-      _ <- DBIOResult(sessionService.checkExistsSession)
+    val result: DBResult[Unit] = for {
+      _ <- DBResult(sessionService.checkExistsSession)
       user <- userService.findByAuthInfo(authInfo)
-      _ <- DBIOResult(sessionService.create(user))
+      _ <- DBResult(sessionService.create(user))
     } yield ()
     rdb.exec(result)
   }

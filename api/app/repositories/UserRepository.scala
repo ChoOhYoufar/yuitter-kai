@@ -9,9 +9,9 @@ trait UserRepository {
 
   def findById(userId: Id[User]): AbstractDBIO[Option[User]]
 
-  def findByEmail(email: Email[User]): DBIO[Option[User]]
+  def findByEmail(email: Email[User]): AbstractDBIO[Option[User]]
 
-  def findByAuthInfo(authInfo: AuthInfo): DBIO[Option[User]]
+  def findByAuthInfo(authInfo: AuthInfo): AbstractDBIO[Option[User]]
 
-  def create(signUp: SignUpCommand): DBIO[Id[User]]
+  def create(signUp: SignUpCommand): AbstractDBIO[Id[User]]
 }

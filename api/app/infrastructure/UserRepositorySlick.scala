@@ -33,24 +33,26 @@ class UserRepositorySlick @Inject()(
     SlickDBIO(dbio)
   }
 
-  override def findByEmail(email: Email[User]): DBIO[Option[User]] = {
-    Users
+  override def findByEmail(email: Email[User]): SlickDBIO[Option[User]] = {
+    val dbio = Users
       .filter(_.email === email.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
+    SlickDBIO(dbio)
   }
 
-  override def findByAuthInfo(authInfo: AuthInfo): DBIO[Option[User]] = {
-    Users
+  override def findByAuthInfo(authInfo: AuthInfo): SlickDBIO[Option[User]] = {
+    val dbio = Users
       .filter(_.email === authInfo.email.value.bind)
       .filter(_.password === authInfo.password.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
+    SlickDBIO(dbio)
   }
 
-  override def create(signUp: SignUpCommand): DBIO[Id[User]] = {
+  override def create(signUp: SignUpCommand): SlickDBIO[Id[User]] = {
     val dbio = Users returning Users.map(_.userId) += UsersRow(
       userId = Constants.DefaultId,
       email = signUp.email,
@@ -59,6 +61,6 @@ class UserRepositorySlick @Inject()(
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo
     )
-    dbio.map(Id(_))
+    SlickDBIO(dbio.map(Id(_)))
   }
 }
