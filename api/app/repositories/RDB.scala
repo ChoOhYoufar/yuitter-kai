@@ -1,11 +1,10 @@
 package repositories
 
-import syntax.{ DBIOResult, DBResult, Result }
+import syntax.{ DBResult, Result }
 
 trait RDB {
 
-  // TODO yuito traitがDbioResultに依存しているのは直したい。
-  def execc[A](result: DBIOResult[A]): Result[A]
-
   def exec[A](result: DBResult[A]): Result[A]
+
+  def dbio[A](value: A): AbstractDBIO[A]
 }

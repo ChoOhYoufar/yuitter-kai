@@ -6,7 +6,7 @@ import models.domain.{ AuthInfo, Errors, User }
 import models.domain.types._
 import models.views.SignUpCommand
 import repositories.{ AbstractDBIO, RDB, SessionRepository, UserRepository }
-import syntax.{ DBIOResult, DBResult }
+import syntax.DBResult
 
 import scala.concurrent.ExecutionContext
 import scalaz.\/

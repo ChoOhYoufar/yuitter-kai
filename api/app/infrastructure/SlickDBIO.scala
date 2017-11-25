@@ -12,14 +12,14 @@ case class SlickDBIO[A](
   implicit ec: ExecutionContext
 ) extends AbstractDBIO[A] {
 
+  val monad: Monad[DBIO] = new Monad[DBIO] {
+    def point[AA](value: => AA): DBIO[AA] = DBIO.successful(value)
+    def bind[AA, BB](fa: DBIO[AA])(f: AA => DBIO[BB]): DBIO[BB] = fa.flatMap(f)
+  }
+
   override def map[B](f: A => B): SlickDBIO[B] = SlickDBIO(value.map(f))
 
   override def flatMap[B](f: A => AbstractDBIO[B]): AbstractDBIO[B] = {
-    val monad = new Monad[DBIO] {
-      def point[A](value: => A): DBIO[A] = DBIO.successful(value)
-      def bind[A, B](fa: DBIO[A])(f: A => DBIO[B]): DBIO[B] = fa.flatMap(f)
-    }
-
     SlickDBIO(monad.bind(value)(f(_).asInstanceOf[SlickDBIO[B]].value))
   }
 }
