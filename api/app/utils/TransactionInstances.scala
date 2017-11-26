@@ -13,6 +13,6 @@ trait TransactionInstances {
 
   class TransactionMonad extends Monad[Transaction] {
     override def point[A](value: => A): Transaction[A] = builder.exec(value)
-    override def bind[A, B](dbio: Transaction[A])(f: A => Transaction[B]): Transaction[B] = dbio.flatMap(f)
+    override def bind[A, B](transaction: Transaction[A])(f: A => Transaction[B]): Transaction[B] = transaction.flatMap(f)
   }
 }
