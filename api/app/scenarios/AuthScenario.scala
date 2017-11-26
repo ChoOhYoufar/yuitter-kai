@@ -16,11 +16,11 @@ import scala.concurrent.ExecutionContext
 class AuthScenario @Inject()(
   userService: UserService,
   sessionService: SessionService,
-  implicit val builder: TransactionBuilder,
-  implicit val runner: TransactionRunner
+  runner: TransactionRunner
 ) (
   implicit
-  val ec: ExecutionContext
+  val ec: ExecutionContext,
+  val builder: TransactionBuilder
 ) extends TransactionInstances {
 
   def signUp(signUpCommand: SignUpCommand): Result[Unit] = {
