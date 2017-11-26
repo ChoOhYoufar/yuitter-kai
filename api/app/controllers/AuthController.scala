@@ -37,9 +37,6 @@ class AuthController @Inject() (
   }
 
   def signOut: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
-    (for {
-
-
-    })
+    ???
   }
 }
