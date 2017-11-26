@@ -2,7 +2,7 @@ package services
 
 import javax.inject.Inject
 
-import models.domain.{ AuthInfo, User }
+import models.domain.{ AuthInfo, AuthUser, User }
 import models.domain.types._
 import models.views.SignUpCommand
 import repositories.{ SessionRepository, UserRepository }
@@ -26,10 +26,10 @@ class UserService @Inject()(
     DBResult(dbio)
   }
 
-  def findByEmail(email: Email[User]): DBResult[User] = {
+  def findByEmail(email: Email[AuthUser]): DBResult[AuthUser] = {
     val dbio = userRepository
       .findByEmail(email)
-      .map(email.assertExists)
+      .map(email.asInstanceOf[Email[AuthUser]].assertExists)
     DBResult(dbio)
   }
 
@@ -38,7 +38,7 @@ class UserService @Inject()(
     DBResult(dbio)
   }
 
-  def checkExistsEmail(email: Email[User]): DBResult[Unit] = {
+  def checkExistsEmail(email: Email[AuthUser]): DBResult[Unit] = {
     val dbio = userRepository
       .findByEmail(email)
       .map(email.assertNone)

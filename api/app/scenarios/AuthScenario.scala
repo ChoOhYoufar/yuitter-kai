@@ -38,12 +38,9 @@ class AuthScenario @Inject()(
   def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[Unit] = {
     val result = for {
       _ <- DBResult(sessionService.checkExistsSession)
-      user <- userService.findByEmail(authInfo.email)
-      // NOTE: DBから取得してuserがpasswordを保持していることはありえないため、例外を発生させる
-      _ <- DBResult(authInfo.password.authenticate(user.optPassword.getOrElse(
-        throw new Exception("User record without password may exist")
-      ))(security.checkPassword))
-      _ <- DBResult(sessionService.create(user))
+      authUser <- userService.findByEmail(authInfo.email)
+      _ <- DBResult(authInfo.password.authenticate(authUser.password)(security.checkPassword))
+      _ <- DBResult(sessionService.create(authUser.user))
     } yield ()
     runner.exec(result)
   }

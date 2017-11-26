@@ -9,7 +9,7 @@ import infrastructure.jdbc.slick.transaction.SlickTransaction
 import models.db.Tables._
 import models.db._
 import models.domain.types.{ Email, Id }
-import models.domain.{ AuthInfo, User }
+import models.domain.{ AuthInfo, AuthUser, User }
 import models.views.SignUpCommand
 import repositories.UserRepository
 import slick.dbio.DBIO
@@ -34,12 +34,12 @@ class UserRepositorySlick @Inject()(
     SlickTransaction(dbio)
   }
 
-  override def findByEmail(email: Email[User]): SlickTransaction[Option[User]] = {
+  override def findByEmail(email: Email[AuthUser]): SlickTransaction[Option[AuthUser]] = {
     val dbio = Users
       .filter(_.email === email.value.bind)
       .result
       .headOption
-      .map(_.map(_.toDomain))
+      .map(_.map(_.toDomainAuthUser))
     SlickTransaction(dbio)
   }
 

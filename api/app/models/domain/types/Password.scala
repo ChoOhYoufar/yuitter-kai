@@ -8,7 +8,7 @@ case class Password[T](value: String) extends AnyVal {
 
   def isValid: Boolean = value.length >= Password.minLength && value.length <= Password.maxLength
 
-  def authenticate(hashed: HashedPassword[T])(checkPassword: (String, String) => Boolean): Errors \/ Unit = {
+  def authenticate(hashed: HashedPassword[T])(checkPassword: (Password[T], HashedPassword[T]) => Boolean): Errors \/ Unit = {
     if (checkPassword(this, hashed)) {
       \/.right(())
     }  else {

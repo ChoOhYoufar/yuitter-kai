@@ -1,6 +1,6 @@
 package models.db
 
-import models.domain.User
+import models.domain.{ AuthUser, User }
 import models.db.Tables._
 
 /**
@@ -14,10 +14,16 @@ trait RichDBModels {
       User(
         userId = user.userId,
         email = user.email,
-        optPassword = Some(user.password),
         registerDatetime = user.registerDatetime.toLocalDateTime,
         updateDatetime = user.updateDatetime.toLocalDateTime,
         versionNo = user.versionNo
+      )
+    }
+
+    def toDomainAuthUser: AuthUser = {
+      AuthUser(
+        user = user.toDomain,
+        password = user.password
       )
     }
   }
