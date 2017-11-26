@@ -14,6 +14,7 @@ trait RichDBModels {
       User(
         userId = user.userId,
         email = user.email,
+        optPassword = Some(user.password),
         registerDatetime = user.registerDatetime.toLocalDateTime,
         updateDatetime = user.updateDatetime.toLocalDateTime,
         versionNo = user.versionNo

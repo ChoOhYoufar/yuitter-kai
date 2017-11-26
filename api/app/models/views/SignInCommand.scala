@@ -12,10 +12,10 @@ case class SignInCommand @Inject() (
   password: Password[User]
 ) {
 
-  def toDomain(encrypt: String => String): AuthInfo = {
+  def toDomain: AuthInfo = {
     AuthInfo(
       email = email,
-      password = password.hash(encrypt)
+      password = password
     )
   }
 }

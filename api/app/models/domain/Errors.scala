@@ -25,6 +25,11 @@ object Errors {
     val message = s"Email already exists. email=${email.value}"
   }
 
+  case class EmailNotFound(email: Email[_]) extends Errors {
+    val code = "error.emailNotFound"
+    val message = s"Email not found. email=${email.value}"
+  }
+
   case class IdNotFound(id: Id[_]) extends Errors {
     val code = "error.idNotFound"
     val message = s"Id not found. id=${id.value}"
@@ -32,7 +37,12 @@ object Errors {
 
   case object Unauthorized extends Errors {
     val code = "error.unauthorized"
-    val message = s"Please login"
+    val message = s"Please login."
+  }
+
+  case object InvalidPassword extends Errors {
+    val code = "error.invalidPassword"
+    val message = "Password is invalid."
   }
 
   // TODO 無視するエラーと通知するエラーを分けたい。

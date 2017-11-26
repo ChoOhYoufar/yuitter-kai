@@ -1,11 +1,13 @@
 package infrastructure.jdbc.slick.transaction
 
+import javax.inject.Inject
+
 import repositories.transaction.TransactionBuilder
 import slick.dbio.DBIO
 
 import scala.concurrent.ExecutionContext
 
-class SlickTransactionBuilder(
+class SlickTransactionBuilder @Inject()(
   implicit ec: ExecutionContext
 ) extends TransactionBuilder {
 

@@ -1,10 +1,20 @@
 package models.domain.types
 
-import models.domain.Iso
+import models.domain.{ Errors, Iso }
+
+import scalaz.\/
 
 case class Password[T](value: String) extends AnyVal {
 
   def isValid: Boolean = value.length >= Password.minLength && value.length <= Password.maxLength
+
+  def authenticate(hashed: HashedPassword[T])(checkPassword: (String, String) => Boolean): Errors \/ Unit = {
+    if (checkPassword(this, hashed)) {
+      \/.right(())
+    }  else {
+      \/.left(Errors.InvalidPassword)
+    }
+  }
 
   def hash(encrypt: String => String): HashedPassword[T] = {
     val hashedPassword: HashedPassword[T] = encrypt(value)

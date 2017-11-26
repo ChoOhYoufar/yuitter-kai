@@ -19,6 +19,7 @@ case class UserCommand(
     User(
       userId = userId,
       email = email,
+      optPassword = None,
       registerDatetime = registerDatetime,
       updateDatetime = updateDatetime,
       versionNo = versionNo

@@ -43,16 +43,6 @@ class UserRepositorySlick @Inject()(
     SlickTransaction(dbio)
   }
 
-  override def findByAuthInfo(authInfo: AuthInfo): SlickTransaction[Option[User]] = {
-    val dbio = Users
-      .filter(_.email === authInfo.email.value.bind)
-      .filter(_.password === authInfo.password.value.bind)
-      .result
-      .headOption
-      .map(_.map(_.toDomain))
-    SlickTransaction(dbio)
-  }
-
   override def create(signUp: SignUpCommand): SlickTransaction[Id[User]] = {
     val dbio = Users returning Users.map(_.userId) += UsersRow(
       userId = Constants.DefaultId,

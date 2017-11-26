@@ -2,6 +2,7 @@ package scenarios
 
 import javax.inject.Inject
 
+import generators.Security
 import models.domain.AuthInfo
 import models.views.SignUpCommand
 import play.api.libs.json.JsValue
@@ -16,7 +17,8 @@ import scala.concurrent.ExecutionContext
 class AuthScenario @Inject()(
   userService: UserService,
   sessionService: SessionService,
-  runner: TransactionRunner
+  runner: TransactionRunner,
+  security: Security
 ) (
   implicit
   val ec: ExecutionContext,
@@ -36,7 +38,11 @@ class AuthScenario @Inject()(
   def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[Unit] = {
     val result = for {
       _ <- DBResult(sessionService.checkExistsSession)
-      user <- userService.findByAuthInfo(authInfo)
+      user <- userService.findByEmail(authInfo.email)
+      // NOTE: DBから取得してuserがpasswordを保持していることはありえないため、例外を発生させる
+      _ <- DBResult(authInfo.password.authenticate(user.optPassword.getOrElse(
+        throw new Exception("User record without password may exist")
+      ))(security.checkPassword))
       _ <- DBResult(sessionService.create(user))
     } yield ()
     runner.exec(result)

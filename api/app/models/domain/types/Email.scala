@@ -13,10 +13,18 @@ case class Email[T](value: String) extends ToOptionOps {
     * emailでDBを検索したときに存在したらエラーを返すメソッド
     * @param searchResult DB接続の結果
     */
-  def checkExists(searchResult: Option[T]): Errors \/ Unit = {
+  def assertNone(searchResult: Option[T]): Errors \/ Unit = {
     searchResult ?
       \/.left[Errors, Unit](Errors.EmailExistsError(this)) |
       \/.right[Errors, Unit](())
+  }
+
+  /**
+    * emailでDBを検索したときに存在しなかったらエラーを返すメソッド
+    * @param searchResult DB接続の結果
+    */
+  def assertExists(searchResult: Option[T]): Errors \/ T = {
+    searchResult \/> Errors.EmailNotFound(this)
   }
 }
 
