@@ -2,10 +2,9 @@ package services
 
 import javax.inject.Inject
 
-import models.domain.{ AuthInfo, Errors, User }
+import models.domain.{ AuthInfo, User }
 import models.domain.types._
 import models.views.SignUpCommand
-import repositories.transaction.Transaction
 import repositories.{ SessionRepository, UserRepository }
 import syntax.DBResult
 
@@ -34,8 +33,8 @@ class UserService @Inject()(
     DBResult(dbio)
   }
 
-  def create[F](signUpCommand: SignUpCommand): DBResult[Id[User]] = {
-    val dbio: Transaction[Errors \/ Id[User]] = userRepository.create(signUpCommand).map(\/.right)
+  def create(signUpCommand: SignUpCommand): DBResult[Id[User]] = {
+    val dbio = userRepository.create(signUpCommand).map(\/.right)
     DBResult(dbio)
   }
 

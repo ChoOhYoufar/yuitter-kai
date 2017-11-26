@@ -24,7 +24,7 @@ class AuthScenario @Inject()(
 ) extends TransactionInstances {
 
   def signUp(signUpCommand: SignUpCommand): Result[Unit] = {
-    val result: DBResult[Unit] = for {
+    val result = for {
       _ <- userService.checkExistsEmail(signUpCommand.email)
       userId <- userService.create(signUpCommand)
       user <- userService.findById(userId)
@@ -34,7 +34,7 @@ class AuthScenario @Inject()(
   }
 
   def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[Unit] = {
-    val result: DBResult[Unit] = for {
+    val result = for {
       _ <- DBResult(sessionService.checkExistsSession)
       user <- userService.findByAuthInfo(authInfo)
       _ <- DBResult(sessionService.create(user))
