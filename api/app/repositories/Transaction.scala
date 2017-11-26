@@ -1,6 +1,6 @@
 package repositories
 
-trait Transaction[A] {
+trait Transaction[+A] {
 
   def map[B](f: A => B): Transaction[B]
 

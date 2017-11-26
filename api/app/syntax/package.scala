@@ -29,12 +29,12 @@ package object syntax {
     }
 
     def apply[A](value: A)(implicit rdb: RDB): DBResult[A] = {
-      val dbio: Transaction[Errors \/ A] = rdb.dbio(value).map(\/.right)
+      val dbio: Transaction[Errors \/ A] = rdb.transaction(value).map(\/.right)
       DBResult(dbio)
     }
 
     def apply[A](either: Errors \/ A)(implicit rdb: RDB): DBResult[A] = {
-      DBResult(rdb.dbio(either))
+      DBResult(rdb.transaction(either))
     }
   }
 }

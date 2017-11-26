@@ -19,14 +19,14 @@ class SlickDB @Inject()(
 ) extends RDB with HasDatabaseConfigProvider[JdbcProfile] with ToEitherOps {
 
   override def exec[A](result: DBResult[A]): Result[A] = {
-    val dbio = result.run
+    val transaction = result.run
 
-    val slick = dbio.asInstanceOf[SlickTransaction[Errors \/ A]]
+    val slick = transaction.asInstanceOf[SlickTransaction[Errors \/ A]]
 
     db.run(slick.value).et
   }
 
-  override def dbio[A](value: A): SlickTransaction[A] = {
+  override def transaction[A](value: A): SlickTransaction[A] = {
     SlickTransaction(DBIO.successful(value))
   }
 }
