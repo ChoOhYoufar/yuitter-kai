@@ -44,4 +44,10 @@ class AuthScenario @Inject()(
     } yield ()
     runner.exec(result)
   }
+
+  def signOut: Result[Unit] = {
+    val result = for {
+      _ <-  sessionService
+    }
+  }
 }

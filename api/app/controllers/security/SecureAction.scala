@@ -7,6 +7,8 @@ import play.api.mvc._
 import services.SessionService
 import syntax.ToResultOps
 
+import scala.concurrent.Future
+
 class SecureAction @Inject() (
   sessionService: SessionService
 ) extends ToResultOps {
@@ -27,6 +29,19 @@ class SecureAction @Inject() (
       findUserBySession(req) match {
         case Some(user) => requestHandler(SecureRequest(user, req))
         case _ => Errors.Unauthorized.toResult
+      }
+    }
+  }
+
+  def async(requestHandler: SecureRequest[AnyContent] => Future[Result]): Action[AnyContent] = {
+    async(BodyParsers.parse.anyContent)(requestHandler)
+  }
+
+  def async[A](bodyParser: BodyParser[A])(requestHandler: SecureRequest[A] => Future[Result]): Action[A] = {
+    Action.async(bodyParser) { req =>
+      findUserBySession(req) match {
+        case Some(user) => requestHandler(SecureRequest(user, req))
+        case _ => Future.successful(Errors.Unauthorized.toResult)
       }
     }
   }

@@ -33,4 +33,8 @@ class SessionService @Inject()(
   def create(user: User): Unit = {
     sessionRepository.add(user)
   }
+
+  def delete: Unit = {
+    sessionRepository.delete()
+  }
 }

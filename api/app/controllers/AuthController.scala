@@ -7,6 +7,7 @@ import models.views.{ SignInCommand, SignUpCommand }
 import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import scenarios.AuthScenario
+import services.SessionService
 import syntax.ToResultOps
 
 import scalaz.std.scalaFuture.futureInstance
@@ -15,7 +16,8 @@ import scalaz.syntax.std.ToOptionOps
 
 class AuthController @Inject() (
   authScenario: AuthScenario,
-  security: Security
+  security: Security,
+  val sessionService: SessionService
 )(
   implicit val ec: ExecutionContext
 ) extends ControllerBase with ToResultOps with ToOptionOps {
@@ -32,5 +34,12 @@ class AuthController @Inject() (
       signInCommand <- deserializeT[SignInCommand, Future]
       _ <- authScenario.signIn(signInCommand.toDomain)
     } yield ()).toResult
+  }
+
+  def signOut: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
+    (for {
+
+
+    })
   }
 }
