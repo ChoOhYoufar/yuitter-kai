@@ -1,7 +1,7 @@
-package infrastructure
+package infrastructure.jdbc.slick.transaction
 
+import repositories.transaction.Transaction
 import slick.dbio.DBIO
-import repositories.Transaction
 
 import scala.concurrent.ExecutionContext
 

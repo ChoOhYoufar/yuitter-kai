@@ -1,32 +1,24 @@
-package infrastructure
+package infrastructure.jdbc.slick.transaction
 
 import javax.inject.Inject
 
 import models.domain.Errors
 import play.api.db.slick.{ DatabaseConfigProvider, HasDatabaseConfigProvider }
-import repositories.RDB
+import repositories.transaction.TransactionRunner
 import slick.driver.JdbcProfile
-import slick.dbio.DBIO
 import syntax.{ DBResult, Result, ToEitherOps }
 
 import scala.concurrent.ExecutionContext
 import scalaz.\/
 
-class SlickDB @Inject()(
+class SlickTransactionRunner @Inject()(
   val dbConfigProvider: DatabaseConfigProvider
 )(
   implicit ex: ExecutionContext
-) extends RDB with HasDatabaseConfigProvider[JdbcProfile] with ToEitherOps {
+) extends TransactionRunner with HasDatabaseConfigProvider[JdbcProfile] with ToEitherOps {
 
   override def exec[A](result: DBResult[A]): Result[A] = {
-    val transaction = result.run
-
-    val slick = transaction.asInstanceOf[SlickTransaction[Errors \/ A]]
-
-    db.run(slick.value).et
-  }
-
-  override def transaction[A](value: A): SlickTransaction[A] = {
-    SlickTransaction(DBIO.successful(value))
+    val dbio = result.run.asInstanceOf[SlickTransaction[Errors \/ A]].value
+    db.run(dbio).et
   }
 }

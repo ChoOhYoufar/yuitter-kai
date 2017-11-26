@@ -5,7 +5,8 @@ import javax.inject.Inject
 import models.domain.{ AuthInfo, Errors, User }
 import models.domain.types._
 import models.views.SignUpCommand
-import repositories.{ Transaction, RDB, SessionRepository, UserRepository }
+import repositories.transaction.Transaction
+import repositories.{ SessionRepository, UserRepository }
 import syntax.DBResult
 
 import scala.concurrent.ExecutionContext
@@ -14,8 +15,7 @@ import scalaz.syntax.std.ToOptionOps
 
 class UserService @Inject()(
   userRepository: UserRepository,
-  sessionRepository: SessionRepository,
-  rdb: RDB
+  sessionRepository: SessionRepository
 )(
   implicit ec: ExecutionContext
 ) extends ToOptionOps {

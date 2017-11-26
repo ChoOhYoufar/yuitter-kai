@@ -1,18 +1,19 @@
-package infrastructure
+package infrastructure.jdbc.slick
 
 import java.sql.Timestamp
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 import generators.Security
-import models.domain.{ AuthInfo, User }
+import infrastructure.jdbc.slick.transaction.SlickTransaction
+import models.db.Tables._
+import models.db._
 import models.domain.types.{ Email, Id }
+import models.domain.{ AuthInfo, User }
+import models.views.SignUpCommand
 import repositories.UserRepository
 import slick.dbio.DBIO
 import slick.driver.MySQLDriver.api._
-import models.db.Tables._
-import models.db._
-import models.views.SignUpCommand
 import utils.Constants
 
 import scala.concurrent.ExecutionContext

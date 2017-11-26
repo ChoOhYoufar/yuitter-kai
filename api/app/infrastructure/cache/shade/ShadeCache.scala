@@ -1,4 +1,4 @@
-package infrastructure
+package infrastructure.cache.shade
 
 import javax.inject.{ Inject, Named, Singleton }
 

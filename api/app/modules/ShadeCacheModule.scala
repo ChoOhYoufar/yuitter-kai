@@ -2,7 +2,7 @@ package modules
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
-import infrastructure.SessionRepositoryCache
+import infrastructure.cache.shade.SessionRepositoryCache
 import play.api.{ Configuration, Environment }
 import repositories.SessionRepository
 

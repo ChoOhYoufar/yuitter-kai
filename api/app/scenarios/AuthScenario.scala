@@ -6,16 +6,18 @@ import models.domain.AuthInfo
 import models.views.SignUpCommand
 import play.api.libs.json.JsValue
 import play.api.mvc.Request
-import repositories.RDB
+import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.{ SessionService, UserService }
-import syntax.{ TransactionInstances, DBResult, Result }
+import syntax.{ DBResult, Result }
+import utils.TransactionInstances
 
 import scala.concurrent.ExecutionContext
 
 class AuthScenario @Inject()(
   userService: UserService,
   sessionService: SessionService,
-  implicit val rdb: RDB
+  implicit val builder: TransactionBuilder,
+  implicit val runner: TransactionRunner
 ) (
   implicit
   val ec: ExecutionContext
@@ -28,7 +30,7 @@ class AuthScenario @Inject()(
       user <- userService.findById(userId)
       _ <- DBResult(sessionService.create(user))
     } yield ()
-    rdb.exec(result)
+    runner.exec(result)
   }
 
   def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[Unit] = {
@@ -37,6 +39,6 @@ class AuthScenario @Inject()(
       user <- userService.findByAuthInfo(authInfo)
       _ <- DBResult(sessionService.create(user))
     } yield ()
-    rdb.exec(result)
+    runner.exec(result)
   }
 }

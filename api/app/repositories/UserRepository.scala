@@ -3,6 +3,7 @@ package repositories
 import models.domain.{ AuthInfo, User }
 import models.domain.types.{ Email, Id }
 import models.views.SignUpCommand
+import repositories.transaction.Transaction
 
 trait UserRepository {
 

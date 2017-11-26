@@ -1,10 +1,8 @@
-package repositories
+package repositories.transaction
 
 import syntax.{ DBResult, Result }
 
-trait RDB {
+trait TransactionRunner {
 
   def exec[A](result: DBResult[A]): Result[A]
-
-  def transaction[A](value: A): Transaction[A]
 }

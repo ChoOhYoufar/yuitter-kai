@@ -1,4 +1,4 @@
-package infrastructure
+package infrastructure.bcrypt.mindrot
 
 import javax.inject.Inject
 

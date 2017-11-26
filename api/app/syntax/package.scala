@@ -1,5 +1,5 @@
 import models.domain.Errors
-import repositories.{ Transaction, RDB }
+import repositories.transaction.{ Transaction, TransactionBuilder }
 
 import scala.concurrent.Future
 import scalaz.{ -\/, EitherT, \/, \/- }
@@ -28,13 +28,13 @@ package object syntax {
       dbio.et
     }
 
-    def apply[A](value: A)(implicit rdb: RDB): DBResult[A] = {
-      val dbio: Transaction[Errors \/ A] = rdb.transaction(value).map(\/.right)
+    def apply[A](value: A)(implicit builder: TransactionBuilder): DBResult[A] = {
+      val dbio: Transaction[Errors \/ A] = builder.exec(value).map(\/.right)
       DBResult(dbio)
     }
 
-    def apply[A](either: Errors \/ A)(implicit rdb: RDB): DBResult[A] = {
-      DBResult(rdb.transaction(either))
+    def apply[A](either: Errors \/ A)(implicit builder: TransactionBuilder): DBResult[A] = {
+      DBResult(builder.exec(either))
     }
   }
 }
