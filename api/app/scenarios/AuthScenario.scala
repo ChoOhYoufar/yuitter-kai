@@ -3,7 +3,7 @@ package scenarios
 import javax.inject.Inject
 
 import generators.Security
-import models.domain.AuthInfo
+import models.domain.{ AuthInfo, User }
 import models.views.SignUpCommand
 import play.api.libs.json.JsValue
 import play.api.mvc.Request
@@ -45,9 +45,7 @@ class AuthScenario @Inject()(
     runner.exec(result)
   }
 
-  def signOut: Result[Unit] = {
-    val result = for {
-      _ <-  sessionService
-    }
+  def signOut()(implicit ctx: User): Result[Unit] = {
+    Result(sessionService.delete())
   }
 }

@@ -34,7 +34,7 @@ class SessionService @Inject()(
     sessionRepository.add(user)
   }
 
-  def delete: Unit = {
-    sessionRepository.delete()
+  def delete()(implicit ctx: User): Unit = {
+    sessionRepository.delete(ctx)
   }
 }

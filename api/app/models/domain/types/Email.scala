@@ -28,7 +28,7 @@ case class Email[T](value: String) extends ToOptionOps {
   }
 }
 
-object Email extends {
+object Email {
 
   val pattern = """^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"""
   val maxLength = 150

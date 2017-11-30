@@ -2,13 +2,13 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.mvc.Action
+import play.api.mvc.{ Action, Controller }
 
 import scala.concurrent.ExecutionContext
 
 class ApplicationController @Inject()(
   implicit val ec: ExecutionContext
-) extends ControllerBase {
+) extends Controller {
 
   def health = Action {
     Ok
