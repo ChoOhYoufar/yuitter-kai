@@ -1,13 +1,9 @@
 package models.domain
 
-import java.time.LocalDateTime
-
-import models.domain.types.{ Email, Id }
+import models.domain.types.{ Email, Id, VersionNo }
 
 case class User(
   userId: Id[User],
   email: Email[User],
-  registerDatetime: LocalDateTime,
-  updateDatetime: LocalDateTime,
-  versionNo: Int
+  versionNo: VersionNo[User]
 )

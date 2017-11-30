@@ -16,8 +16,6 @@ trait RichDBModels {
       User(
         userId = user.userId,
         email = user.email,
-        registerDatetime = user.registerDatetime.toLocalDateTime,
-        updateDatetime = user.updateDatetime.toLocalDateTime,
         versionNo = user.versionNo
       )
     }
@@ -38,8 +36,6 @@ trait RichDBModels {
         userId = account.userId,
         accountName = account.accountName,
         avatar = account.avatar.map(Image(_)),
-        registerDateTime = account.registerDatetime.toLocalDateTime,
-        updateDateTime = account.updateDatetime.toLocalDateTime,
         versionNo = account.versionNo
       )
     }
