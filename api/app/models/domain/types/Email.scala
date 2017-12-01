@@ -7,7 +7,7 @@ import scalaz.syntax.std.ToOptionOps
 
 case class Email[T](value: String) extends ToOptionOps {
 
-  def isValid: Boolean = value.matches(Email.pattern) && value.length < Email.maxLength
+  def isValid: Boolean = value.matches(Email.pattern) && value.length <= Email.maxLength
 
   /**
     * emailでDBを検索したときに存在したらエラーを返すメソッド

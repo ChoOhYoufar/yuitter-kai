@@ -7,7 +7,8 @@ import play.api.libs.json._
 
 case class SignUpCommand(
   email: Email[AuthUser],
-  password: Password[AuthUser]
+  password: Password[AuthUser],
+  account: AccountCreateCommand
 )
 
 object SignUpCommand extends TypeReads {
@@ -19,7 +20,8 @@ object SignUpCommand extends TypeReads {
         _ <- if (email.isValid) JsSuccess(()) else JsError(JsPath \ "email", "invalid format")
         password <- (json \ "password").validate[Password[AuthUser]]
         _ <- if (password.isValid) JsSuccess(()) else JsError(JsPath \ "password", "invalid format")
-      } yield SignUpCommand(email, password)
+        account <- (json \ "account").validate[AccountCreateCommand]
+      } yield SignUpCommand(email, password, account)
     }
   }
 }

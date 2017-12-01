@@ -1,13 +1,11 @@
 package models.views
 
-import javax.inject.Inject
-
 import models.domain.{ AuthInfo, AuthUser }
 import models.domain.types.{ Email, Password }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 
-case class SignInCommand @Inject() (
+case class SignInCommand(
   email: Email[AuthUser],
   password: Password[AuthUser]
 ) {
