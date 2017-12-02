@@ -3,8 +3,7 @@ package scenarios
 import javax.inject.Inject
 
 import generators.Security
-import models.domain.{ AuthInfo, User }
-import models.views.SignUpCommand
+import models.domain.{ AuthInfo, HashedAuthInfo, User }
 import play.api.libs.json.JsValue
 import play.api.mvc.Request
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
@@ -25,10 +24,10 @@ class AuthScenario @Inject()(
   val builder: TransactionBuilder
 ) extends TransactionInstances {
 
-  def signUp(signUpCommand: SignUpCommand): Result[Unit] = {
+  def signUp(authInfo: HashedAuthInfo): Result[Unit] = {
     val result = for {
-      _ <- userService.checkExistsEmail(signUpCommand.email)
-      userId <- userService.create(signUpCommand)
+      _ <- userService.checkExistsEmail(authInfo.email)
+      userId <- userService.create(authInfo)
       user <- userService.findById(userId)
       _ <- DBResult(sessionService.create(user))
     } yield ()

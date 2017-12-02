@@ -1,8 +1,7 @@
 package repositories
 
-import models.domain.{ AuthUser, User }
+import models.domain.{ AuthUser, HashedAuthInfo, User }
 import models.domain.types.{ Email, Id }
-import models.views.SignUpCommand
 import repositories.transaction.Transaction
 
 trait UserRepository {
@@ -11,5 +10,5 @@ trait UserRepository {
 
   def findByEmail(email: Email[AuthUser]): Transaction[Option[AuthUser]]
 
-  def create(signUp: SignUpCommand): Transaction[Id[User]]
+  def create(authInfo: HashedAuthInfo): Transaction[Id[User]]
 }

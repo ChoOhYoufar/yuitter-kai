@@ -1,14 +1,26 @@
 package models.views
 
-import models.domain.Account
+import models.domain.{ Account, User }
 import models.domain.types.{ Image, Name }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
+import utils.Constants
 
 case class AccountCreateCommand(
   accountName: Name[Account],
-  avatar: Image[Account]
-)
+  avatar: Option[Image[Account]]
+) {
+
+  def toDomain(implicit ctx: User): Account = {
+    Account(
+      accountId = Constants.DefaultId,
+      userId = ctx.userId,
+      accountName = accountName,
+      avatar = avatar,
+      versionNo = Constants.DefaultVersionNo
+    )
+  }
+}
 
 object AccountCreateCommand extends TypeReads {
 
@@ -17,9 +29,12 @@ object AccountCreateCommand extends TypeReads {
       for {
         accountName <- (json \ "accountName").validate[Name[Account]]
         _ <- if (accountName.isValid) JsSuccess(()) else JsError(JsPath \ "accountName", "invalid format")
-        avatar <- (json \ "avatar").validate[Image[Account]]
-        _ <- if (avatar.isValid) JsSuccess(()) else JsError(JsPath \ "avatar", "invalid format")
-      } yield AccountCreateCommand(accountName, avatar)
+        optAvatar <- (json \ "avatar").validateOpt[Image[Account]]
+        _ <- optAvatar match {
+          case Some(avatar) if avatar.isValid => JsError(JsPath \ "avatar", "invalid format")
+          case _ => JsSuccess(())
+        }
+      } yield AccountCreateCommand(accountName, optAvatar)
     }
   }
 }

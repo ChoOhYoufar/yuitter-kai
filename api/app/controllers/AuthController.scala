@@ -25,7 +25,7 @@ class AuthController @Inject() (
   def signUp: Action[JsValue] = Action.async(parse.json) { implicit req =>
     (for {
       signUpCommand <- deserializeT[SignUpCommand, Future]
-      _ <- authScenario.signUp(signUpCommand)
+      _ <- authScenario.signUp(signUpCommand.toDomain(security.encrypt))
     } yield ()).toResult
   }
 
@@ -37,6 +37,6 @@ class AuthController @Inject() (
   }
 
   def signOut: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
-    ???
+
   }
 }

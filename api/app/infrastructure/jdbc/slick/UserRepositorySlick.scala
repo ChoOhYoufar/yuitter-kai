@@ -9,8 +9,7 @@ import infrastructure.jdbc.slick.transaction.SlickTransaction
 import models.db.Tables._
 import models.db._
 import models.domain.types.{ Email, Id }
-import models.domain.{ AuthInfo, AuthUser, User }
-import models.views.SignUpCommand
+import models.domain.{ AuthUser, HashedAuthInfo, User }
 import repositories.UserRepository
 import slick.dbio.DBIO
 import slick.driver.MySQLDriver.api._
@@ -43,11 +42,11 @@ class UserRepositorySlick @Inject()(
     SlickTransaction(dbio)
   }
 
-  override def create(signUp: SignUpCommand): SlickTransaction[Id[User]] = {
+  override def create(authInfo: HashedAuthInfo): SlickTransaction[Id[User]] = {
     val dbio = Users returning Users.map(_.userId) += UsersRow(
       userId = Constants.DefaultId,
-      email = signUp.email,
-      password = signUp.password.hash(security.encrypt),
+      email = authInfo.email,
+      password = authInfo.hashedPassword,
       registerDatetime = Timestamp.valueOf(LocalDateTime.now),
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo

@@ -7,7 +7,7 @@ case class UserFormat(
   userId: Long,
   email: String,
   versionNo: Int
-) { }
+)
 
 object UserFormat {
 
