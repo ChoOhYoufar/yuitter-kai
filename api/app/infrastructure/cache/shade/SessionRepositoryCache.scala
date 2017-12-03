@@ -20,9 +20,10 @@ class SessionRepositoryCache @Inject() (
     cache.getJson[UserCommand, User](key).map(_.toDomain)
   }
 
-  override def add(user: User): Unit = {
+  override def add(user: User): HashedId[User] = {
     val key = user.userId.hash(security.encrypt)
     cache.setJson(key, UserFormat.fromDomain(user), 24 hour)
+    key
   }
 
   override def delete(user: User): Unit = {

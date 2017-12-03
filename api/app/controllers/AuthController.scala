@@ -25,18 +25,22 @@ class AuthController @Inject() (
   def signUp: Action[JsValue] = Action.async(parse.json) { implicit req =>
     (for {
       signUpCommand <- deserializeT[SignUpCommand, Future]
-      _ <- authScenario.signUp(signUpCommand.toDomain(security.encrypt))
-    } yield ()).toResult
+      hashedUserId <- authScenario.signUp(signUpCommand.toDomain(security.encrypt))
+    } yield hashedUserId).toResult { id =>
+      Ok.withSession("session" -> id.value)
+    }
   }
 
   def signIn: Action[JsValue] = Action.async(parse.json) { implicit req =>
     (for {
       signInCommand <- deserializeT[SignInCommand, Future]
-      _ <- authScenario.signIn(signInCommand.toDomain)
-    } yield ()).toResult
+      hashedUserId <- authScenario.signIn(signInCommand.toDomain)
+    } yield hashedUserId).toResult { id =>
+      Ok.withSession("session" -> id.value)
+    }
   }
 
   def signOut: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
-
+    authScenario.signOut().toResult(_ => Ok.withNewSession)
   }
 }

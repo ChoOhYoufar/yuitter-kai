@@ -30,7 +30,7 @@ class SessionService @Inject()(
       \/.right[Errors, Unit](())
   }
 
-  def create(user: User): Unit = {
+  def create(user: User): HashedId[User] = {
     sessionRepository.add(user)
   }
 
