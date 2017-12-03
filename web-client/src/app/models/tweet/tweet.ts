@@ -5,7 +5,6 @@ import DateTimeFormat = Intl.DateTimeFormat;
 export class Tweet {
 
   tweetText: string;
-  imageUrl: string;
   registerDatetime: DateTimeFormat;
   account: Account;
 }
