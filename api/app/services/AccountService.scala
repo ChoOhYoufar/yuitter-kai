@@ -16,6 +16,13 @@ class AccountService @Inject()(
   implicit ec: ExecutionContext
 ) {
 
+  def findById(accountId: Id[Account]): DBResult[Account] = {
+    val dbio = accountRepository
+      .findById(accountId)
+      .map(accountId.assertExists)
+    DBResult(dbio)
+  }
+
   def create(account: Account): DBResult[Id[Account]] = {
     val dbio = accountRepository.create(account).map(\/.right)
     DBResult(dbio)

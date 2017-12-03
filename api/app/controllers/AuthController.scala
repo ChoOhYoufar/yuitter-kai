@@ -5,7 +5,7 @@ import javax.inject.Inject
 import generators.Security
 import models.views.{ SignInCommand, SignUpCommand }
 import play.api.libs.json.JsValue
-import play.api.mvc.Action
+import play.api.mvc.{ Action, AnyContent }
 import scenarios.AuthScenario
 import services.SessionService
 import syntax.ToResultOps
@@ -40,7 +40,7 @@ class AuthController @Inject() (
     }
   }
 
-  def signOut: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
+  def signOut: Action[AnyContent] = SecureAction.async { implicit req =>
     authScenario.signOut().toResult(_ => Ok.withNewSession)
   }
 }

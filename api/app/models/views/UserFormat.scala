@@ -11,7 +11,7 @@ case class UserFormat(
 
 object UserFormat {
 
-  implicit val userViewWrites: Writes[UserFormat] = Json.writes[UserFormat]
+  implicit val userFormatWrites: Writes[UserFormat] = Json.writes[UserFormat]
 
   def fromDomain(user: User): UserFormat = {
     UserFormat(
