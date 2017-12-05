@@ -1,8 +1,8 @@
-package models.db
+package infrastructure.jdbc.slick.dbModels
 
-import models.domain.{ Account, AuthUser, User }
-import models.db.Tables._
+import infrastructure.jdbc.slick.dbModels.Tables._
 import models.domain.types.Image
+import models.domain.{ Account, AuthUser, User }
 
 /**
   * DBモデル => ドメインモデルの変換処理を行う

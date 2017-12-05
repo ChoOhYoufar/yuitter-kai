@@ -1,7 +1,7 @@
 package qiita.after
 
 import infrastructure.jdbc.slick.transaction.SlickTransaction
-import models.db.Tables.Users
+import infrastructure.jdbc.slick.dbModels.Tables._
 import slick.driver.MySQLDriver.api._
 import qiita.User
 

@@ -16,7 +16,10 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-codegen" % "3.1.0",
   "org.scalaz" %% "scalaz-core" % "7.2.12",
   "io.monix" %% "shade" % "1.9.5",
-  "org.mindrot" % "jbcrypt" % "0.4"
+  "org.mindrot" % "jbcrypt" % "0.4",
+  "org.scalikejdbc" %% "scalikejdbc" % "2.5.1",
+  "org.scalikejdbc" %% "scalikejdbc-config" % "2.5.1",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1"
 )
 
 //unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
@@ -37,3 +40,5 @@ lazy val slickCodeGenTask = (sourceManaged, dependencyClasspath in Compile, runn
   val fname = outputDir + "/models/tables/Tables.scala"
   Seq(file(fname))
 }
+
+scalikejdbcSettings

@@ -4,9 +4,9 @@ import java.sql.Timestamp
 import java.time.LocalDateTime
 import javax.inject.Inject
 
+import infrastructure.jdbc.slick.dbModels.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
-import models.db.Tables._
-import models.db.RichDBModels
+import infrastructure.jdbc.slick.dbModels.Tables._
 import models.domain.Account
 import models.domain.types.Id
 import repositories.AccountRepository
@@ -32,4 +32,6 @@ class AccountRepositorySlick @Inject()(
 
     SlickTransaction(dbio.map(Id(_)))
   }
+
+  override def findById(accountId: Id[Account]): Transaction[Option[Account]] = ???
 }

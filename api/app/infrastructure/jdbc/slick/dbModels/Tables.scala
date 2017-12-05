@@ -1,4 +1,4 @@
-package models.db
+package infrastructure.jdbc.slick.dbModels
 
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
