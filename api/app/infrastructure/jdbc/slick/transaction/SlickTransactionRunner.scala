@@ -14,7 +14,7 @@ import scalaz.\/
 class SlickTransactionRunner @Inject()(
   val dbConfigProvider: DatabaseConfigProvider
 )(
-  implicit ex: ExecutionContext
+  implicit ec: ExecutionContext
 ) extends TransactionRunner with HasDatabaseConfigProvider[JdbcProfile] with ToEitherOps {
 
   override def exec[A](result: DBResult[A]): Result[A] = {
