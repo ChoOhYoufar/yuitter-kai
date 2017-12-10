@@ -11,16 +11,16 @@ scalaVersion := "2.11.11"
 libraryDependencies ++= Seq( jdbc , cache , ws , specs2 % Test )
 
 libraryDependencies ++= Seq(
-  "mysql" % "mysql-connector-java" % "5.1.27",
-  "com.typesafe.play" %% "play-slick" % "2.0.2",
-  "com.typesafe.slick" %% "slick-codegen" % "3.1.0",
-  "org.scalaz" %% "scalaz-core" % "7.2.12",
-  "io.monix" %% "shade" % "1.9.5",
-  "org.mindrot" % "jbcrypt" % "0.4",
-  "org.scalikejdbc" %% "scalikejdbc" % "2.5.1",
-  "org.scalikejdbc" %% "scalikejdbc-config" % "2.5.1",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1",
-  "org.scalikejdbc" %% "scalikejdbc-jsr310" % "2.2.+"
+  "mysql"              % "mysql-connector-java"          % "5.1.27",
+  "com.typesafe.play"  %% "play-slick"                   % "2.0.2",
+  "com.typesafe.slick" %% "slick-codegen"                % "3.1.0",
+  "org.scalaz"         %% "scalaz-core"                  % "7.2.12",
+  "io.monix"           %% "shade"                        % "1.9.5",
+  "org.mindrot"        % "jbcrypt"                       % "0.4",
+  "org.scalikejdbc"    %% "scalikejdbc"                  % "2.5.1",
+  "org.scalikejdbc"    %% "scalikejdbc-config"           % "2.5.1",
+  "org.scalikejdbc"    %% "scalikejdbc-play-initializer" % "2.5.1",
+  "org.scalikejdbc"    %% "scalikejdbc-jsr310"           % "2.2.+"
 )
 
 //unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )

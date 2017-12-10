@@ -165,6 +165,13 @@
 					<type>varchar(n)</type>
 					<length>255</length>
 				</normal_column>
+				<normal_column>
+					<physical_name>ACCOUNT_STATUS</physical_name>
+					<logical_name>アカウントステータス</logical_name>
+					<type>character(n)</type>
+					<length>3</length>
+					<not_null>true</not_null>
+				</normal_column>
 				<column_group>EDITABLE_COMMON</column_group>
 			</columns>
 			<indexes>
@@ -373,6 +380,14 @@
 					<length>140</length>
 					<not_null>true</not_null>
 				</normal_column>
+				<normal_column>
+					<physical_name>TWEET_STATUS</physical_name>
+					<logical_name>ツイートステータス</logical_name>
+					<type>character(n)</type>
+					<length>3</length>
+					<description>ENA or DIS</description>
+					<not_null>true</not_null>
+				</normal_column>
 				<column_group>COMMON_COLUMNS</column_group>
 			</columns>
 			<indexes>
@@ -431,7 +446,7 @@
 				<normal_column>
 					<physical_name>PASSWORD</physical_name>
 					<logical_name>パスワード</logical_name>
-					<type>varchar(n)</type>
+					<type>character(n)</type>
 					<length>60</length>
 					<not_null>true</not_null>
 				</normal_column>
@@ -442,6 +457,13 @@
 					<length>150</length>
 					<not_null>true</not_null>
 					<unique_key>true</unique_key>
+				</normal_column>
+				<normal_column>
+					<physical_name>USER_STATUS</physical_name>
+					<logical_name>ユーザーステータス</logical_name>
+					<type>character(n)</type>
+					<length>3</length>
+					<not_null>true</not_null>
 				</normal_column>
 				<column_group>EDITABLE_COMMON</column_group>
 			</columns>

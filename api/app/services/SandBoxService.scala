@@ -15,6 +15,4 @@ class SandBoxService @Inject()(
   def userFindById(userId: Id[User]): User = {
     userRepository.findById(userId).get
   }
-
-
 }
