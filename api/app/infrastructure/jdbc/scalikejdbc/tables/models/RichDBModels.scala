@@ -1,4 +1,4 @@
-package infrastructure.jdbc.scalikejdbc.dbModels
+package infrastructure.jdbc.scalikejdbc.tables.models
 
 import models.domain.{ AuthUser, User }
 

@@ -1,6 +1,6 @@
 package qiita.before
 
-import infrastructure.jdbc.slick.dbModels.Tables._
+import infrastructure.jdbc.slick.tables.models.Tables._
 import qiita.User
 import slick.driver.MySQLDriver.api._
 import slick.dbio.DBIO

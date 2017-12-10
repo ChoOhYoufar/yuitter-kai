@@ -4,9 +4,9 @@ import java.sql.Timestamp
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-import infrastructure.jdbc.slick.dbModels.RichDBModels
+import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
-import infrastructure.jdbc.slick.dbModels.Tables._
+import infrastructure.jdbc.slick.tables.models.Tables._
 import models.domain.{ Account, User }
 import models.domain.types.{ Id, Name }
 import repositories.AccountRepository

@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 import generators.Security
-import infrastructure.jdbc.slick.dbModels.RichDBModels
+import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
 import repositories.UserRepository
 import slick.dbio.DBIO
@@ -13,7 +13,7 @@ import slick.driver.MySQLDriver.api._
 import utils.Constants
 
 import scala.concurrent.ExecutionContext
-import infrastructure.jdbc.slick.dbModels.Tables._
+import infrastructure.jdbc.slick.tables.models.Tables._
 import models.domain.{ AuthUser, HashedAuthInfo, User }
 import models.domain.types.{ Email, Id }
 

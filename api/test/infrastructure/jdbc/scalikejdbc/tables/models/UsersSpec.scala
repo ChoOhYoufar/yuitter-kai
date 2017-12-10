@@ -1,4 +1,4 @@
-package infrastructure.jdbc.scalikejdbc.dbModels
+package infrastructure.jdbc.scalikejdbc.tables.models
 
 import scalikejdbc.specs2.mutable.AutoRollback
 import org.specs2.mutable._
@@ -7,58 +7,58 @@ import java.time.{OffsetDateTime}
 import scalikejdbc.jsr310._
 
 
-class AccountsSpec extends Specification {
+class UsersSpec extends Specification {
 
-  "Accounts" should {
+  "Users" should {
 
-    val a = Accounts.syntax("a")
+    val u = Users.syntax("u")
 
     "find by primary keys" in new AutoRollback {
-      val maybeFound = Accounts.find(1L)
+      val maybeFound = Users.find(1L)
       maybeFound.isDefined should beTrue
     }
     "find by where clauses" in new AutoRollback {
-      val maybeFound = Accounts.findBy(sqls.eq(a.accountId, 1L))
+      val maybeFound = Users.findBy(sqls.eq(u.userId, 1L))
       maybeFound.isDefined should beTrue
     }
     "find all records" in new AutoRollback {
-      val allResults = Accounts.findAll()
+      val allResults = Users.findAll()
       allResults.size should be_>(0)
     }
     "count all records" in new AutoRollback {
-      val count = Accounts.countAll()
+      val count = Users.countAll()
       count should be_>(0L)
     }
     "find all by where clauses" in new AutoRollback {
-      val results = Accounts.findAllBy(sqls.eq(a.accountId, 1L))
+      val results = Users.findAllBy(sqls.eq(u.userId, 1L))
       results.size should be_>(0)
     }
     "count by where clauses" in new AutoRollback {
-      val count = Accounts.countBy(sqls.eq(a.accountId, 1L))
+      val count = Users.countBy(sqls.eq(u.userId, 1L))
       count should be_>(0L)
     }
     "create new record" in new AutoRollback {
-      val created = Accounts.create(userId = 1L, accountName = "MyString", registerDatetime = null, updateDatetime = null, versionNo = 123)
+      val created = Users.create(password = "MyString", email = "MyString", registerDatetime = null, updateDatetime = null, versionNo = 123)
       created should not beNull
     }
     "save a record" in new AutoRollback {
-      val entity = Accounts.findAll().head
+      val entity = Users.findAll().head
       // TODO modify something
       val modified = entity
-      val updated = Accounts.save(modified)
+      val updated = Users.save(modified)
       updated should not equalTo(entity)
     }
     "destroy a record" in new AutoRollback {
-      val entity = Accounts.findAll().head
-      val deleted = Accounts.destroy(entity) == 1
+      val entity = Users.findAll().head
+      val deleted = Users.destroy(entity) == 1
       deleted should beTrue
-      val shouldBeNone = Accounts.find(1L)
+      val shouldBeNone = Users.find(1L)
       shouldBeNone.isDefined should beFalse
     }
     "perform batch insert" in new AutoRollback {
-      val entities = Accounts.findAll()
-      entities.foreach(e => Accounts.destroy(e))
-      val batchInserted = Accounts.batchInsert(entities)
+      val entities = Users.findAll()
+      entities.foreach(e => Users.destroy(e))
+      val batchInserted = Users.batchInsert(entities)
       batchInserted.size should be_>(0)
     }
   }

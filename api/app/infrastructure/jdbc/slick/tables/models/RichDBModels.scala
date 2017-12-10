@@ -1,6 +1,6 @@
-package infrastructure.jdbc.slick.dbModels
+package infrastructure.jdbc.slick.tables.models
 
-import infrastructure.jdbc.slick.dbModels.Tables._
+import Tables._
 import models.domain.types.Image
 import models.domain.{ Account, AuthUser, User }
 

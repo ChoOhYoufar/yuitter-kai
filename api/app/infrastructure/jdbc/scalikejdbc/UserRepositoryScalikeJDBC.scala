@@ -1,6 +1,6 @@
 package infrastructure.jdbc.scalikejdbc
 
-import infrastructure.jdbc.scalikejdbc.dbModels.{ RichDBModels, Users }
+import infrastructure.jdbc.scalikejdbc.tables.models.{ RichDBModels, Users }
 import models.domain.User
 import models.domain.types.Id
 import scalikejdbc.DB
