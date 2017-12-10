@@ -7,8 +7,8 @@ import javax.inject.Inject
 import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
 import infrastructure.jdbc.slick.tables.models.Tables._
-import models.domain.{ Account, User }
-import models.domain.types.{ Id, Name }
+import models.domain.{ Account, AccountUpdate, User }
+import models.domain.types.{ Id, Name, Status }
 import repositories.AccountRepository
 import slick.driver.MySQLDriver.api._
 import repositories.transaction.Transaction
@@ -20,19 +20,6 @@ class AccountRepositorySlick @Inject()(
   implicit ec: ExecutionContext
 ) extends AccountRepository with RichDBModels {
 
-  override def create(account: Account): Transaction[Id[Account]] = {
-    val dbio = Accounts returning Accounts.map(_.accountId) += AccountsRow(
-      accountId = account.accountId,
-      userId = account.userId,
-      accountName = account.accountName,
-      avatar = account.avatar,
-      registerDatetime = Timestamp.valueOf(LocalDateTime.now),
-      updateDatetime = Timestamp.valueOf(LocalDateTime.now),
-      versionNo = account.versionNo
-    )
-    SlickTransaction(dbio.map(Id(_)))
-  }
-
   override def findById(accountId: Id[Account]): Transaction[Option[Account]] = {
     val dbio = Accounts
       .filter(_.accountId === accountId.value.bind)
@@ -41,6 +28,36 @@ class AccountRepositorySlick @Inject()(
       .map(_.map(_.toDomain))
     SlickTransaction(dbio)
   }
+
+  override def create(account: Account): Transaction[Id[Account]] = {
+    val dbio = Accounts returning Accounts.map(_.accountId) += AccountsRow(
+      accountId = account.accountId,
+      userId = account.userId,
+      accountName = account.accountName,
+      avatar = account.avatar,
+      accountStatus = Status.Enable.code,
+      registerDatetime = Timestamp.valueOf(LocalDateTime.now),
+      updateDatetime = Timestamp.valueOf(LocalDateTime.now),
+      versionNo = account.versionNo
+    )
+    SlickTransaction(dbio.map(Id(_)))
+  }
+
+  override def update(accountUpdate: AccountUpdate): Transaction[Id[Account]] = {
+    val dbio = Accounts returning Accounts
+      .filter(_.accountId === accountUpdate.accountId.value.bind)
+      .filter(_.userId === accountUpdate.userId.value.bind)
+      .filter(_.versionNo === accountUpdate.versionNo.value.bind)
+      .map(a => (a.accountName, a.avatar, a.accountStatus, a.versionNo, a.updateDatetime))
+      .update(
+        accountUpdate.accountName.get,
+        accountUpdate.avatar,
+        accountUpdate.accountStatus.get,
+        accountUpdate.versionNo + Constants.AutoIncrementalDiff,
+        Timestamp.valueOf(LocalDateTime.now)
+      ).map(_.accountId)
+  }
+
 
   override def searchByName(accountName: Name[String]): Transaction[Seq[Account]] = {
     val dbio = Accounts

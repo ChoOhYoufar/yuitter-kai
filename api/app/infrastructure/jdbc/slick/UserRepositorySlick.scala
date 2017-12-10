@@ -15,7 +15,7 @@ import utils.Constants
 import scala.concurrent.ExecutionContext
 import infrastructure.jdbc.slick.tables.models.Tables._
 import models.domain.{ AuthUser, HashedAuthInfo, User }
-import models.domain.types.{ Email, Id }
+import models.domain.types.{ Email, Id, Status }
 
 class UserRepositorySlick @Inject()(
   security: Security
@@ -47,6 +47,7 @@ class UserRepositorySlick @Inject()(
       userId = Constants.DefaultId,
       email = authInfo.email,
       password = authInfo.hashedPassword,
+      userStatus = Status.Enable.code,
       registerDatetime = Timestamp.valueOf(LocalDateTime.now),
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo

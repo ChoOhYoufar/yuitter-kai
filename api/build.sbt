@@ -36,7 +36,7 @@ lazy val slickCodeGenTask = (sourceManaged, dependencyClasspath in Compile, runn
   val url = "jdbc:mysql://localhost/yuitter_kai"
   val jdbcDriver = "com.mysql.jdbc.Driver"
   val slickDriver = "slick.driver.MySQLDriver"
-  val pkg = "models"
+  val pkg = "infrastructure.jdbc.slick.tables.models"
   toError(r.run("slick.codegen.SourceCodeGenerator", cp.files, Array(slickDriver, jdbcDriver, url, outputDir, pkg, username, password), s.log))
   val fname = outputDir + "/models/tables/Tables.scala"
   Seq(file(fname))

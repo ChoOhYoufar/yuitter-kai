@@ -17,6 +17,12 @@ package object mapper {
         json.validate[Long].map(s => iso.to(s))
       }
     }
+
+    implicit def typeIntReads[A, B[A]](implicit iso: Iso[Int, B[A]]): Reads[B[A]] = new Reads[B[A]] {
+      def reads(json: JsValue): JsResult[B[A]] = {
+        json.validate[Int].map(s => iso.to(s))
+      }
+    }
   }
 
   trait TypeWrites {
@@ -27,6 +33,12 @@ package object mapper {
     }
 
     implicit def typeLongWrites[A, B[A]](implicit iso: Iso[Long, B[A]]): Writes[B[A]] = new Writes[B[A]] {
+      def writes(b: B[A]): JsValue = {
+        JsNumber(iso.from(b))
+      }
+    }
+
+    implicit def typeIntWrites[A, B[A]](implicit iso: Iso[Int, B[A]]): Writes[B[A]] = new Writes[B[A]] {
       def writes(b: B[A]): JsValue = {
         JsNumber(iso.from(b))
       }

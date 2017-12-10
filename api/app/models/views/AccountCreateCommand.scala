@@ -31,8 +31,8 @@ object AccountCreateCommand extends TypeReads {
         _ <- if (accountName.isValid) JsSuccess(()) else JsError(JsPath \ "accountName", "invalid format")
         optAvatar <- (json \ "avatar").validateOpt[Image[Account]]
         _ <- optAvatar match {
-          case Some(avatar) if avatar.isValid => JsError(JsPath \ "avatar", "invalid format")
-          case _ => JsSuccess(())
+          case Some(avatar) if avatar.isValid => JsSuccess(())
+          case _ => JsError(JsPath \ "avatar", "invalid format")
         }
       } yield AccountCreateCommand(accountName, optAvatar)
     }
