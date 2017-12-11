@@ -8,7 +8,6 @@ import generators.Security
 import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
 import repositories.UserRepository
-import slick.dbio.DBIO
 import slick.driver.MySQLDriver.api._
 import utils.Constants
 
@@ -24,12 +23,11 @@ class UserRepositorySlick @Inject()(
 ) extends UserRepository with RichDBModels {
 
   override def findById(userId: Id[User]): SlickTransaction[Option[User]] = {
-    val dbio :DBIO[Option[User]] = Users
+    val dbio = Users
       .filter(_.userId === userId.value.bind)
       .result
       .headOption
       .map(_.map(_.toDomain))
-
     SlickTransaction(dbio)
   }
 

@@ -43,19 +43,24 @@ class AccountRepositorySlick @Inject()(
     SlickTransaction(dbio.map(Id(_)))
   }
 
-  override def update(accountUpdate: AccountUpdate): Transaction[Id[Account]] = {
-    val dbio = Accounts returning Accounts
+  override def update(accountUpdate: AccountUpdate): Transaction[Unit] = {
+    val dbio = Accounts
       .filter(_.accountId === accountUpdate.accountId.value.bind)
       .filter(_.userId === accountUpdate.userId.value.bind)
       .filter(_.versionNo === accountUpdate.versionNo.value.bind)
-      .map(a => (a.accountName, a.avatar, a.accountStatus, a.versionNo, a.updateDatetime))
+      .map(a => (
+        a.accountName,
+        a.avatar,
+        a.accountStatus,
+        a.versionNo,
+        a.updateDatetime))
       .update(
         accountUpdate.accountName.get,
         accountUpdate.avatar,
-        accountUpdate.accountStatus.get,
-        accountUpdate.versionNo + Constants.AutoIncrementalDiff,
-        Timestamp.valueOf(LocalDateTime.now)
-      ).map(_.accountId)
+        accountUpdate.accountStatus.get.code,
+        accountUpdate.versionNo,
+        Timestamp.valueOf(LocalDateTime.now))
+    SlickTransaction(dbio.map(_ => ()))
   }
 
 
