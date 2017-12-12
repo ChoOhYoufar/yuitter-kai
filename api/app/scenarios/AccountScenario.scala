@@ -2,6 +2,7 @@ package scenarios
 
 import javax.inject.Inject
 
+import models.domain.types.Id
 import models.domain.{ Account, AccountUpdate }
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.AccountService
@@ -30,6 +31,11 @@ class AccountScenario @Inject()(
       newAccount <- DBResult(account.update(accountUpdate))
       _ <- accountService.update(newAccount)
     } yield ()
+    runner.exec(result)
+  }
+
+  def find(accountId: Id[Account]): Result[Account] = {
+    val result = accountService.findById(accountId)
     runner.exec(result)
   }
 }

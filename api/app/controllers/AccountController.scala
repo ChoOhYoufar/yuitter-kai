@@ -2,9 +2,11 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.{ AccountCreateCommand, AccountUpdateCommand }
+import models.domain.Account
+import models.domain.types.Id
+import models.views.{ AccountCreateCommand, AccountFormat, AccountUpdateCommand }
 import play.api.libs.json.JsValue
-import play.api.mvc.Action
+import play.api.mvc.{ Action, AnyContent }
 import scenarios.AccountScenario
 import services.SessionService
 import syntax.ToResultOps
@@ -31,5 +33,9 @@ class AccountController @Inject()(
       accountUpdateCommand <- deserializeT[AccountUpdateCommand, Future]
       _ <- accountScenario.update(accountUpdateCommand.toDomain)
     } yield()).toResult
+  }
+
+  def find(accountId: Id[Account]): Action[AnyContent] = SecureAction.async { implicit req =>
+    accountScenario.find(accountId).map(AccountFormat.fromDomain).toResult
   }
 }

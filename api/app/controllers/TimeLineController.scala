@@ -18,7 +18,7 @@ class TimeLineController @Inject()(
   implicit val ec: ExecutionContext
 ) extends ControllerBase with ToResultOps {
 
-  def list(accountId: Id[Account]): Action[AnyContent] = SecureAction.async { implicit req =>
+  def find(accountId: Id[Account]): Action[AnyContent] = SecureAction.async { implicit req =>
     timeLineScenario.list(accountId).toResult
   }
 }

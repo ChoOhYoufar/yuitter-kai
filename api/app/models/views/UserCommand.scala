@@ -1,13 +1,14 @@
 package models.views
 
 import models.domain.User
-import models.domain.types.{ Email, Id }
+import models.domain.types.{ Email, Id, Status, StatusCode }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json.{ Json, Reads }
 
 case class UserCommand(
   userId: Id[User],
   email: Email[User],
+  userStatus: StatusCode[User],
   versionNo: Int
 ) {
 
@@ -15,6 +16,7 @@ case class UserCommand(
     User(
       userId = userId,
       email = email,
+      userStatus = Status.find(userStatus),
       versionNo = versionNo
     )
   }

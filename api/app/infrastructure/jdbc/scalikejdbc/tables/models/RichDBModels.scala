@@ -1,5 +1,6 @@
 package infrastructure.jdbc.scalikejdbc.tables.models
 
+import models.domain.types.{ Status, StatusCode }
 import models.domain.{ AuthUser, User }
 
 trait RichDBModels {
@@ -10,6 +11,8 @@ trait RichDBModels {
       User(
         userId = user.userId,
         email = user.email,
+        // TODO DB更新してない
+        userStatus = Status.find(StatusCode("ENA")),
         versionNo = user.versionNo
       )
     }
