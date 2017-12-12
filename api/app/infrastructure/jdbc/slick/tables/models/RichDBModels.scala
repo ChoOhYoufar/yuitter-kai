@@ -1,7 +1,8 @@
 package infrastructure.jdbc.slick.tables.models
 
-import models.domain.types.{ Image, Status, StatusCode }
-import models.domain.{ Account, AuthUser, User }
+import java.sql.Timestamp
+import models.domain.types.{ Image, RegisterDateTime, Status, StatusCode }
+import models.domain.{ Account, AuthUser, Tweet, User }
 import Tables._
 
 /**
@@ -39,6 +40,28 @@ trait RichDBModels {
         accountStatus = Status.find(account.accountStatus.asInstanceOf[StatusCode[Account]]),
         avatar = account.avatar.map(Image(_)),
         versionNo = account.versionNo
+      )
+    }
+  }
+
+  implicit class RichDBTweet(tweet: TweetsRow) {
+
+    def toDomain(account: Account): Tweet = {
+      Tweet(
+        tweetId = tweet.tweetId,
+        tweetText = tweet.tweetText,
+        tweetStatus = Status.find(tweet.tweetStatus).asInstanceOf[Status[Tweet]],
+        registerDateTime = tweet.registerDatetime.toDomain,
+        account = account
+      )
+    }
+  }
+
+  implicit class RichDBTimestamp(timestamp: Timestamp) {
+
+    def toDomain[T]: RegisterDateTime[T] = {
+      RegisterDateTime(
+        timestamp.toLocalDateTime
       )
     }
   }

@@ -7,7 +7,7 @@ import javax.inject.Inject
 import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
 import infrastructure.jdbc.slick.tables.models.Tables._
-import models.domain.{ Account, AccountUpdate, User }
+import models.domain.{ Account, User }
 import models.domain.types.{ Id, Name, Status }
 import repositories.AccountRepository
 import slick.driver.MySQLDriver.api._

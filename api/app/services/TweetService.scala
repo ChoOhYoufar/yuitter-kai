@@ -15,8 +15,13 @@ class TweetService @Inject()(
   implicit ex: ExecutionContext
 ) {
 
-  def list(account: Account): DBResult[TweetList] = {
-    val dbio = tweetRepository.list(account).map(\/.right)
+  def listByFollowees(account: Account): DBResult[TweetList] = {
+    val dbio = tweetRepository.listByFollowees(account).map(\/.right)
+    DBResult(dbio)
+  }
+
+  def listByAccount(account: Account): DBResult[TweetList] = {
+    val dbio = tweetRepository.listByAccount(account).map(\/.right)
     DBResult(dbio)
   }
 }

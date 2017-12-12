@@ -4,7 +4,6 @@ import javax.inject.Inject
 
 import models.domain.{ Account, TimeLine }
 import models.domain.types.Id
-import models.views.TimeLineFormat
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.{ AccountService, TweetService }
 import syntax.Result
@@ -12,7 +11,7 @@ import utils.TransactionInstances
 
 import scala.concurrent.ExecutionContext
 
-class TimeLineScenario @Inject()(
+class AccountTimeLineScenario @Inject()(
   accountService: AccountService,
   tweetService: TweetService,
   runner: TransactionRunner
@@ -25,7 +24,7 @@ class TimeLineScenario @Inject()(
   def find(accountId: Id[Account]): Result[TimeLine] = {
     val result = for {
       account <- accountService.findById(accountId)
-      tweetList <- tweetService.listByFollowees(account)
+      tweetList <- tweetService.listByAccount(account)
     } yield TimeLine(account, tweetList)
     runner.exec(result)
   }

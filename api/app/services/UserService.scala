@@ -21,14 +21,14 @@ class UserService @Inject()(
   def findById(userId: Id[User]): DBResult[User] = {
     val dbio = userRepository
       .findById(userId)
-      .map(userId.assertExists)
+      .map(userId.assertExist)
     DBResult(dbio)
   }
 
   def findByEmail(email: Email[AuthUser]): DBResult[AuthUser] = {
     val dbio = userRepository
       .findByEmail(email)
-      .map(email.asInstanceOf[Email[AuthUser]].assertExists)
+      .map(email.asInstanceOf[Email[AuthUser]].assertExist)
     DBResult(dbio)
   }
 

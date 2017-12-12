@@ -11,7 +11,7 @@ case class Id[T](value: Long) extends ToOptionOps {
     * idでDBを検索したときに存在しなかったらエラーを返すメソッド
     * @param searchResult DB接続の結果
     */
-  def assertExists(searchResult: Option[T]): Errors \/ T = {
+  def assertExist(searchResult: Option[T]): Errors \/ T = {
     searchResult \/> Errors.IdNotFound(this)
   }
 

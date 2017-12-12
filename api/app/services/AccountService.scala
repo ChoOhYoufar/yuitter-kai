@@ -19,7 +19,7 @@ class AccountService @Inject()(
   def findById(accountId: Id[Account]): DBResult[Account] = {
     val dbio = accountRepository
       .findById(accountId)
-      .map(accountId.assertExists)
+      .map(accountId.assertExist)
     DBResult(dbio)
   }
 
