@@ -22,11 +22,11 @@ class TimeLineScenario @Inject()(
   val builder: TransactionBuilder
 ) extends TransactionInstances {
 
-  def list(accountId: Id[Account]): Result[TimeLineFormat] = {
+  def list(accountId: Id[Account]): Result[TimeLine] = {
     val result = for {
       account <- accountService.findById(accountId)
       tweetList <- tweetService.list(account)
-    } yield TimeLineFormat.fromDomain(TimeLine(account, tweetList))
+    } yield TimeLine(account, tweetList)
     runner.exec(result)
   }
 }
