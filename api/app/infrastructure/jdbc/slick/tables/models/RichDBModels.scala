@@ -6,7 +6,7 @@ import Tables._
 
 /**
   * DBモデル => ドメインモデルの変換処理を行う
-  * implicitクラスを使ってDBモデルにtoDomainモデルを追加する
+  * implicitクラスを使ってDBモデルにtoDomainメソッドを追加する
   */
 trait RichDBModels {
 
