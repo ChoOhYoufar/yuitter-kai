@@ -10,7 +10,7 @@ trait AccountRepository {
 
   def create(account: Account): Transaction[Id[Account]]
 
-  def update(accountUpdate: AccountUpdate): Transaction[Id[Account]]
+  def update(account: Account): Transaction[Id[Account]]
 
   def searchByName(accountName: Name[String]): Transaction[Seq[Account]]
 

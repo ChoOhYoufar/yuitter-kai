@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.AccountCreateCommand
+import models.views.{ AccountCreateCommand, AccountUpdateCommand }
 import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import scenarios.AccountScenario
@@ -24,5 +24,12 @@ class AccountController @Inject()(
       accountCreateCommand <- deserializeT[AccountCreateCommand, Future]
       _ <- accountScenario.create(accountCreateCommand.toDomain)
     } yield ()).toResult
+  }
+
+  def update: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
+    (for {
+      accountUpdateCommand <- deserializeT[AccountUpdateCommand, Future]
+      _ <- accountScenario.update(accountUpdateCommand.toDomain)
+    } yield()).toResult
   }
 }

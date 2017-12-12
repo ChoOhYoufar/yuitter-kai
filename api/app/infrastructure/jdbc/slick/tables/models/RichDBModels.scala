@@ -1,6 +1,6 @@
 package infrastructure.jdbc.slick.tables.models
 
-import models.domain.types.Image
+import models.domain.types.{ Image, Status }
 import models.domain.{ Account, AuthUser, User }
 import Tables._
 
@@ -35,6 +35,7 @@ trait RichDBModels {
         accountId = account.accountId,
         userId = account.userId,
         accountName = account.accountName,
+        accountStatus = Status.values.filter(s => s.code.value == account.accountStatus).head.asInstanceOf[Status[Account]],
         avatar = account.avatar.map(Image(_)),
         versionNo = account.versionNo
       )

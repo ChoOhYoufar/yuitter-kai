@@ -27,4 +27,9 @@ class AccountService @Inject()(
     val dbio = accountRepository.create(account).map(\/.right)
     DBResult(dbio)
   }
+
+  def update(account: Account): DBResult[Id[Account]] = {
+    val dbio = accountRepository.update(account).map(\/.right)
+    DBResult(dbio)
+  }
 }

@@ -1,7 +1,7 @@
 package models.views
 
 import models.domain.{ Account, User }
-import models.domain.types.{ Image, Name }
+import models.domain.types.{ Image, Name, Status }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 import utils.Constants
@@ -16,6 +16,7 @@ case class AccountCreateCommand(
       accountId = Constants.DefaultId,
       userId = ctx.userId,
       accountName = accountName,
+      accountStatus = Status.Enable.asInstanceOf[Status[Account]],
       avatar = avatar,
       versionNo = Constants.DefaultVersionNo
     )
