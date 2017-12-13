@@ -55,4 +55,9 @@ object Errors {
     val code = "error.invalidPasswordOrEmail"
     val message = s"Password or email is invalid. email=${email.value}"
   }
+
+  case object WrongVersionNo extends Errors {
+    val code = "error.wrongVersionNo"
+    val message = "VersionNo is wrong."
+  }
 }
