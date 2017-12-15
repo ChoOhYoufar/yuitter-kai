@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { TweetHttpService } from "./repository/http/tweet/tweet-http.service";
+import { Component, OnInit, VERSION } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 
@@ -14,6 +12,7 @@ export class AppComponent implements OnInit {
   constructor(
     public dialog: MatDialog
   ) {
+    console.log(VERSION);
     this.openSignInForm();
   }
 
