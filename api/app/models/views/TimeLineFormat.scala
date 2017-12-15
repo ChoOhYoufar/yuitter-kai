@@ -1,21 +1,21 @@
 package models.views
 
-import models.domain.TimeLine
+import models.domain.Timeline
 import play.api.libs.json.{ Json, Writes }
 
-case class TimeLineFormat(
+case class TimelineFormat(
   account: AccountFormat,
   tweetList: Seq[TweetFormat]
 )
 
-object TimeLineFormat {
+object TimelineFormat {
 
-  implicit val timeLineFormatWrites: Writes[TimeLineFormat] = Json.writes[TimeLineFormat]
+  implicit val timelineFormatWrites: Writes[TimelineFormat] = Json.writes[TimelineFormat]
 
-  def fromDomain(timeLine: TimeLine): TimeLineFormat = {
-    TimeLineFormat(
-      account = AccountFormat.fromDomain(timeLine.account),
-      tweetList = timeLine.tweetList.map(TweetFormat.fromDomain)
+  def fromDomain(timeline: Timeline): TimelineFormat = {
+    TimelineFormat(
+      account = AccountFormat.fromDomain(timeline.account),
+      tweetList = timeline.tweetList.map(TweetFormat.fromDomain)
     )
   }
 }

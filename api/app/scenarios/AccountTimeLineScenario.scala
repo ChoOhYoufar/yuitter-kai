@@ -2,7 +2,7 @@ package scenarios
 
 import javax.inject.Inject
 
-import models.domain.{ Account, TimeLine }
+import models.domain.{ Account, Timeline }
 import models.domain.types.Id
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.{ AccountService, TweetService }
@@ -11,7 +11,7 @@ import utils.TransactionInstances
 
 import scala.concurrent.ExecutionContext
 
-class AccountTimeLineScenario @Inject()(
+class AccountTimelineScenario @Inject()(
   accountService: AccountService,
   tweetService: TweetService,
   runner: TransactionRunner
@@ -21,11 +21,11 @@ class AccountTimeLineScenario @Inject()(
   val builder: TransactionBuilder
 ) extends TransactionInstances {
 
-  def find(accountId: Id[Account]): Result[TimeLine] = {
+  def find(accountId: Id[Account]): Result[Timeline] = {
     val result = for {
       account <- accountService.findById(accountId)
       tweetList <- tweetService.listByAccount(account)
-    } yield TimeLine(account, tweetList)
+    } yield Timeline(account, tweetList)
     runner.exec(result)
   }
 }

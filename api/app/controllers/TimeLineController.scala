@@ -2,23 +2,23 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.TimeLineFormat
+import models.views.TimelineFormat
 import play.api.mvc.{ Action, AnyContent }
-import scenarios.TimeLineScenario
+import scenarios.TimelineScenario
 import services.SessionService
 import syntax.ToResultOps
 
 import scala.concurrent.ExecutionContext
 import scalaz.std.FutureInstances
 
-class TimeLineController @Inject()(
-  timeLineScenario: TimeLineScenario,
+class TimelineController @Inject()(
+  timelineScenario: TimelineScenario,
   val sessionService: SessionService
 )(
   implicit val ec: ExecutionContext
 ) extends ControllerBase with ToResultOps with FutureInstances {
 
   def find(accountId: Long): Action[AnyContent] = SecureAction.async { implicit req =>
-    timeLineScenario.find(accountId).map(TimeLineFormat.fromDomain).toResult
+    timelineScenario.find(accountId).map(TimelineFormat.fromDomain).toResult
   }
 }

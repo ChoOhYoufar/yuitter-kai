@@ -15,7 +15,7 @@ PUT     /api/account                controllers.AccountController.create
 GET     /api/account                controllers.AccountController.find(accountId: Long)
 
 # TimeLine
-GET     /api/timeline               controllers.TimeLineController.find(accountId: Long)
+GET     /api/timeline               controllers.TimelineController.find(accountId: Long)
 
 # SandBox
 GET     /api/sandbox/user/:userId   controllers.SandBoxController.userFindById(userId: Long)

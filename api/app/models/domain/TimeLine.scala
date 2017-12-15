@@ -1,6 +1,6 @@
 package models.domain
 
-case class TimeLine(
+case class Timeline(
   account: Account,
   tweetList: TweetList
 )
