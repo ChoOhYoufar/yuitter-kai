@@ -1,11 +1,9 @@
 package models.views
 
-import models.domain.{ Errors, User }
+import models.domain.User
 import models.domain.types.{ Email, Id, Status }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json.{ Json, Reads }
-
-import scalaz.\/
 
 case class UserCommand(
   userId: Id[User],
