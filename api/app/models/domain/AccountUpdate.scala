@@ -7,6 +7,6 @@ case class AccountUpdate(
   userId: Id[User],
   accountName: Option[Name[Account]],
   avatar: Option[Image[Account]],
-  accountStatus: Option[Status[Account]],
+  accountStatus: Option[Status],
   versionNo: VersionNo[Account]
 )

@@ -1,20 +1,13 @@
 package models.domain.types
 
-sealed abstract class Status[T](
-  val code: StatusCode[T]
-)
+import models.domain.{ EnumCompanion, Enum }
 
-object Status {
+sealed abstract class Status(val value: String) extends Enum[String]
+
+object Status extends EnumCompanion[String, Status] {
 
   val values = Seq(Status.Enable, Status.Disable)
 
-  case object Enable extends Status(StatusCode("ENA"))
-  case object Disable extends Status(StatusCode("DIS"))
-
-  def find[T](code: StatusCode[T]): Status[T] = {
-    code match {
-      case Status.Enable.code => Status.Enable.asInstanceOf[Status[T]]
-      case Status.Disable.code => Status.Disable.asInstanceOf[Status[T]]
-    }
-  }
+  case object Enable extends Status("ENA")
+  case object Disable extends Status("DIS")
 }

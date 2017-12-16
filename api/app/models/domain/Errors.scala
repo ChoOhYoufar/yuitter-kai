@@ -1,6 +1,6 @@
 package models.domain
 
-import models.domain.types.{ Email, Id }
+import models.domain.types.Email
 import play.api.libs.json.JsError
 
 sealed trait Errors {
@@ -10,9 +10,13 @@ sealed trait Errors {
 
 object Errors {
 
-  case class Unexpected(error: Throwable) extends Errors {
+//  trait Unexpected extends Errors
+  case class Unexpected(msg: String) extends Errors {
     val code = "error.unexpected"
-    val message = s"Unexpected Error occurred. error=$error"
+    val message: String = msg
+  }
+  object Unexpected {
+    def apply(t: Throwable): Unexpected = new Unexpected(t.toString)
   }
 
   case class JsonError(error: JsError) extends Errors {
@@ -25,14 +29,9 @@ object Errors {
     val message = s"Email already exists. email=${email.value}"
   }
 
-  case class EmailNotFound(email: Email[_]) extends Errors {
-    val code = "error.emailNotFound"
-    val message = s"Email not found. email=${email.value}"
-  }
-
-  case class IdNotFound(id: Id[_]) extends Errors {
-    val code = "error.idNotFound"
-    val message = s"Id not found. id=${id.value}"
+  case class RecordNotFound(searchElement: String) extends Errors {
+    val code = "error.recordNotFound"
+    val message = s"Record not found by $searchElement"
   }
 
   case object Unauthorized extends Errors {
@@ -45,7 +44,6 @@ object Errors {
     val message = "Password is invalid."
   }
 
-  // TODO 無視するエラーと通知するエラーを分けたい。
   case object AlreadySignIn extends Errors {
     val code = "error.alreadySignIn"
     val message = "User has session."

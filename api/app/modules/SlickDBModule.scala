@@ -2,10 +2,10 @@ package modules
 
 import com.google.inject.AbstractModule
 import infrastructure.jdbc.slick.transaction.{ SlickTransactionBuilder, SlickTransactionRunner }
-import infrastructure.jdbc.slick.{ AccountRepositorySlick, UserRepositorySlick }
+import infrastructure.jdbc.slick.{ AccountRepositorySlick, TweetRepositorySlick, UserRepositorySlick }
 import play.api.{ Configuration, Environment }
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
-import repositories.{ AccountRepository, UserRepository }
+import repositories.{ AccountRepository, TweetRepository, UserRepository }
 
 class SlickDBModule(environment: Environment, configuration: Configuration) extends AbstractModule {
 
@@ -14,5 +14,6 @@ class SlickDBModule(environment: Environment, configuration: Configuration) exte
     bind(classOf[TransactionBuilder]).to(classOf[SlickTransactionBuilder])
     bind(classOf[UserRepository]).to(classOf[UserRepositorySlick])
     bind(classOf[AccountRepository]).to(classOf[AccountRepositorySlick])
+    bind(classOf[TweetRepository]).to(classOf[TweetRepositorySlick])
   }
 }

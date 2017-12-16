@@ -17,7 +17,7 @@ trait RichDBModels {
       User(
         userId = user.userId,
         email = user.email,
-        userStatus = Status.find(user.userStatus.asInstanceOf[StatusCode[User]]),
+        userStatus = Status.valueOf(user.userStatus),
         versionNo = user.versionNo
       )
     }
@@ -37,7 +37,7 @@ trait RichDBModels {
         accountId = account.accountId,
         userId = account.userId,
         accountName = account.accountName,
-        accountStatus = Status.find(account.accountStatus.asInstanceOf[StatusCode[Account]]),
+        accountStatus = Status.valueOf(account.accountStatus),
         avatar = account.avatar.map(Image(_)),
         versionNo = account.versionNo
       )
@@ -50,7 +50,7 @@ trait RichDBModels {
       Tweet(
         tweetId = tweet.tweetId,
         tweetText = tweet.tweetText,
-        tweetStatus = Status.find(tweet.tweetStatus).asInstanceOf[Status[Tweet]],
+        tweetStatus = Status.valueOf(tweet.tweetStatus),
         registerDateTime = tweet.registerDatetime.toDomain,
         account = account
       )

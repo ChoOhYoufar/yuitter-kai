@@ -45,7 +45,7 @@ class UserRepositorySlick @Inject()(
       userId = Constants.DefaultId,
       email = authInfo.email,
       password = authInfo.hashedPassword,
-      userStatus = Status.Enable.code,
+      userStatus = Status.Enable.value,
       registerDatetime = Timestamp.valueOf(LocalDateTime.now),
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = Constants.DefaultVersionNo

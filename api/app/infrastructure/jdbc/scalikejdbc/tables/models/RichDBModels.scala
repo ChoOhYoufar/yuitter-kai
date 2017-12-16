@@ -12,7 +12,7 @@ trait RichDBModels {
         userId = user.userId,
         email = user.email,
         // TODO DB更新してない
-        userStatus = Status.find(StatusCode("ENA")),
+        userStatus = Status.valueOf("ENA"),
         versionNo = user.versionNo
       )
     }

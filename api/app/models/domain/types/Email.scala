@@ -24,7 +24,7 @@ case class Email[T](value: String) extends ToOptionOps {
     * @param searchResult DB接続の結果
     */
   def assertExist(searchResult: Option[T]): Errors \/ T = {
-    searchResult \/> Errors.EmailNotFound(this)
+    searchResult \/> Errors.RecordNotFound(this)
   }
 }
 

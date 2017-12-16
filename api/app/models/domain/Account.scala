@@ -6,7 +6,7 @@ case class Account(
   accountId: Id[Account],
   userId: Id[User],
   accountName: Name[Account],
-  accountStatus: Status[Account],
+  accountStatus: Status,
   avatar: Option[Image[Account]],
   versionNo: VersionNo[Account]
 ) {

@@ -12,7 +12,7 @@ case class Id[T](value: Long) extends ToOptionOps {
     * @param searchResult DB接続の結果
     */
   def assertExist(searchResult: Option[T]): Errors \/ T = {
-    searchResult \/> Errors.IdNotFound(this)
+    searchResult \/> Errors.RecordNotFound(this.value.toString)
   }
 
   def hash(encrypt: String => String): HashedId[T] = {

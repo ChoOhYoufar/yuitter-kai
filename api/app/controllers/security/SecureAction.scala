@@ -8,6 +8,7 @@ import services.SessionService
 import syntax.ToResultOps
 
 import scala.concurrent.Future
+import scalaz.\/
 
 class SecureAction @Inject() (
   sessionService: SessionService

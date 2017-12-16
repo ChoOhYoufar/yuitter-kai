@@ -16,7 +16,7 @@ case class AccountCreateCommand(
       accountId = Constants.DefaultId,
       userId = ctx.userId,
       accountName = accountName,
-      accountStatus = Status.Enable.asInstanceOf[Status[Account]],
+      accountStatus = Status.Enable,
       avatar = avatar,
       versionNo = Constants.DefaultVersionNo
     )

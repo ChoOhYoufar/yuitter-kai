@@ -1,27 +1,38 @@
 package syntax
 
 import models.domain.Errors
-import play.api.http.Status
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc
 import play.api.mvc.Results
 
 import scala.concurrent.{ ExecutionContext, Future }
 import scalaz.{ -\/, \/- }
+import play.api.Logger
 
-trait ToResultOps extends Results with Status {
+trait ToResultOps extends Results {
 
-  implicit class ErrorsToOps(errors: Errors) {
+  val logger = Logger(this.getClass)
 
-    // TODO: yuitoここにlogger仕込みたい。
-    def toResult: mvc.Result = errors match {
+  implicit class ErrorsToOps(error: Errors) {
+
+    def toResult: mvc.Result = error match {
+      case Errors.Unexpected(_) =>
+        logger.error(error.message)
+        InternalServerError(Json.obj(
+          "code" -> error.code,
+          "message" -> error.message
+        ))
       case Errors.Unauthorized => Unauthorized(Json.obj(
         "code" -> Errors.Unauthorized.code,
         "message" -> Errors.Unauthorized.message
       ))
+      case Errors.RecordNotFound(_) => NotFound(Json.obj(
+        "code" -> error.code,
+        "message" -> error.message
+      ))
       case _ => BadRequest(Json.obj(
-        "code" -> errors.code,
-        "message" -> errors.message
+        "code" -> error.code,
+        "message" -> error.message
       ))
     }
   }

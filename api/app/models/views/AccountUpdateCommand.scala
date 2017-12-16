@@ -19,7 +19,7 @@ case class AccountUpdateCommand(
       userId = ctx.userId,
       accountName = accountName,
       avatar = avatar,
-      accountStatus = accountStatus.map(s => Status.values.find(_.code == s).asInstanceOf[Status[Account]]),
+      accountStatus = accountStatus.map(Status.valueOf(_)),
       versionNo = versionNo
     )
   }
