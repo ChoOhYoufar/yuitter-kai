@@ -1,4 +1,4 @@
-package models.views
+package models.views.formats
 
 import models.domain.Account
 import play.api.libs.json.{ Json, Writes }

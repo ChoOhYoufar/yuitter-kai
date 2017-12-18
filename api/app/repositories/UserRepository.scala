@@ -11,4 +11,6 @@ trait UserRepository {
   def findByEmail(email: Email[AuthUser]): Transaction[Option[AuthUser]]
 
   def create(authInfo: HashedAuthInfo): Transaction[Id[User]]
+
+  def update(authUser: AuthUser): Transaction[UpdateResult]
 }

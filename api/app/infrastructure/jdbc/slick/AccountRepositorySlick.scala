@@ -35,7 +35,7 @@ class AccountRepositorySlick @Inject()(
       userId = account.userId,
       accountName = account.accountName,
       avatar = account.avatar,
-      accountStatus = Status.Enable.value,
+      accountStatus = Status.Enable,
       registerDatetime = Timestamp.valueOf(LocalDateTime.now),
       updateDatetime = Timestamp.valueOf(LocalDateTime.now),
       versionNo = account.versionNo
@@ -57,9 +57,10 @@ class AccountRepositorySlick @Inject()(
       .update(
         account.accountName,
         account.avatar,
-        account.accountStatus.value,
+        account.accountStatus,
         account.versionNo,
-        Timestamp.valueOf(LocalDateTime.now))
+        Timestamp.valueOf(LocalDateTime.now)
+      )
     SlickTransaction(dbio.map(_ => account.accountId))
   }
 

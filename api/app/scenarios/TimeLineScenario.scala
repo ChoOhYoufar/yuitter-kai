@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import models.domain.{ Account, Timeline }
 import models.domain.types.Id
-import models.views.TimelineFormat
+import models.views.formats.TimelineFormat
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.{ AccountService, TweetService }
 import syntax.Result

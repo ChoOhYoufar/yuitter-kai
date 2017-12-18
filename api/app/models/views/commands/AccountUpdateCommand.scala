@@ -1,7 +1,7 @@
-package models.views
+package models.views.commands
 
-import models.domain.{ Account, AccountUpdate, User }
 import models.domain.types._
+import models.domain.{ Account, AccountUpdate, User }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 

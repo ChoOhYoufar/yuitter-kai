@@ -4,7 +4,8 @@ import javax.inject.Inject
 
 import models.domain.Account
 import models.domain.types.Id
-import models.views.{ AccountCreateCommand, AccountFormat, AccountUpdateCommand }
+import models.views.commands.{ AccountCreateCommand, AccountUpdateCommand }
+import models.views.formats.AccountFormat
 import play.api.libs.json.JsValue
 import play.api.mvc.{ Action, AnyContent }
 import scenarios.AccountScenario

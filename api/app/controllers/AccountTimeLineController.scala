@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.TimelineFormat
+import models.views.formats.TimelineFormat
 import play.api.mvc.{ Action, AnyContent }
 import scenarios.AccountTimelineScenario
 import services.SessionService

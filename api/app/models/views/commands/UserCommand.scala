@@ -1,4 +1,4 @@
-package models.views
+package models.views.commands
 
 import models.domain.User
 import models.domain.types.{ Email, Id, Status }

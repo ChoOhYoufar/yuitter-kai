@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import models.domain.User
 import models.domain.types.Id
-import models.views.UserFormat
+import models.views.formats.UserFormat
 import services.SandBoxService
 
 import scala.concurrent.ExecutionContext

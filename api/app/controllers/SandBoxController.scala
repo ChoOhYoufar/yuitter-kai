@@ -3,7 +3,7 @@ package controllers
 import javax.inject.Inject
 
 import play.api.http.Status
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.Json
 import play.api.mvc.{ Action, AnyContent, Results }
 import scenarios.SandBoxScenario
 import services.SessionService

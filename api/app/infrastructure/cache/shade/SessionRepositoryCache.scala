@@ -5,7 +5,8 @@ import javax.inject.Inject
 import generators.Security
 import models.domain.User
 import models.domain.types.HashedId
-import models.views.{ UserCommand, UserFormat }
+import models.views.commands.UserCommand
+import models.views.formats.UserFormat
 import repositories.SessionRepository
 
 import scala.concurrent.duration._

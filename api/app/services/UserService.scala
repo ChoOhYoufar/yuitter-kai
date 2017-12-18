@@ -43,4 +43,11 @@ class UserService @Inject()(
       .map(email.assertNone)
     DBResult(dbio)
   }
+
+  def update(user: AuthUser): DBResult[Unit] = {
+    val dbio = userRepository
+      .update(user)
+      .map(_.assertUpdated(user))
+    DBResult(dbio)
+  }
 }

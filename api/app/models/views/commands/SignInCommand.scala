@@ -1,33 +1,33 @@
-package models.views
+package models.views.commands
 
-import models.domain.{ AuthUser, HashedAuthInfo }
 import models.domain.types.{ Email, Password }
+import models.domain.{ AuthInfo, AuthUser }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 
-case class SignUpCommand(
+case class SignInCommand(
   email: Email[AuthUser],
   password: Password[AuthUser]
 ) {
 
-  def toDomain(encrypt: String => String): HashedAuthInfo = {
-    HashedAuthInfo(
+  def toDomain: AuthInfo = {
+    AuthInfo(
       email = email,
-      hashedPassword = password.hash(encrypt)
+      password = password
     )
   }
 }
 
-object SignUpCommand extends TypeReads {
+object SignInCommand extends TypeReads {
 
-  implicit def signUpReads: Reads[SignUpCommand] = new Reads[SignUpCommand] {
-    def reads(json: JsValue): JsResult[SignUpCommand] = {
+  implicit def signInReads: Reads[SignInCommand] = new Reads[SignInCommand] {
+    def reads(json: JsValue): JsResult[SignInCommand] = {
       for {
         email <- (json \ "email").validate[Email[AuthUser]]
         _ <- if (email.isValid) JsSuccess(()) else JsError(JsPath \ "email", "invalid format")
         password <- (json \ "password").validate[Password[AuthUser]]
         _ <- if (password.isValid) JsSuccess(()) else JsError(JsPath \ "password", "invalid format")
-      } yield SignUpCommand(email, password)
+      } yield SignInCommand(email, password)
     }
   }
 }

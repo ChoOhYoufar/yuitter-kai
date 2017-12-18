@@ -1,7 +1,7 @@
-package models.views
+package models.views.commands
 
-import models.domain.{ Account, User }
 import models.domain.types.{ Image, Name, Status }
+import models.domain.{ Account, User }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 import utils.Constants

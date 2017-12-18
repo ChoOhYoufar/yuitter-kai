@@ -1,4 +1,4 @@
-package models.views
+package models.views.formats
 
 import java.time.LocalDateTime
 

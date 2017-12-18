@@ -3,7 +3,7 @@ package controllers
 import javax.inject.Inject
 
 import generators.Security
-import models.views.{ SignInCommand, SignUpCommand }
+import models.views.commands.{ SignInCommand, SignUpCommand }
 import play.api.libs.json.JsValue
 import play.api.mvc.{ Action, AnyContent }
 import scenarios.AuthScenario

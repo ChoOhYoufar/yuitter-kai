@@ -34,6 +34,11 @@ object Errors {
     val message = s"Record not found by $searchElement"
   }
 
+  case class UpdateFailure(updateElement: Any) extends Errors {
+    val code = "error.updateFailure"
+    val message = s"Failed to update by${updateElement.toString}"
+  }
+
   case object Unauthorized extends Errors {
     val code = "error.unauthorized"
     val message = s"Please login."
