@@ -22,7 +22,7 @@ case class Account(
         accountName = accountUpdate.accountName.getOrElse(accountName),
         accountStatus = accountUpdate.accountStatus.getOrElse(accountStatus),
         avatar = avatar.fold(avatar)(Some(_)),
-        versionNo = accountUpdate.versionNo + Constants.AutoIncrementalDiff
+        versionNo = accountUpdate.versionNo.value + Constants.AutoIncrementalDiff
       ))
     } else {
       \/.left(Errors.WrongVersionNo)

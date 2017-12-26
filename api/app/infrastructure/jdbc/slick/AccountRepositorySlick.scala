@@ -7,7 +7,7 @@ import javax.inject.Inject
 import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.transaction.SlickTransaction
 import infrastructure.jdbc.slick.tables.models.Tables._
-import models.domain.{ Account, User }
+import models.domain.{ Account, AccountList, User }
 import models.domain.types.{ Id, Name, Status }
 import repositories.AccountRepository
 import slick.driver.MySQLDriver.api._
@@ -64,40 +64,56 @@ class AccountRepositorySlick @Inject()(
   }
 
 
-  override def searchByName(accountName: Name[String]): Transaction[Seq[Account]] = {
+  override def searchByName(accountName: Name[String]): Transaction[AccountList] = {
     val dbio = Accounts
       .filter(_.accountName like s"%$accountName%" )
       .take(Constants.MaxContentsPerLoad)
       .result
-      .map(_.map(_.toDomain))
+      .map(accounts =>
+        AccountList(
+          accounts.map(_.toDomain).toList
+        )
+      )
     SlickTransaction(dbio)
   }
 
-  override def listByUserId(userId: Id[User]): Transaction[Seq[Account]] = {
+  override def listByUserId(userId: Id[User]): Transaction[AccountList] = {
     val dbio = Accounts
       .filter(_.userId === userId.value.bind)
       .result
-      .map(_.map(_.toDomain))
+      .map(accounts =>
+        AccountList(
+          accounts.map(_.toDomain).toList
+        )
+      )
     SlickTransaction(dbio)
   }
 
-  override def listFollowers(accountId: Id[User]): Transaction[Seq[Account]] = {
+  override def listFollowers(accountId: Id[User]): Transaction[AccountList] = {
     val dbio = Accounts
       .join(AccountFollowings)
       .on { case (ac, af) => ac.accountId === af.followerId }
       .filter { case (_, af) => af.followeeId === accountId.value.bind }
       .result
-      .map(_.map { case (ac, _) => ac.toDomain })
+      .map(accounts =>
+        AccountList(
+          accounts.map { case (ac, _) => ac.toDomain }.toList
+        )
+      )
     SlickTransaction(dbio)
   }
 
-  override def listFollowees(accountId: Id[User]): Transaction[Seq[Account]] = {
+  override def listFollowees(accountId: Id[User]): Transaction[AccountList] = {
     val dbio = Accounts
       .join(AccountFollowings)
       .on { case (ac, af) => ac.accountId === af.followeeId }
       .filter { case (_, af) => af.followerId === accountId.value.bind }
       .result
-      .map(_.map { case (ac, _) => ac.toDomain })
+      .map(accounts =>
+        AccountList(
+          accounts.map { case (ac, _) => ac.toDomain }.toList
+        )
+      )
     SlickTransaction(dbio)
   }
 }

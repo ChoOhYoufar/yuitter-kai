@@ -1,14 +1,18 @@
 package infrastructure.jdbc.slick
 
+import java.sql.Timestamp
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 import infrastructure.jdbc.slick.tables.models.RichDBModels
 import infrastructure.jdbc.slick.tables.models.Tables._
 import infrastructure.jdbc.slick.transaction.SlickTransaction
-import models.domain.{ Account, TweetList }
+import models.domain.types.{ Id, Status }
+import models.domain.{ Account, Tweet, TweetCreate, TweetList }
 import repositories.TweetRepository
 import repositories.transaction.Transaction
 import slick.driver.MySQLDriver.api._
+import utils.Constants
 
 import scala.concurrent.ExecutionContext
 
@@ -23,7 +27,7 @@ class TweetRepositorySlick @Inject()()(
         ac.accountId === af.followeeId
       }
 
-    val tweets = Tweets
+    val dbio = Tweets
       .join(accountsWithAccountFollowings)
       .on { case (tw, (_, af)) =>
         tw.accountId === af.followeeId
@@ -35,14 +39,25 @@ class TweetRepositorySlick @Inject()()(
       .map(_.map { case (tw, (_, _)) =>
          tw.toDomain(account)
       })
-    SlickTransaction(tweets.map(TweetList(_)))
+    SlickTransaction(dbio.map(tweets => TweetList(tweets.toList)))
   }
 
   override def listByAccount(account: Account): Transaction[TweetList] = {
-    val tweets = Tweets
+    val dbio = Tweets
       .filter(_.accountId === account.accountId.value.bind)
       .result
       .map(_.map(_.toDomain(account)))
-    SlickTransaction(tweets.map(TweetList(_)))
+    SlickTransaction(dbio.map(tweets => TweetList(tweets.toList)))
+  }
+
+  override def create(tweetCreate: TweetCreate): Transaction[Id[Tweet]] = {
+    val dbio = Tweets returning Tweets.map(_.tweetId) += TweetsRow(
+      tweetId = Constants.DefaultId,
+      accountId = tweetCreate.accountId,
+      tweetText = tweetCreate.tweetText,
+      tweetStatus = Status.Enable.value,
+      registerDatetime = Timestamp.valueOf(LocalDateTime.now)
+    )
+    SlickTransaction(dbio.map(Id(_)))
   }
 }

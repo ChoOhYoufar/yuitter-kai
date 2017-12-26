@@ -44,6 +44,11 @@ object Errors {
     val message = s"Please login."
   }
 
+  case object InvalidAccountIds extends Errors {
+    val code = "error.invalidAccountIds"
+    val message = "Some of accountIds are invalid."
+  }
+
   case object InvalidPassword extends Errors {
     val code = "error.invalidPassword"
     val message = "Password is invalid."

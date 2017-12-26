@@ -2,7 +2,7 @@ package services
 
 import javax.inject.Inject
 
-import models.domain.Account
+import models.domain.{ Account, AccountList, User }
 import models.domain.types.Id
 import repositories.AccountRepository
 import syntax.DBResult
@@ -30,6 +30,11 @@ class AccountService @Inject()(
 
   def update(account: Account): DBResult[Id[Account]] = {
     val dbio = accountRepository.update(account).map(\/.right)
+    DBResult(dbio)
+  }
+
+  def listByUser(userId: Id[User]): DBResult[AccountList] = {
+    val dbio = accountRepository.listByUserId(userId).map(\/.right)
     DBResult(dbio)
   }
 }
