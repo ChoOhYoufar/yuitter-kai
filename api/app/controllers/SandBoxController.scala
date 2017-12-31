@@ -19,11 +19,11 @@ class SandBoxController @Inject()(
 )(
   implicit val ec: ExecutionContext
 ) extends ControllerBase with Status with Results {
-
-  def userFindById(userId: Long): Action[AnyContent] = Action.async { implicit req =>
-    val user = sandBoxScenario.userFindById(userId)
-    Future.successful(user).map(u => Ok(Json.toJson(u)))
-  }
+//
+//  def userFindById(userId: Long): Action[AnyContent] = Action.async { implicit req =>
+//    val user = sandBoxScenario.userFindById(userId)
+//    Future.successful(user).map(u => Ok(Json.toJson(u)))
+//  }
 
   def sandBox(): Unit = {
     val either1 = EitherT(Future.successful(\/.right(1)))

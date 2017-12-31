@@ -20,8 +20,7 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc"    %% "scalikejdbc"                  % "2.5.1",
   "org.scalikejdbc"    %% "scalikejdbc-config"           % "2.5.1",
   "org.scalikejdbc"    %% "scalikejdbc-play-initializer" % "2.5.1",
-  "org.scalikejdbc"    %% "scalikejdbc-jsr310"           % "2.2.+",
-  "org.slf4j"          % "slf4j-nop"                     % "1.6.4"
+  "org.scalikejdbc"    %% "scalikejdbc-jsr310"           % "2.2.+"
 )
 
 //unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )

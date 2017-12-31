@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatButtonModule,
@@ -53,7 +53,8 @@ import { UserHttpService } from './repositories/http/user/user-http.service';
     MatCardModule,
     MatSidenavModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
   ],
   providers: [TweetHttpService, TimelineService, SecureGuard, UserHttpService],
   bootstrap: [AppComponent],

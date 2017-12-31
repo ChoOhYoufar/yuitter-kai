@@ -16,8 +16,8 @@ class SandBoxScenario @Inject()(
   val ec: ExecutionContext
 ) {
 
-  def userFindById(userId: Id[User]): UserFormat = {
-    UserFormat.fromDomain(sandBoxService.userFindById(userId))
-  }
+//  def userFindById(userId: Id[User]): UserFormat = {
+//    UserFormat.fromDomain(sandBoxService.userFindById(userId))
+//  }
 
 }
