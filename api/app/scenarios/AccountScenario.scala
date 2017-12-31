@@ -3,10 +3,10 @@ package scenarios
 import javax.inject.Inject
 
 import models.domain.types.Id
-import models.domain.{ Account, AccountUpdate }
+import models.domain.Account
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.AccountService
-import syntax.{ DBResult, Result }
+import syntax.Result
 import utils.TransactionInstances
 
 import scala.concurrent.ExecutionContext

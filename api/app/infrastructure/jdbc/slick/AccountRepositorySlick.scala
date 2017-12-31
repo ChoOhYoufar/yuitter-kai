@@ -47,6 +47,7 @@ class AccountRepositorySlick @Inject()(
     val dbio = Accounts
       .filter(_.accountId === account.accountId.value.bind)
       .filter(_.userId === account.userId.value.bind)
+      .filter(_.versionNo === account.versionNo.value.bind)
       .map(a => (
         a.accountName,
         a.avatar,

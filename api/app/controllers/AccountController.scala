@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.commands.{ AccountCommand, AccountUpdateCommand }
+import models.views.commands.AccountCommand
 import models.views.formats.AccountFormat
 import play.api.libs.json.JsValue
 import play.api.mvc.{ Action, AnyContent }
