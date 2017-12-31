@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.commands.{ AccountCreateCommand, AccountUpdateCommand }
+import models.views.commands.{ AccountCommand, AccountUpdateCommand }
 import models.views.formats.AccountFormat
 import play.api.libs.json.JsValue
 import play.api.mvc.{ Action, AnyContent }
@@ -22,7 +22,7 @@ class AccountController @Inject()(
 
   def create: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
     (for {
-      accountCreateCommand <- deserializeT[AccountCreateCommand, Future]
+      accountCreateCommand <- deserializeT[AccountCommand, Future]
       _ <- accountScenario.create(accountCreateCommand.toDomain)
     } yield ()).toResult
   }

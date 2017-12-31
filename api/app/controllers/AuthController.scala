@@ -3,7 +3,7 @@ package controllers
 import javax.inject.Inject
 
 import generators.Security
-import models.views.commands.{ SignInCommand, SignUpCommand }
+import models.views.commands.AuthInfoCommand
 import play.api.libs.json.JsValue
 import play.api.mvc.{ Action, AnyContent }
 import scenarios.AuthScenario
@@ -24,8 +24,8 @@ class AuthController @Inject() (
 
   def signUp: Action[JsValue] = Action.async(parse.json) { implicit req =>
     (for {
-      signUpCommand <- deserializeT[SignUpCommand, Future]
-      hashedUserId <- authScenario.signUp(signUpCommand.toDomain(security.encrypt))
+      signUpCommand <- deserializeT[AuthInfoCommand, Future]
+      hashedUserId <- authScenario.signUp(signUpCommand.toDomainHashedAuthInfo(security.encrypt))
     } yield hashedUserId).toResult { id =>
       Ok.withSession("session" -> id.value)
     }
@@ -33,8 +33,8 @@ class AuthController @Inject() (
 
   def signIn: Action[JsValue] = Action.async(parse.json) { implicit req =>
     (for {
-      signInCommand <- deserializeT[SignInCommand, Future]
-      hashedUserId <- authScenario.signIn(signInCommand.toDomain)
+      authInfoCommand <- deserializeT[AuthInfoCommand, Future]
+      hashedUserId <- authScenario.signIn(authInfoCommand.toDomainAuthInfo)
     } yield hashedUserId).toResult { id =>
       Ok.withSession("session" -> id.value)
     }

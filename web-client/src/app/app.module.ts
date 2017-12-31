@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import {
   MatButtonModule,
   MatCardModule,
@@ -18,8 +17,7 @@ import { TweetListComponent } from './components/tweet-list/tweet-list.component
 import { TweetCardComponent } from './components/tweet-card/tweet-card.component';
 import { TweetFormComponent } from './components/tweet-form/tweet-form.component';
 import { AccountFormComponent } from './components/account-form/account-form.component';
-import { MockDbData } from './repository/mock-db/mock-db-data';
-import { TweetHttpService } from "./repository/http/tweet/tweet-http.service";
+import { TweetHttpService } from './repositories/http/tweet/tweet-http.service';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineService } from './services/timeline/timeline.service';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -28,6 +26,8 @@ import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.comp
 import { HomeComponent } from './components/home/home.component';
 import { MyPageComponent } from './components/my-page/my-page.component';
 import { ROUTES } from './app.routing';
+import { SecureGuard } from './guards/secure.guard';
+import { UserHttpService } from './repositories/http/user/user-http.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import { ROUTES } from './app.routing';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    InMemoryWebApiModule.forRoot(MockDbData),
     HttpClientModule,
     ROUTES,
     MatButtonModule,
@@ -56,7 +55,7 @@ import { ROUTES } from './app.routing';
     MatInputModule,
     MatDialogModule
   ],
-  providers: [TweetHttpService, TimelineService],
+  providers: [TweetHttpService, TimelineService, SecureGuard, UserHttpService],
   bootstrap: [AppComponent],
   entryComponents: [SignInFormComponent, SignUpFormComponent]
 })

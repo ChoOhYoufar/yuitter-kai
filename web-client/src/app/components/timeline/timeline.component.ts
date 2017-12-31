@@ -15,7 +15,7 @@ export class TimelineComponent implements OnInit {
   constructor(
    private timelineService: TimelineService
   ) {
-    this.timeline$ = this.timelineService.fetchTimeline();
+    // this.timeline$ = this.timelineService.fetchTimeline();
   }
 
   ngOnInit() {

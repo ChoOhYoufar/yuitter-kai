@@ -1,16 +1,23 @@
 package models.views.commands
 
 import models.domain.types.{ Email, Password }
-import models.domain.{ AuthUser, HashedAuthInfo }
+import models.domain.{ AuthInfo, AuthUser, HashedAuthInfo }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 
-case class SignUpCommand(
+case class AuthInfoCommand(
   email: Email[AuthUser],
   password: Password[AuthUser]
 ) {
 
-  def toDomain(encrypt: String => String): HashedAuthInfo = {
+  def toDomainAuthInfo: AuthInfo = {
+    AuthInfo(
+      email = email,
+      password = password
+    )
+  }
+
+  def toDomainHashedAuthInfo(encrypt: String => String): HashedAuthInfo = {
     HashedAuthInfo(
       email = email,
       hashedPassword = password.hash(encrypt)
@@ -18,16 +25,16 @@ case class SignUpCommand(
   }
 }
 
-object SignUpCommand extends TypeReads {
+object AuthInfoCommand extends TypeReads {
 
-  implicit def signUpReads: Reads[SignUpCommand] = new Reads[SignUpCommand] {
-    def reads(json: JsValue): JsResult[SignUpCommand] = {
+  implicit def signUpReads: Reads[AuthInfoCommand] = new Reads[AuthInfoCommand] {
+    def reads(json: JsValue): JsResult[AuthInfoCommand] = {
       for {
         email <- (json \ "email").validate[Email[AuthUser]]
         _ <- if (email.isValid) JsSuccess(()) else JsError(JsPath \ "email", "invalid format")
         password <- (json \ "password").validate[Password[AuthUser]]
         _ <- if (password.isValid) JsSuccess(()) else JsError(JsPath \ "password", "invalid format")
-      } yield SignUpCommand(email, password)
+      } yield AuthInfoCommand(email, password)
     }
   }
 }
