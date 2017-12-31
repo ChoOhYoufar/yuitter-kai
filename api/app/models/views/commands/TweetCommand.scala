@@ -5,7 +5,7 @@ import models.domain.types.{ Id, Text }
 import models.views.types.mapper.TypeReads
 import play.api.libs.json._
 
-case class TweetCreateCommand(
+case class TweetCommand(
   tweetText: Text[Tweet],
   accountIds: List[Id[Account]]
 ) {
@@ -22,15 +22,15 @@ case class TweetCreateCommand(
   }
 }
 
-object TweetCreateCommand extends TypeReads {
+object TweetCommand extends TypeReads {
 
-  implicit def tweetCreateReads: Reads[TweetCreateCommand] = new Reads[TweetCreateCommand] {
-    override def reads(json: JsValue): JsResult[TweetCreateCommand] = {
+  implicit def tweetCreateReads: Reads[TweetCommand] = new Reads[TweetCommand] {
+    override def reads(json: JsValue): JsResult[TweetCommand] = {
       for {
         tweetText <- (json \ "tweetText").validate[Text[Tweet]]
         _ <- if (tweetText.isValid) JsSuccess(()) else JsError(JsPath \ "tweetText", "invalid format")
         accountIds <- (json \ "accountIds").validate[List[Id[Account]]]
-      } yield TweetCreateCommand(tweetText, accountIds)
+      } yield TweetCommand(tweetText, accountIds)
     }
   }
 }

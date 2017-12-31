@@ -25,12 +25,8 @@ class AccountScenario @Inject()(
     runner.exec(result)
   }
 
-  def update(accountUpdate: AccountUpdate): Result[Unit] = {
-    val result = for {
-      account <- accountService.findById(accountUpdate.accountId)
-      newAccount <- DBResult(account.update(accountUpdate))
-      _ <- accountService.update(newAccount)
-    } yield ()
+  def update(account: Account): Result[Unit] = {
+    val result = accountService.update(account).map(_ => ())
     runner.exec(result)
   }
 

@@ -22,15 +22,15 @@ class AccountController @Inject()(
 
   def create: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
     (for {
-      accountCreateCommand <- deserializeT[AccountCommand, Future]
-      _ <- accountScenario.create(accountCreateCommand.toDomain)
+      accountCommand <- deserializeT[AccountCommand, Future]
+      _ <- accountScenario.create(accountCommand.toDomain)
     } yield ()).toResult
   }
 
   def update: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
     (for {
-      accountUpdateCommand <- deserializeT[AccountUpdateCommand, Future]
-      _ <- accountScenario.update(accountUpdateCommand.toDomain)
+      accountCommand <- deserializeT[AccountCommand, Future]
+      _ <- accountScenario.update(accountCommand.toDomain)
     } yield()).toResult
   }
 

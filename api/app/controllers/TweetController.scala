@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import models.views.commands.TweetCreateCommand
+import models.views.commands.TweetCommand
 import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import scenarios.TweetScenario
@@ -21,7 +21,7 @@ class TweetController @Inject()(
 
   def create: Action[JsValue] = SecureAction.async(parse.json) { implicit req =>
     (for {
-      tweetCreateCommand <- deserializeT[TweetCreateCommand, Future]
+      tweetCreateCommand <- deserializeT[TweetCommand, Future]
       _ <- tweetScenario.create(tweetCreateCommand.toDomain)
     } yield ()).toResult
   }

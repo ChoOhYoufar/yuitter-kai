@@ -9,7 +9,7 @@ import utils.Constants
 case class AccountCommand(
   optAccountId: Option[Id[Account]],
   accountName: Name[Account],
-  accountStatus: String,
+  accountStatus: StatusCode[Account],
   avatar: Option[Image[Account]],
   optVersionNo: Option[VersionNo[Account]]
 ) {
@@ -19,7 +19,7 @@ case class AccountCommand(
       accountId = optAccountId.getOrElse(Constants.DefaultId),
       userId = ctx.userId,
       accountName = accountName,
-      accountStatus = accountStatus,
+      accountStatus = accountStatus.value,
       avatar = avatar,
       versionNo = optVersionNo.getOrElse(Constants.DefaultVersionNo)
     )
