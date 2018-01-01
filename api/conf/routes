@@ -21,6 +21,7 @@ GET     /api/accounts/me            controllers.AccountController.myList
 
 # TimeLine
 GET     /api/timeline/:accountId    controllers.TimelineController.find(accountId: Long)
+GET     /api/timelines              controllers.TimelineController.list
 
 # SandBox
 #GET     /api/sandbox/user/:userId   controllers.SandBoxController.userFindById(userId: Long)

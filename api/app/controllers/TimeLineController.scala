@@ -21,4 +21,8 @@ class TimelineController @Inject()(
   def find(accountId: Long): Action[AnyContent] = SecureAction.async { implicit req =>
     timelineScenario.find(accountId).map(TimelineFormat.fromDomain).toResult
   }
+
+  def list: Action[AnyContent] = SecureAction.async { implicit req =>
+    timelineScenario.list().map(_.value.map(TimelineFormat.fromDomain)).toResult
+  }
 }

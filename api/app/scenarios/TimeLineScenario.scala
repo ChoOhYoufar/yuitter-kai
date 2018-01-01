@@ -2,11 +2,10 @@ package scenarios
 
 import javax.inject.Inject
 
-import models.domain.{ Account, Timeline }
+import models.domain.{ Account, Timeline, TimelineList, User }
 import models.domain.types.Id
-import models.views.formats.TimelineFormat
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
-import services.{ AccountService, TweetService }
+import services.{ AccountService, TimelineService, TweetService }
 import syntax.Result
 import utils.TransactionInstances
 
@@ -15,6 +14,7 @@ import scala.concurrent.ExecutionContext
 class TimelineScenario @Inject()(
   accountService: AccountService,
   tweetService: TweetService,
+  timelineSercice: TimelineService,
   runner: TransactionRunner
 )(
   implicit
@@ -27,6 +27,14 @@ class TimelineScenario @Inject()(
       account <- accountService.findById(accountId)
       tweetList <- tweetService.listByFollowees(account)
     } yield Timeline(account, tweetList)
+    runner.exec(result)
+  }
+
+  def list()(implicit ctx: User): Result[TimelineList] = {
+    val result = for {
+      accounts <- accountService.listByUser(ctx.userId)
+      timelineList <- timelineSercice.listByAccounts(accounts)
+    } yield timelineList
     runner.exec(result)
   }
 }
