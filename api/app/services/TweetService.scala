@@ -21,7 +21,7 @@ class TweetService @Inject()(
 ) extends TransactionInstances {
 
   def listByFollowees(account: Account): DBResult[TweetList] = {
-    val dbio = tweetRepository.listByFollowees(account).map(\/.right)
+    val dbio = tweetRepository.listByFollowees(account.accountId).map(\/.right)
     DBResult(dbio)
   }
 

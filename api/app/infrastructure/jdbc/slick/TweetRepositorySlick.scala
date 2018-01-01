@@ -20,7 +20,7 @@ class TweetRepositorySlick @Inject()()(
   implicit ec: ExecutionContext
 ) extends TweetRepository with RichDBModels {
 
-  override def listByFollowees(account: Account): Transaction[TweetList] = {
+  override def listByFollowees(accountId: Id[Account]): Transaction[TweetList] = {
     val accountsWithAccountFollowings = Accounts
       .join(AccountFollowings)
       .on { case (ac, af) =>
@@ -32,12 +32,13 @@ class TweetRepositorySlick @Inject()()(
       .on { case (tw, (_, af)) =>
         tw.accountId === af.followeeId
       }
-      .filter { case (_, (_, af)) =>
-        af.followerId === account.accountId.value.bind
+      .filter { case (tw, (_, af)) =>
+        af.followerId === accountId.value.bind ||
+        tw.accountId === accountId.value.bind
       }
       .result
-      .map(_.map { case (tw, (_, _)) =>
-         tw.toDomain(account)
+      .map(_.map { case (tw, (ac, _)) =>
+         tw.toDomain(ac.toDomain)
       })
     SlickTransaction(dbio.map(tweets => TweetList(tweets.toList)))
   }

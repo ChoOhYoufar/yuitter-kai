@@ -6,7 +6,7 @@ import models.domain.{ Account, Tweet, TweetCreate, TweetList }
 
 trait TweetRepository {
 
-  def listByFollowees(account: Account): Transaction[TweetList]
+  def listByFollowees(accountId: Id[Account]): Transaction[TweetList]
 
   def listByAccount(account: Account): Transaction[TweetList]
 
