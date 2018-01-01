@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardComponentService } from './board-component.service';
 import { Observable } from 'rxjs/Observable';
-import { Account } from '../../models/account/account';
+import { Timeline } from '../../models/timeline/timeline';
 
 @Component({
   selector: 'app-board',
@@ -10,10 +10,10 @@ import { Account } from '../../models/account/account';
   providers: [BoardComponentService]
 })
 export class BoardComponent implements OnInit {
-  myAccounts$: Observable<Account[]>;
+  timelines$: Observable<Timeline[]>;
 
   constructor(private service: BoardComponentService) {
-    this.myAccounts$ = this.service.fetchMyAccounts();
+    this.timelines$ = this.service.fetchTimelines();
   }
 
   ngOnInit() {

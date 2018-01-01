@@ -34,6 +34,7 @@ import { AccountsHttpService } from './repositories/http/account/accounts-http.s
 import { MyAccountsHttpService } from './repositories/http/account/my-accounts-http.service';
 import { TimelineContainerComponent } from './components/timeline-container/timeline-container.component';
 import { TimelineHttpService } from './repositories/http/timeline/timeline-http.service';
+import { TimelinesHttpService } from './repositories/http/timeline/timelines-http.service';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { TimelineHttpService } from './repositories/http/timeline/timeline-http.
     AccountsHttpService,
     MyAccountsHttpService,
     TimelineHttpService,
+    TimelinesHttpService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [SignInFormComponent, SignUpFormComponent]
