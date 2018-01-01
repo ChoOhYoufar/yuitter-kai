@@ -14,6 +14,8 @@ trait AccountRepository {
 
   def searchByName(accountName: Name[String]): Transaction[AccountList]
 
+  def listExceptForUserId(userId: Id[User]): Transaction[AccountList]
+
   def listByUserId(userId: Id[User]): Transaction[AccountList]
 
   def listFollowers(accountId: Id[User]): Transaction[AccountList]

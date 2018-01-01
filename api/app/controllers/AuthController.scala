@@ -27,7 +27,7 @@ class AuthController @Inject() (
       signUpCommand <- deserializeT[AuthInfoCommand, Future]
       hashedUserId <- authScenario.signUp(signUpCommand.toDomainHashedAuthInfo(security.encrypt))
     } yield hashedUserId).toResult { id =>
-      Ok.withSession("session" -> id.value)
+      Ok.withSession("session" -> id.value.toString)
     }
   }
 
@@ -36,7 +36,7 @@ class AuthController @Inject() (
       authInfoCommand <- deserializeT[AuthInfoCommand, Future]
       hashedUserId <- authScenario.signIn(authInfoCommand.toDomainAuthInfo)
     } yield hashedUserId).toResult { id =>
-      Ok.withSession("session" -> id.value)
+      Ok.withSession("session" -> id.value.toString)
     }
   }
 

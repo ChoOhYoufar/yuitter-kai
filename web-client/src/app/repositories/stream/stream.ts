@@ -4,15 +4,15 @@ import 'rxjs/add/operator/switchMap';
 
 export abstract class Stream<T> {
 
-  protected _data: BehaviorSubject<Readonly<T>>;
-  protected data: Observable<Readonly<T>>;
+  protected _data: BehaviorSubject<T>;
+  protected data: Observable<T>;
 
   constructor() {}
 
-  protected abstract _fetchStream(...args: any[]): Observable<Readonly<T>>;
+  protected abstract _fetchStream(...args: any[]): Observable<T>;
 
   // NOTE ドット３つはspread operator -> http://analogic.jp/spread-operator/
-  fetchStream(...args: any[]): Observable<Readonly<T>> {
+  fetchStream(...args: any[]): Observable<T> {
     return this._fetchStream(...args)
       .switchMap((data: T) => {
         if (this._data) {
@@ -26,7 +26,7 @@ export abstract class Stream<T> {
       });
   }
 
-  getStream(...args: any[]): Observable<Readonly<T>> {
+  getStream(...args: any[]): Observable<T> {
     return this.data || this.fetchStream(...args);
   }
 }

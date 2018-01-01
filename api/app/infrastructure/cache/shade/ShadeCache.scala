@@ -21,19 +21,19 @@ class ShadeCache @Inject() (
 
   val memcached = Memcached(Configuration(s"$host:$port"))
 
-  def getString[T](key: HashedId[T]): Option[String] = {
+  def getString(key: String): Option[String] = {
     memcached.awaitGet[String](key)
   }
 
-  def getJson[A, T](key: HashedId[T])(implicit reads: Reads[A]): Option[A] = {
+  def getJson[A](key: String)(implicit reads: Reads[A]): Option[A] = {
     getString(key).flatMap(Json.parse(_).asOpt[A])
   }
 
-  def setJson[A, T](key: HashedId[T], value: A, timeout: Duration)(implicit writes: Writes[A]): Unit = {
+  def setJson[A](key: String, value: A, timeout: Duration)(implicit writes: Writes[A]): Unit = {
     memcached.awaitSet(key, Json.toJson(value).toString(), timeout)
   }
 
-  def delete[T](key: HashedId[T]): Unit = {
+  def delete(key: String): Unit = {
     memcached.delete(key)
   }
 }

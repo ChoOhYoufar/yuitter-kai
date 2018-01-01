@@ -14,11 +14,13 @@ GET     /api/user                   controllers.UserController.me
 
 # Account
 POST    /api/account                controllers.AccountController.create
-PUT     /api/account                controllers.AccountController.create
-GET     /api/account                controllers.AccountController.find(accountId: Long)
+PUT     /api/account                controllers.AccountController.update
+GET     /api/account/:accountId     controllers.AccountController.find(accountId: Long)
+GET     /api/accounts               controllers.AccountController.list
+GET     /api/accounts/me            controllers.AccountController.myList
 
 # TimeLine
-GET     /api/timeline               controllers.TimelineController.find(accountId: Long)
+GET     /api/timeline/:accountId    controllers.TimelineController.find(accountId: Long)
 
 # SandBox
 #GET     /api/sandbox/user/:userId   controllers.SandBoxController.userFindById(userId: Long)

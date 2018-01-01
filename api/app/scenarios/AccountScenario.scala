@@ -3,7 +3,7 @@ package scenarios
 import javax.inject.Inject
 
 import models.domain.types.Id
-import models.domain.Account
+import models.domain.{ Account, AccountList, User }
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
 import services.AccountService
 import syntax.Result
@@ -32,6 +32,16 @@ class AccountScenario @Inject()(
 
   def find(accountId: Id[Account]): Result[Account] = {
     val result = accountService.findById(accountId)
+    runner.exec(result)
+  }
+
+  def list()(implicit ctx: User): Result[AccountList] = {
+    val result = accountService.listExceptForUserId(ctx.userId)
+    runner.exec(result)
+  }
+
+  def myList()(implicit ctx: User): Result[AccountList] = {
+    val result = accountService.listByUser(ctx.userId)
     runner.exec(result)
   }
 }

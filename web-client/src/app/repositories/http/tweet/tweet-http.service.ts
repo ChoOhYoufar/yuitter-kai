@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { Timeline } from '../../../models/timeline/timeline';
 
 @Injectable()
-export class TweetHttpService extends Stream<Timeline>{
+export class TweetHttpService extends Stream<Timeline> {
 
   constructor(
     private http: HttpClient

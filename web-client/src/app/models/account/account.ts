@@ -1,5 +1,7 @@
 export class Account {
-
+  accountId?: number;
   accountName: string;
-  avatar: string;
+  accountStatus: string;
+  avatar?: string;
+  versionNo?: number;
 }

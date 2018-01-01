@@ -5,8 +5,8 @@ import play.api.libs.json.{ Json, Writes }
 
 case class AccountFormat(
   accountId: Long,
-  userId: Long,
   accountName: String,
+  accountStatus: String,
   avatar: Option[String],
   versionNo: Int
 )
@@ -18,8 +18,8 @@ object AccountFormat {
   def fromDomain(account: Account): AccountFormat = {
     AccountFormat(
       accountId = account.accountId,
-      userId = account.userId,
       accountName = account.accountName,
+      accountStatus = account.accountStatus,
       avatar = account.avatar,
       versionNo = account.versionNo
     )

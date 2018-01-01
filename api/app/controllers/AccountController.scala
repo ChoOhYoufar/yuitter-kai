@@ -37,4 +37,10 @@ class AccountController @Inject()(
   def find(accountId: Long): Action[AnyContent] = SecureAction.async { implicit req =>
     accountScenario.find(accountId).map(AccountFormat.fromDomain).toResult
   }
+
+  def list: Action[AnyContent] = ???
+
+  def myList: Action[AnyContent] = SecureAction.async { implicit req =>
+    accountScenario.myList.map(_.value.map(AccountFormat.fromDomain)).toResult
+  }
 }

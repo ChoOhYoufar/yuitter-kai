@@ -4,10 +4,10 @@
   </p>
   <i class="material-icons right" (click)="accountFormContainer.toggle()">close</i>
 </div>
-<form #tweetForm="ngForm" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <table class="account-form__name" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Account Name">
+      <input matInput placeholder="Account Name" formControlName="accountName">
     </mat-form-field></td>
   </tr></table>
   <div>

@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import generators.Security
 import models.domain.User
-import models.domain.types.HashedId
+import models.domain.types.Id
 import models.views.commands.UserCommand
 import models.views.formats.UserFormat
 import repositories.SessionRepository
@@ -17,14 +17,13 @@ class SessionRepositoryCache @Inject() (
   security: Security
 ) extends SessionRepository {
 
-  override def fetch(key: HashedId[User]): Option[User] = {
-    cache.getJson[UserCommand, User](key).map(_.toDomain)
+  override def fetch(userId: Id[User]): Option[User] = {
+    cache.getJson[UserCommand](userId.value.toString).map(_.toDomain)
   }
 
-  override def add(user: User): HashedId[User] = {
-    val key = user.userId.hash(security.encrypt)
-    cache.setJson(key, UserFormat.fromDomain(user), 24 hour)
-    key
+  override def add(user: User): Id[User] = {
+    cache.setJson(user.userId.value.toString, UserFormat.fromDomain(user), 24 hour)
+    user.userId
   }
 
   override def delete(user: User): Unit = {

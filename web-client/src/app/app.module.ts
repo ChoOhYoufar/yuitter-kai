@@ -28,6 +28,10 @@ import { MyPageComponent } from './components/my-page/my-page.component';
 import { ROUTES } from './app.routing';
 import { SecureGuard } from './guards/secure.guard';
 import { UserHttpService } from './repositories/http/user/user-http.service';
+import { AccountHttpService } from './repositories/http/account/account-http.service';
+import { BoardComponent } from './components/board/board.component';
+import { AccountsHttpService } from './repositories/http/account/accounts-http.service';
+import { MyAccountsHttpService } from './repositories/http/account/my-accounts-http.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { UserHttpService } from './repositories/http/user/user-http.service';
     SignInFormComponent,
     SignUpFormComponent,
     HomeComponent,
-    MyPageComponent
+    MyPageComponent,
+    BoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,15 @@ import { UserHttpService } from './repositories/http/user/user-http.service';
     MatDialogModule,
     ReactiveFormsModule,
   ],
-  providers: [TweetHttpService, TimelineService, SecureGuard, UserHttpService],
+  providers: [
+    TweetHttpService,
+    TimelineService,
+    SecureGuard,
+    UserHttpService,
+    AccountHttpService,
+    AccountsHttpService,
+    MyAccountsHttpService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [SignInFormComponent, SignUpFormComponent]
 })

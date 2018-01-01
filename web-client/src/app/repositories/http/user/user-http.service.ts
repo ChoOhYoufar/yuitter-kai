@@ -29,6 +29,12 @@ export class UserHttpService extends Stream<User> {
       .toPromise()
   }
 
+  signIn(authInfo: AuthInfo): Promise<void> {
+    return this.http.post('api/auth/signin', authInfo, { responseType: 'text' })
+      .mapTo(undefined)
+      .toPromise()
+  }
+
   private judgeLogin(user: any): boolean {
     return !!user;
   }

@@ -3,7 +3,7 @@ package scenarios
 import javax.inject.Inject
 
 import generators.Security
-import models.domain.types.HashedId
+import models.domain.types.{ HashedId, Id }
 import models.domain.{ AuthInfo, HashedAuthInfo, User }
 import play.api.libs.json.JsValue
 import play.api.mvc.Request
@@ -25,23 +25,23 @@ class AuthScenario @Inject()(
   val builder: TransactionBuilder
 ) extends TransactionInstances {
 
-  def signUp(authInfo: HashedAuthInfo): Result[HashedId[User]] = {
+  def signUp(authInfo: HashedAuthInfo): Result[Id[User]] = {
     val result = for {
       _ <- userService.checkExistsEmail(authInfo.email)
       userId <- userService.create(authInfo)
       user <- userService.findById(userId)
-      hashedId <- DBResult(sessionService.create(user))
-    } yield hashedId
+      userId <- DBResult(sessionService.create(user))
+    } yield userId
     runner.exec(result)
   }
 
-  def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[HashedId[User]] = {
+  def signIn(authInfo: AuthInfo)(implicit req: Request[JsValue]): Result[Id[User]] = {
     val result = for {
       _ <- DBResult(sessionService.checkExistsSession)
       authUser <- userService.findByEmail(authInfo.email)
       _ <- DBResult(authInfo.password.authenticate(authUser.password)(security.checkPassword))
-      hashedId <- DBResult(sessionService.create(authUser.user))
-    } yield hashedId
+      userId <- DBResult(sessionService.create(authUser.user))
+    } yield userId
     runner.exec(result)
   }
 

@@ -33,6 +33,11 @@ class AccountService @Inject()(
     DBResult(dbio)
   }
 
+  def listExceptForUserId(userId: Id[User]): DBResult[AccountList] = {
+    val dbio = accountRepository.listExceptForUserId(userId).map(\/.right)
+    DBResult(dbio)
+  }
+
   def listByUser(userId: Id[User]): DBResult[AccountList] = {
     val dbio = accountRepository.listByUserId(userId).map(\/.right)
     DBResult(dbio)

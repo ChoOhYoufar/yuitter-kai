@@ -78,6 +78,18 @@ class AccountRepositorySlick @Inject()(
     SlickTransaction(dbio)
   }
 
+  override def listExceptForUserId(userId: Id[User]): Transaction[AccountList] = {
+    val dbio = Accounts
+      .filter(_.userId =!= userId.value.bind)
+      .result
+      .map(accounts =>
+        AccountList(
+          accounts.map(_.toDomain).toList
+        )
+      )
+    SlickTransaction(dbio)
+  }
+
   override def listByUserId(userId: Id[User]): Transaction[AccountList] = {
     val dbio = Accounts
       .filter(_.userId === userId.value.bind)

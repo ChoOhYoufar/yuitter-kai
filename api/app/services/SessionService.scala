@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import generators.Security
 import models.domain.{ Errors, User }
-import models.domain.types.{ HashedId, Id }
+import models.domain.types.Id
 import play.api.libs.json.JsValue
 import play.api.mvc.Request
 import repositories.SessionRepository
@@ -21,7 +21,7 @@ class SessionService @Inject()(
 ) extends ToOptionOps {
 
   def findBy(userId: Id[User]): Option[User] = {
-    sessionRepository.fetch(userId.hash(security.encrypt))
+    sessionRepository.fetch(userId)
   }
 
   def checkExistsSession(implicit req: Request[JsValue]): Errors \/ Unit = {
@@ -30,7 +30,7 @@ class SessionService @Inject()(
       \/.right[Errors, Unit](())
   }
 
-  def create(user: User): HashedId[User] = {
+  def create(user: User): Id[User] = {
     sessionRepository.add(user)
   }
 
