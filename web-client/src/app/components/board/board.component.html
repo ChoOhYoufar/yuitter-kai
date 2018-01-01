@@ -1,5 +1,5 @@
 <div *ngIf="myAccounts$ | async as myAccounts">
   <div *ngFor="let myAccount of myAccounts">
-    <ytr-timeline></ytr-timeline>
+    <ytr-timeline-container [accountId]="myAccount.accountId"></ytr-timeline-container>
   </div>
 </div>

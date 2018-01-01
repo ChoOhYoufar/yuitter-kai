@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Timeline } from '../../models/timeline/timeline';
 import { TimelineService } from '../../services/timeline/timeline.service';
-import { TimelineComponentService } from './timeline-component.service';
+import { TimelineComponentService } from '../timeline-container/timeline-component.service';
 
 @Component({
   selector: 'ytr-timeline',
@@ -11,17 +11,11 @@ import { TimelineComponentService } from './timeline-component.service';
   providers: [TimelineComponentService]
 })
 export class TimelineComponent implements OnInit {
-  @Input() account:  
+  @Input() timeline: Timeline;
 
-  timeline$: Observable<Timeline>;
-
-  constructor(
-   private service: TimelineComponentService
-  ) {
+  constructor() {
   }
 
   ngOnInit() {
-
   }
-
 }

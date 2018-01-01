@@ -9,7 +9,6 @@ import { TweetList } from '../../models/tweet/tweet-list';
 export class TweetListComponent implements OnInit {
 
   @Input() tweetList: TweetList;
-  @Input() str: string;
 
   constructor() {
   }

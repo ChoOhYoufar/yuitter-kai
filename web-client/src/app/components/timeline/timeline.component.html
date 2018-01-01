@@ -1,11 +1,10 @@
 <div class="timeline">
   <header class="timeline__header dark-base">
     <i class="timeline__header__icon material-icons">person</i>
-    <span class="timeline__header__title h2">User Name</span>
+    <span class="timeline__header__title h2">{{timeline.account.accountName}}</span>
   </header>
 
   <ytr-tweet-list
-    *ngIf="timeline$ | async as timeline"
-    [tweetList]="timeline.tweetList" [str]="str">
+    [tweetList]="timeline.tweetList">
   </ytr-tweet-list>
 </div>
