@@ -6,11 +6,19 @@ import scalaz.{ -\/, \/, \/- }
 
 case class AccountList(value: List[Account]) extends AnyVal {
 
-  def validateIds(accountIds: List[Id[Account]]): Errors \/ Unit = {
+  def validateAccountIds(accountIds: List[Id[Account]]): Errors \/ Unit = {
     if (accountIds.toSet.subsetOf(value.map(_.accountId).toSet)) {
       \/-(())
     } else {
       -\/(Errors.InvalidAccountIds)
+    }
+  }
+
+  def validateFollowerId(followerId: Id[Account]): Errors \/ Unit = {
+    if (value.map(_.accountId).contains(followerId)) {
+      \/-(())
+    } else {
+      -\/(Errors.InvalidFollowerId)
     }
   }
 }

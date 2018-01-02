@@ -4,6 +4,13 @@ import { Account } from '../../models/account/account';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
+export interface TweetFormData {
+  accounts: (Account & {
+    checked: boolean
+  })[];
+  tweetText: string;
+}
+
 @Component({
   selector: 'ytr-tweet-form',
   templateUrl: './tweet-form.component.html',
@@ -35,9 +42,9 @@ export class TweetFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  submit() {
+  async submit() {
     // NOTE accountが選択されていなければ、エラー返したい。
-
+    await this.service.createTweet(this.form.value);
     this.tweetFormContainer.close();
   }
 

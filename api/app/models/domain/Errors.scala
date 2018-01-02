@@ -36,7 +36,17 @@ object Errors {
 
   case class UpdateFailure(updateElement: Any) extends Errors {
     val code = "error.updateFailure"
-    val message = s"Failed to update by${updateElement.toString}"
+    val message = s"Failed to update by ${updateElement.toString}"
+  }
+
+  case class DeleteFailure(deleteElement: Any) extends Errors {
+    val code = "error.deleteFailure"
+    val message = s"Failed to delete by ${deleteElement.toString}"
+  }
+
+  case object CantDeleteInitialAccountFollowing extends Errors {
+    val code = "error.cantDeleteInitialAccountFollowing"
+    val message = "Initial account following record cannot be deleted."
   }
 
   case object Unauthorized extends Errors {
@@ -46,12 +56,17 @@ object Errors {
 
   case object InvalidAccountIds extends Errors {
     val code = "error.invalidAccountIds"
-    val message = "Some of accountIds are invalid."
+    val message = "Some of account IDs are invalid."
   }
 
   case object InvalidPassword extends Errors {
     val code = "error.invalidPassword"
     val message = "Password is invalid."
+  }
+
+  case object InvalidFollowerId extends Errors {
+    val code = "error.invalidFollowerId"
+    val message = "Follower ID is invalid."
   }
 
   case object AlreadySignIn extends Errors {

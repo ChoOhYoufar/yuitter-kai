@@ -3,9 +3,9 @@ package scenarios
 import javax.inject.Inject
 
 import models.domain.types.Id
-import models.domain.{ Account, AccountList, User }
+import models.domain.{ Account, AccountFollowing, AccountList, User }
 import repositories.transaction.{ TransactionBuilder, TransactionRunner }
-import services.AccountService
+import services.{ AccountFollowingService, AccountService }
 import syntax.Result
 import utils.TransactionInstances
 
@@ -13,6 +13,7 @@ import scala.concurrent.ExecutionContext
 
 class AccountScenario @Inject()(
   accountService: AccountService,
+  accountFollowingService: AccountFollowingService,
   runner: TransactionRunner
 )(
   implicit
@@ -21,7 +22,11 @@ class AccountScenario @Inject()(
 ) extends TransactionInstances {
 
   def create(account: Account): Result[Unit] = {
-    val result = accountService.create(account).map(_ => ())
+    val result = for {
+      accountId <- accountService.create(account)
+      accountFollowing = AccountFollowing(accountId, accountId)
+      _ <- accountFollowingService.create(accountFollowing)
+    } yield ()
     runner.exec(result)
   }
 

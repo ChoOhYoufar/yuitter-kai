@@ -19,6 +19,9 @@ GET     /api/account/:accountId     controllers.AccountController.find(accountId
 GET     /api/accounts               controllers.AccountController.list
 GET     /api/accounts/me            controllers.AccountController.myList
 
+# Tweet
+POST    /api/tweet                  controllers.TweetController.create
+
 # TimeLine
 GET     /api/timeline/:accountId    controllers.TimelineController.find(accountId: Long)
 GET     /api/timelines              controllers.TimelineController.list

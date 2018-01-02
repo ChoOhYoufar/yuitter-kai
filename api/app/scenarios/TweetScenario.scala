@@ -23,7 +23,7 @@ class TweetScenario @Inject()(
   def create(tweetCreateList: TweetCreateList)(implicit ctx: User): Result[Unit] = {
     val result = for {
       accounts <- accountService.listByUser(ctx.userId)
-      _ <- DBResult(accounts.validateIds(tweetCreateList.value.map(_.accountId)))
+      _ <- DBResult(accounts.validateAccountIds(tweetCreateList.value.map(_.accountId)))
       _ <- tweetService.bulkCreate(tweetCreateList)
     } yield ()
     runner.exec(result)
