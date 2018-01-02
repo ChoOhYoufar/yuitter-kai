@@ -37,6 +37,7 @@ export class AccountFormComponent implements OnInit {
     };
 
     await this.service.createAccount(account);
+    this.form.reset();
     this.accountFormContainer.close();
   }
 }

@@ -1,7 +1,10 @@
 <div class="tweet-card">
   <mat-card>
     <mat-card-header>
-      <img mat-card-avatar src={{tweet.account.avatar}} />
+      <img *ngIf="tweet.account.avatar"
+        mat-card-avatar src={{tweet.account.avatar}}
+      />
+      <i class="material-icons" mat-card-avatar>person</i>
       <mat-card-title>{{tweet.account.accountName}}</mat-card-title>
       <p class="tweet-card__header__datetime">{{tweet.registerDatetime | date: 'M/d h:m'}}</p>
     </mat-card-header>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TweetList } from '../../models/tweet/tweet-list';
+import { Tweet } from '../../models/tweet/tweet';
 
 @Component({
   selector: 'ytr-tweet-list',
@@ -8,7 +8,7 @@ import { TweetList } from '../../models/tweet/tweet-list';
 })
 export class TweetListComponent implements OnInit {
 
-  @Input() tweetList: TweetList;
+  @Input() tweets: Tweet[];
 
   constructor() {
   }
