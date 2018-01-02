@@ -4,18 +4,37 @@
   </p>
   <i class="material-icons right" (click)="tweetFormContainer.close()">close</i>
 </div>
-<form #tweetForm="ngForm" (ngSubmit)="submit()">
-  <table class="tweet-form__by" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Accounts">
-    </mat-form-field></td>
-  </tr></table>
-  <p>
-    <mat-form-field>
-      <textarea matInput placeholder="今何してる？" rows="4"></textarea>
-    </mat-form-field>
-  </p>
-  <div>
-    <button type="submit" mat-raised-button color="primary" class="right">Tweet</button>
-  </div>
+<form [formGroup]="form" (ngSubmit)="submit()" *ngIf="formLoaded">
+  <table>
+    <tr class="accounts" formArrayName="accounts">
+      <td>
+        <label>Accounts: </label><br />
+        <div
+          *ngFor="let account of form.value.accounts; let i =index"
+          [formGroupName]="i">
+        <mat-checkbox
+          formControlName="checked">
+          {{account.accountName}}
+        </mat-checkbox>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-form-field>
+          <textarea
+            matInput placeholder="今何してる？" rows="4"
+            formControlName="tweetText">
+          </textarea>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <button type="submit" mat-raised-button color="primary" class="right">Tweet</button>
+      </td>
+    </tr>
+  </table>
 </form>

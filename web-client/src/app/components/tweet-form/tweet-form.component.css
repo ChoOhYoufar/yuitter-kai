@@ -1,0 +1,18 @@
+.tweet-form__header {
+  border-bottom: 2px solid #2196F3;
+  color: #2196F3;
+  line-height: 38px; }
+.tweet-form__by {
+  margin-top: 20px; }
+
+.accounts {
+  margin-top: 30px; }
+
+tr {
+  display: block;
+  margin-top: 10px; }
+
+td {
+  display: block; }
+
+/*# sourceMappingURL=tweet-form.component.css.map */

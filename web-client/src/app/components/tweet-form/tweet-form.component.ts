@@ -1,21 +1,57 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { TweetFormComponentService } from './tweet-form-component.service';
+import { Account } from '../../models/account/account';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ytr-tweet-form',
   templateUrl: './tweet-form.component.html',
-  styleUrls: ['./tweet-form.component.scss']
+  styleUrls: ['./tweet-form.component.scss'],
+  providers: [TweetFormComponentService]
 })
-export class TweetFormComponent implements OnInit {
-
+export class TweetFormComponent implements OnInit, OnDestroy {
   @Input() tweetFormContainer;
 
-  constructor() { }
+  form: FormGroup;
+  accountsSubscription: Subscription;
+  formLoaded = false;
+
+  constructor(
+    private service: TweetFormComponentService,
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit() {
+    this.accountsSubscription = this.service.fetchMyAccounts().subscribe(myAccounts => {
+      this.form = this.createForm(myAccounts);
+      this.formLoaded = true;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.accountsSubscription) {
+      this.accountsSubscription.unsubscribe();
+    }
   }
 
   submit() {
+    // NOTE accountが選択されていなければ、エラー返したい。
 
+    this.tweetFormContainer.close();
   }
 
+  private createForm(myAccounts: Account[]): FormGroup {
+    return this.fb.group({
+      accounts: this.fb.array(myAccounts.map(account => {
+        return this.fb.group(
+          {
+            ...account,
+            checked: { value: false, disabled: false }
+          }
+        );
+      })),
+      tweetText: ['', [Validators.maxLength(140), Validators.required]]
+    })
+  }
 }

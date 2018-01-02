@@ -7,6 +7,8 @@ export abstract class Stream<T> {
   protected _data: BehaviorSubject<T>;
   protected data: Observable<T>;
 
+  private previousArgs: any[] | undefined;
+
   constructor() {}
 
   protected abstract _fetchStream(...args: any[]): Observable<T>;
@@ -28,5 +30,10 @@ export abstract class Stream<T> {
 
   getStream(...args: any[]): Observable<T> {
     return this.data || this.fetchStream(...args);
+  }
+
+  refetch(): void {
+    const args = this.previousArgs ? this.previousArgs : [];
+    this.fetchStream(...args).subscribe();
   }
 }

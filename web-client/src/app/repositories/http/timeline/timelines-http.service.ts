@@ -11,7 +11,7 @@ export class TimelinesHttpService extends Stream<Timeline[]> {
     super();
   }
 
-  _fetchStream(): Observable<Timeline> {
+  _fetchStream(): Observable<Timeline[]> {
     return this.http.get<Timeline[]>('/api/timelines');
   }
 }

@@ -8,7 +8,8 @@ import {
   MatCardModule,
   MatSidenavModule,
   MatInputModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -19,7 +20,6 @@ import { TweetFormComponent } from './components/tweet-form/tweet-form.component
 import { AccountFormComponent } from './components/account-form/account-form.component';
 import { TweetHttpService } from './repositories/http/tweet/tweet-http.service';
 import { TimelineComponent } from './components/timeline/timeline.component';
-import { TimelineService } from './services/timeline/timeline.service';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
@@ -63,11 +63,11 @@ import { TimelinesHttpService } from './repositories/http/timeline/timelines-htt
     MatSidenavModule,
     MatInputModule,
     MatDialogModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
   ],
   providers: [
     TweetHttpService,
-    TimelineService,
     SecureGuard,
     UserHttpService,
     AccountHttpService,

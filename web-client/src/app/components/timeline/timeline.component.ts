@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Timeline } from '../../models/timeline/timeline';
-import { TimelineService } from '../../services/timeline/timeline.service';
 import { TimelineComponentService } from '../timeline-container/timeline-component.service';
 
 @Component({
