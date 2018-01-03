@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Timeline } from '../../models/timeline/timeline';
-import { TimelineComponentService } from '../timeline-container/timeline-component.service';
+import { TimelineComponentService } from './timeline-component.service';
 
 @Component({
   selector: 'ytr-timeline',

@@ -44,6 +44,11 @@ export class TweetFormComponent implements OnInit, OnDestroy {
 
   async submit() {
     // NOTE accountが選択されていなければ、エラー返したい。
+    // NOTE validationの方法
+    if (this.form.value.accounts.filter(a => a.checked).length < 1 || this.form.valid) {
+      return;
+    }
+
     await this.service.createTweet(this.form.value);
     this.form.reset();
     this.tweetFormContainer.close();

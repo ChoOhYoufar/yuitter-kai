@@ -32,7 +32,6 @@ import { AccountHttpService } from './repositories/http/account/account-http.ser
 import { BoardComponent } from './components/board/board.component';
 import { AccountsHttpService } from './repositories/http/account/accounts-http.service';
 import { MyAccountsHttpService } from './repositories/http/account/my-accounts-http.service';
-import { TimelineContainerComponent } from './components/timeline-container/timeline-container.component';
 import { TimelineHttpService } from './repositories/http/timeline/timeline-http.service';
 import { TimelinesHttpService } from './repositories/http/timeline/timelines-http.service';
 
@@ -50,7 +49,6 @@ import { TimelinesHttpService } from './repositories/http/timeline/timelines-htt
     HomeComponent,
     MyPageComponent,
     BoardComponent,
-    TimelineContainerComponent,
   ],
   imports: [
     BrowserModule,
