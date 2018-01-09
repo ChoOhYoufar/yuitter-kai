@@ -4,6 +4,8 @@ import { MyPageComponent } from './components/my-page/my-page.component';
 import { ModuleWithProviders } from '@angular/core';
 import { SecureGuard } from './guards/secure.guard';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
+import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
+
 
 const routes: Routes = [
   {
@@ -24,6 +26,10 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SignInFormComponent
+  },
+  {
+    path: 'signup',
+    component: SignUpFormComponent
   }
 ];
 

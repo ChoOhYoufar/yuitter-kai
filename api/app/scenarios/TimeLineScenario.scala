@@ -14,7 +14,7 @@ import scala.concurrent.ExecutionContext
 class TimelineScenario @Inject()(
   accountService: AccountService,
   tweetService: TweetService,
-  timelineSercice: TimelineService,
+  timelineService: TimelineService,
   runner: TransactionRunner
 )(
   implicit
@@ -33,7 +33,7 @@ class TimelineScenario @Inject()(
   def list()(implicit ctx: User): Result[TimelineList] = {
     val result = for {
       accounts <- accountService.listByUser(ctx.userId)
-      timelineList <- timelineSercice.listByAccounts(accounts)
+      timelineList <- timelineService.listByAccounts(accounts)
     } yield timelineList
     runner.exec(result)
   }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SignUpFormComponentService } from './sign-up-form-component.service';
 
@@ -13,7 +12,6 @@ export class SignUpFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private dialogRef: MatDialogRef<SignUpFormComponent>,
     private fb: FormBuilder,
     private service: SignUpFormComponentService,
   ) { }
@@ -24,7 +22,6 @@ export class SignUpFormComponent implements OnInit {
 
   async submit() {
     await this.service.signUp(this.form.value);
-    this.dialogRef.close();
   }
 
   private createForm(): FormGroup {
