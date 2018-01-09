@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { SignUpFormComponent } from '../sign-up-form/sign-up-form.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SignInFormComponentService } from './sign-in-form-component.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ytr-sign-in-form',
@@ -14,30 +13,19 @@ export class SignInFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private dialogRef: MatDialogRef<SignInFormComponent>,
-    private dialog: MatDialog,
     private fb: FormBuilder,
-    private service: SignInFormComponentService
+    private service: SignInFormComponentService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.service.canActivate();
     this.form = this.createForm();
   }
 
   async submit() {
     await this.service.signIn(this.form.value);
-    this.dialogRef.close();
-  }
-
-  openSignUpForm() {
-    this.dialogRef.close();
-    const dialog = this.dialog.open(SignUpFormComponent, {
-      disableClose: true,
-      width: '500px',
-      position: {
-        top: '15%'
-      }
-    });
+    this.router.navigate(['/home']);
   }
 
   private createForm(): FormGroup {

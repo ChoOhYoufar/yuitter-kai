@@ -56,7 +56,7 @@ object Errors {
 
   case object InvalidAccountIds extends Errors {
     val code = "error.invalidAccountIds"
-    val message = "Some of account IDs are invalid."
+    val message = "Some of account IDs re invalid."
   }
 
   case object InvalidPassword extends Errors {
