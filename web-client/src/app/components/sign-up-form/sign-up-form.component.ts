@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SignUpFormComponentService } from './sign-up-form-component.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -14,6 +15,7 @@ export class SignUpFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: SignUpFormComponentService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -22,6 +24,7 @@ export class SignUpFormComponent implements OnInit {
 
   async submit() {
     await this.service.signUp(this.form.value);
+    this.router.navigate(['/home']);
   }
 
   private createForm(): FormGroup {
