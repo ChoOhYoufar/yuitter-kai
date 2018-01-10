@@ -19,6 +19,7 @@ export class SignUpFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.service.canActivate();
     this.form = this.createForm();
   }
 
